@@ -80,6 +80,7 @@ def testProgram(userProgramName):
                 outputsMatch = False
                 break
     
+    # Ignore everything past this point, i gave up
     passedOrNotFolderName = "/passed/"
     if outputsMatch:
         print(str(outputCounter) + ": " + "[+] Test passed.")
@@ -98,6 +99,12 @@ def testProgram(userProgramName):
     
     with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + "/" + "user" + "/" + userProgramName + ".out", 'w') as fileToPrintTo:
         fileToPrintTo.write(userOutput)
+        
+    with open('test.in', 'r') as originalInputFile:
+        with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + "/test.in", 'w') as fileToPrintTo:
+            textToWrite = originalInputFile.read()
+            fileToPrintTo.write(textToWrite)
+        
     
     outputCounter += 1
 

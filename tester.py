@@ -41,6 +41,7 @@ def generateRandom(min, max):
 outputCounter = 0
 
 def testProgram(userProgramName):
+    global outputCounter
     # Generate input file # Currently hardcoded for DN2
     N = generateRandom(1, 100000)
     K = generateRandom(2, 10)
@@ -78,15 +79,27 @@ def testProgram(userProgramName):
             if workingOutput!=userOutput :
                 outputsMatch = False
                 break
+    
+    passedOrNotFolderName = "/passed/"
     if outputsMatch:
         print(str(outputCounter) + ": " + "[+] Test passed.")
     else:
         print(str(outputCounter) + ": " + "[-] Test failed.")
+        passedOrNotFolderName = "/failed/"
     
-    if not os.path.exists(allOutputsFolderName):
-        os.makedirs(allOutputsFolderName)
+    os.makedirs(allOutputsFolderName + passedOrNotFolderName+ str(outputCounter) + "/" + "working")
+    os.makedirs(allOutputsFolderName + passedOrNotFolderName+ str(outputCounter) + "/" + "user")
+    for currWorkingOutput in workingOutputs:
+        # Compare the outputs
+        with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + "/" + "working" + "/" + currWorkingOutput, 'w') as fileToPrintTo:
+            with open(workingOutputFolderName + "/" + currWorkingOutput, 'r') as originalFile:
+                textToWrite = originalFile.read()
+                fileToPrintTo.write(textToWrite)
     
-    if not
+    with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + "/" + "user" + "/" + userProgramName + ".out", 'w') as fileToPrintTo:
+        fileToPrintTo.write(userOutput)
+    
+    outputCounter += 1
 
 def setup():
     # Check if the user has provided any parameters
@@ -139,6 +152,14 @@ def setup():
     if os.path.exists(workingOutputFolderName):
         os.system("rm -rf " + workingOutputFolderName)
         os.makedirs(workingOutputFolderName)
+    if os.path.exists(userOutputFolderName):
+        os.system("rm -rf " + userOutputFolderName)
+        os.makedirs(userOutputFolderName)
+    if os.path.exists(allOutputsFolderName):
+        os.system("rm -rf " + allOutputsFolderName)
+        os.makedirs(allOutputsFolderName)
+        os.makedirs(allOutputsFolderName + "/passed")
+        os.makedirs(allOutputsFolderName + "/failed")
     
     # Infinite loop for infinite test
     print("Starting test program.")

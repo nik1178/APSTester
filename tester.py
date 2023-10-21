@@ -151,15 +151,15 @@ def setup():
     # Clear previous outputs
     if os.path.exists(workingOutputFolderName):
         os.system("rm -rf " + workingOutputFolderName)
-        os.makedirs(workingOutputFolderName)
+    os.makedirs(workingOutputFolderName)
     if os.path.exists(userOutputFolderName):
         os.system("rm -rf " + userOutputFolderName)
-        os.makedirs(userOutputFolderName)
+    os.makedirs(userOutputFolderName)
     if os.path.exists(allOutputsFolderName):
         os.system("rm -rf " + allOutputsFolderName)
-        os.makedirs(allOutputsFolderName)
-        os.makedirs(allOutputsFolderName + "/passed")
-        os.makedirs(allOutputsFolderName + "/failed")
+    os.makedirs(allOutputsFolderName)
+    os.makedirs(allOutputsFolderName + "/passed")
+    os.makedirs(allOutputsFolderName + "/failed")
     
     # Infinite loop for infinite test
     print("Starting test program.")

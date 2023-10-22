@@ -14,7 +14,7 @@ allOutputsFolderName = "allOutputs"
 
 def runCPPProgram(programName):
     # Command to run the C++ program and get its output 
-    runArguments = [programName," < test.in"]
+    runArguments = ["time ",programName," < test.in"]
     runCommand = "".join(str(x) for x in runArguments)
     # Run the C++ program 
     try:
@@ -65,9 +65,11 @@ def testProgram(userProgramName):
         prevOutput = output
     
     # Get the output of the program to be tested
+    t1 = time.time()
     userOutput = runCPPProgram("./"+userProgramName)
     with open(userOutputFolderName+"/" + userProgramName + '.out', 'w') as f:
         f.write(userOutput)
+    t2 = time.time()
     
     # Compare the outputs of the working programs with the output of the program to be tested
     workingOutputs = os.listdir("./workingOutputs")
@@ -105,7 +107,7 @@ def testProgram(userProgramName):
             textToWrite = originalInputFile.read()
             fileToPrintTo.write(textToWrite)
         
-    
+    print("Time taken: " + str(t2-t1) + " seconds.")
     outputCounter += 1
 
 def setup():

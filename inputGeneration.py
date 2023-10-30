@@ -25,4 +25,15 @@ def Kzlitje():
             f.write(str(generateRandom(0, 1000000000)) + "\n")
             
 def neboticniki():
-    print("Implement later")
+    N = generateRandom(1, 1000000)
+    with open('test.in', 'w') as f:
+        f.write(str(N) + "\n")
+        for i in range(N):
+            f.write(str(generateRandom(0, 1000000000)) + "\n")
+
+def mediane():
+    N = generateRandom(1, 100000)
+    with open('test.in', 'w') as f:
+        f.write(str(N) + "\n")
+        for i in range(N):
+            f.write(str(generateRandom(0, 1000000000)) + "\n")

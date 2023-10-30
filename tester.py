@@ -2,7 +2,7 @@ import subprocess
 import os
 import sys
 import time
-import inputGeneration as ig
+import inputGeneration
 
 workingOutputFolderName = "workingOutputs"
 userOutputFolderName = "userOutput"
@@ -11,13 +11,15 @@ workingProgramsFolderName = "workingPrograms"
 
 allOutputsFolderName = "allOutputs"
 
+timeoutLimit = 2 # in seconds
+
 def runCPPProgram(programName):
     # Command to run the C++ program and get its output 
     runArguments = ["time ",programName," < test.in"]
     runCommand = "".join(str(x) for x in runArguments)
     # Run the C++ program 
     try:
-        runProcess = subprocess.run([runCommand], capture_output=True, timeout=2, text=True, shell=True)
+        runProcess = subprocess.run([runCommand], capture_output=True, timeout=timeoutLimit, text=True, shell=True)
         return runProcess.stdout
     # if the program times out catch the exception and just print timeout
     except Exception as e:
@@ -25,7 +27,10 @@ def runCPPProgram(programName):
         print("Program " + programName + " timed out.")
         return "timeout"
     
-
+def giveExecutePermission(path):
+    # Give execute permission to the program
+    os.system("chmod +x " + path)
+    
 
 outputCounter = 0
 
@@ -33,15 +38,16 @@ def testProgram(userProgramName):
     global outputCounter
     # Generate input file # Currently hardcoded for DN2
     ############################################################# CHANGE THIS ###################################################################
-    ig.Kzlitje()
+    inputGeneration.mediane()
     
     #### Generate output file by running the working programs with the generated input file
-    workingProgramNames = os.listdir("./workingPrograms")
+    workingProgramNames = os.listdir("./" + workingProgramsFolderName)
     
     # Get outputs of all the working programs
     prevOutput = ""
     for currWorkingProgram in workingProgramNames:
-        output = runCPPProgram("./"+workingProgramsFolderName+"/"+currWorkingProgram)
+        path = "./"+workingProgramsFolderName+"/"+currWorkingProgram
+        output = runCPPProgram(path)
         with open(workingOutputFolderName + "/" + currWorkingProgram + '.out', 'w') as f:
             f.write(output)
         if prevOutput != "" and prevOutput != output:
@@ -154,6 +160,18 @@ def setup():
     os.makedirs(allOutputsFolderName)
     os.makedirs(allOutputsFolderName + "/passed")
     os.makedirs(allOutputsFolderName + "/failed")
+    
+    
+    
+    workingProgramNames = os.listdir("./" + workingProgramsFolderName)
+    # Give execute permission to the working programs
+    prevOutput = ""
+    for currWorkingProgram in workingProgramNames:
+        # In some cases the programs might not have execute permission, so do that first
+        path = "./"+workingProgramsFolderName+"/"+currWorkingProgram
+        giveExecutePermission(path)
+    print("Gave all working programs execute permissions")
+        
     
     # Infinite loop for infinite test
     print("Starting test program.")

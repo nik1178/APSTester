@@ -2,8 +2,7 @@ import subprocess
 import os
 import sys
 import time
-import math
-import random
+import inputGeneration as ig
 
 workingOutputFolderName = "workingOutputs"
 userOutputFolderName = "userOutput"
@@ -27,29 +26,14 @@ def runCPPProgram(programName):
         return "timeout"
     
 
-# Makes the numbers closer towards the extremes, to test edge cases 
-def pushTowardExtremes(num, minValue, maxValue):
-    x = (num-minValue)/(maxValue-minValue) # Get percentage of how far the number is from the min and max
-    intensity = 10 # How much it should be pushed towards the extremes (set close to 0 BUT NOT 0 for linear distribution)
-    offset = ((math.atan(2*intensity*x-intensity)*math.pi)/(math.pi*math.atan(intensity))+1)/2 # Function from image
-    newNum = offset*(maxValue-minValue)+minValue # Apply the offset to the number
-    return int(newNum)
-
-def generateRandom(min, max):
-    return pushTowardExtremes(random.randint(min, max), min, max)
 
 outputCounter = 0
 
 def testProgram(userProgramName):
     global outputCounter
     # Generate input file # Currently hardcoded for DN2
-    N = generateRandom(1, 100000)
-    K = generateRandom(2, 10)
-    A = generateRandom(1, 20)
-    with open('test.in', 'w') as f:
-        f.write(str(N) + " " + str(K) + " " + str(A) + "\n")
-        for i in range(N):
-            f.write(str(generateRandom(0, 1000000000)) + "\n")
+    ############################################################# CHANGE THIS ###################################################################
+    ig.Kzlitje()
     
     #### Generate output file by running the working programs with the generated input file
     workingProgramNames = os.listdir("./workingPrograms")
@@ -121,6 +105,7 @@ def setup():
 
     program = firstArg 
     programName = program.split(".")[0]
+    programName+=".userCompiled"
 
     # Command to compile the C++ program 
     compileArr = ["g++ -std=c++20 -o", programName, program]

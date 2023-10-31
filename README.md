@@ -2,7 +2,7 @@
 
 ## How to run
 Place your cpp file in the main folder, then use the command:
-python3 tester.py *name of your program*.cpp
+```python3 tester.py *name of your program*.cpp```
 
 ## Description
 This program works based on differential fuzzing.
@@ -16,8 +16,8 @@ The program will always be made with the latest homework in mind. Check "Side-no
 
 Everything is hardcoded.
 If you wish to change which HW yo uare currently testing, place the appropriate compiled program from the "otherPrograms" folder into the "workingPrograms" folder, or use your own if yo uso wish.
-After that change the inputgenerator in "tester.py". You will find what you have to change under a "CHANGE THIS" comment.
-To see all input options check the "inputGeneration.py" file.
+After that change the inputgenerator in ```tester.py```. You will find what you have to change under a "CHANGE THIS" comment.
+To see all input options check the ```inputGeneration.py``` file.
 
 
 # Ignore from this point onward
@@ -25,7 +25,7 @@ To see all input options check the "inputGeneration.py" file.
 
 This program will generate an infinite amount of randomized outputs (with preference for low and high extremes). It will feed these inputs into multiple verified working programs and into your program, then compare the results to determine whether your solution is valid.
 
-There is no user input, everything is handled through the file "settings".
+There is no user input, everything is handled through the file ```settings```.
 
 # Setup
 

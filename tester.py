@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import inputGeneration
+import shutil
 
 workingOutputFolderName = "workingOutputs"
 userOutputFolderName = "userOutput"
@@ -13,20 +14,29 @@ allOutputsFolderName = "allOutputs"
 
 timeoutLimit = 2 # in seconds
 
-def runCPPProgram(programName):
+operatingSystem = os.name
+
+slash = "/"
+
+def runCPPProgram(programName, inputTxt):
     # Command to run the C++ program and get its output 
-    runArguments = ["time ",programName," < test.in"]
-    runCommand = "".join(str(x) for x in runArguments)
+    # runArguments = [programName]
+    # runCommand = "".join(str(x) for x in runArguments)
     # Run the C++ program 
     try:
-        runProcess = subprocess.run([runCommand], capture_output=True, timeout=timeoutLimit, text=True, shell=True)
+        runProcess = subprocess.run([programName],input=inputTxt, capture_output=True, timeout=timeoutLimit, text=True, shell=True)
         return runProcess.stdout
     # if the program times out catch the exception and just print timeout
+    except subprocess.CalledProcessError as e:
+        exit_code = e.returncode
+        stderror = e.stderr
+        print(exit_code, stderror)
+        exit(1)
     except Exception as e:
         print(e)
         print("Program " + programName + " timed out.")
         return "timeout"
-    
+
 def giveExecutePermission(path):
     # Give execute permission to the program
     os.system("chmod +x " + path)
@@ -39,61 +49,75 @@ def testProgram(userProgramName):
     # Generate input file # Currently hardcoded for DN2
     ############################################################# CHANGE THIS ###################################################################
     inputGeneration.mediane()
+
+
+    # This is dumb but im not fixing it rn. Reads the generated input from the created file
+    inputTxt = "";
+    with open('test.in', 'r') as f:
+        inputTxt = f.read()
     
     #### Generate output file by running the working programs with the generated input file
-    workingProgramNames = os.listdir("./" + workingProgramsFolderName)
+    workingProgramNames = os.listdir("." + slash + workingProgramsFolderName)
+    
     
     # Get outputs of all the working programs
     prevOutput = ""
     for currWorkingProgram in workingProgramNames:
-        path = "./"+workingProgramsFolderName+"/"+currWorkingProgram
-        output = runCPPProgram(path)
-        with open(workingOutputFolderName + "/" + currWorkingProgram + '.out', 'w') as f:
+        path = workingProgramsFolderName + slash + currWorkingProgram
+        output = runCPPProgram(path, inputTxt)
+        with open(workingOutputFolderName + slash + currWorkingProgram + '.out', 'w') as f:
             f.write(output)
         if prevOutput != "" and prevOutput != output:
             print("Working programs disagree.")
         prevOutput = output
     
+    # Simplest way to check if everything is working
+    if prevOutput == "":
+        print("Working programs failed to generate output. This could be due to an error in the program or due to no working programs for this operating system in the workingPrograms folder.")
+        exit(1)
+    
     # Get the output of the program to be tested
     t1 = time.time()
-    userOutput = runCPPProgram("./"+userProgramName)
-    with open(userOutputFolderName+"/" + userProgramName + '.out', 'w') as f:
+    userOutput = runCPPProgram("." + slash + userProgramName, inputTxt)
+    with open(userOutputFolderName+slash + "" + userProgramName + '.out', 'w') as f:
         f.write(userOutput)
     t2 = time.time()
     
     # Compare the outputs of the working programs with the output of the program to be tested
-    workingOutputs = os.listdir("./workingOutputs")
+    workingOutputs = os.listdir("." + slash + "workingOutputs")
     outputsMatch = True
     for currWorkingOutput in workingOutputs:
         # Compare the outputs
-        with open(workingOutputFolderName + "/" + currWorkingOutput, 'r') as f:
+        with open(workingOutputFolderName + slash + currWorkingOutput, 'r') as f:
             workingOutput = f.read()
             if workingOutput!=userOutput :
                 outputsMatch = False
                 break
     
     # Ignore everything past this point, i gave up
-    passedOrNotFolderName = "/passed/"
+    passedOrNotFolderName = slash + "passed" + slash
     if outputsMatch:
         print(str(outputCounter) + ": " + "[+] Test passed.")
     else:
         print(str(outputCounter) + ": " + "[-] Test failed.")
-        passedOrNotFolderName = "/failed/"
+        passedOrNotFolderName = slash + "failed" + slash
     
-    os.makedirs(allOutputsFolderName + passedOrNotFolderName+ str(outputCounter) + "/" + "working")
-    os.makedirs(allOutputsFolderName + passedOrNotFolderName+ str(outputCounter) + "/" + "user")
+    os.makedirs(allOutputsFolderName + passedOrNotFolderName+ str(outputCounter) + slash + "working")
+    if not outputsMatch:
+        os.makedirs(allOutputsFolderName + passedOrNotFolderName+ str(outputCounter) + slash + "user")
     for currWorkingOutput in workingOutputs:
         # Compare the outputs
-        with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + "/" + "working" + "/" + currWorkingOutput, 'w') as fileToPrintTo:
-            with open(workingOutputFolderName + "/" + currWorkingOutput, 'r') as originalFile:
+        with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + slash + "working" + slash + currWorkingOutput, 'w') as fileToPrintTo:
+            with open(workingOutputFolderName + slash + currWorkingOutput, 'r') as originalFile:
                 textToWrite = originalFile.read()
                 fileToPrintTo.write(textToWrite)
     
-    with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + "/" + "user" + "/" + userProgramName + ".out", 'w') as fileToPrintTo:
-        fileToPrintTo.write(userOutput)
+    if not outputsMatch:
+        with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + slash + "user" + slash + userProgramName + ".out", 'w') as fileToPrintTo:
+            fileToPrintTo.write(userOutput)
         
     with open('test.in', 'r') as originalInputFile:
-        with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + "/test.in", 'w') as fileToPrintTo:
+        with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + slash + "test.in", 'w') as fileToPrintTo:
             textToWrite = originalInputFile.read()
             fileToPrintTo.write(textToWrite)
         
@@ -101,10 +125,32 @@ def testProgram(userProgramName):
     outputCounter += 1
 
 def setup():
+    global workingProgramsFolderName
+    global slash
+    
+    
     # Check if the user has provided any parameters
     if len(sys.argv) <= 1 or len(sys.argv) > 2:
         print("Incorrect number of paramters. Check README.md for more details.\n")
         exit(1)
+        
+    # Check which operating system the user is running
+    if not operatingSystem == "posix" and not operatingSystem == "nt":
+        print("Unsupported operating system. Run this program on linux or windows.\n")
+        exit(1)
+    
+    if operatingSystem == "nt":
+        slash = "\\"
+        
+    # Get the correct folder name for the working programs
+    if operatingSystem == "posix":
+        workingProgramsFolderName += slash + "linux"
+    elif operatingSystem == "nt":
+        workingProgramsFolderName += slash + "windows"
+    else:
+        print("Unsupported operating system. Run this program on linux or windows.\n")
+        exit(1)
+    
 
     # Get the name of the program to be tested, aka. the first provided argument
     firstArg = sys.argv[1]
@@ -141,7 +187,7 @@ def setup():
     f.readline()
     f.readline()
 
-    # Get the input settings: // For now everything will be hardcoded
+    # Get the input settings: //  For now everything will be hardcoded
     """ inputNames = []
     currLine = f.readline()
     while currLine != "":
@@ -150,26 +196,23 @@ def setup():
         
     # Clear previous outputs
     if os.path.exists(workingOutputFolderName):
-        os.system("rm -rf " + workingOutputFolderName)
+        shutil.rmtree(workingOutputFolderName)
     os.makedirs(workingOutputFolderName)
     if os.path.exists(userOutputFolderName):
-        os.system("rm -rf " + userOutputFolderName)
+        shutil.rmtree(userOutputFolderName)
     os.makedirs(userOutputFolderName)
     if os.path.exists(allOutputsFolderName):
-        os.system("rm -rf " + allOutputsFolderName)
+        shutil.rmtree(allOutputsFolderName)
     os.makedirs(allOutputsFolderName)
-    os.makedirs(allOutputsFolderName + "/passed")
-    os.makedirs(allOutputsFolderName + "/failed")
+    os.makedirs(allOutputsFolderName + slash + "passed")
+    os.makedirs(allOutputsFolderName + slash + "failed")
     
-    
-    
-    workingProgramNames = os.listdir("./" + workingProgramsFolderName)
+    workingProgramNames = os.listdir("." + slash + workingProgramsFolderName)
     # Give execute permission to the working programs
-    prevOutput = ""
     for currWorkingProgram in workingProgramNames:
         # In some cases the programs might not have execute permission, so do that first
-        path = "./"+workingProgramsFolderName+"/"+currWorkingProgram
-        giveExecutePermission(path)
+        path = "." + slash +workingProgramsFolderName + slash +currWorkingProgram
+        #giveExecutePermission(path)
     print("Gave all working programs execute permissions")
         
     

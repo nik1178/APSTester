@@ -1,14 +1,18 @@
 # Temp ReadME
 
-This program works based on differential fuzzing.
-In the workingPrograms folder there needs to be at least one (there can be more) compiled program for which you are decently certain gives the correct solution. (There is no required naming scheme for the working programs)
-To use this program just place your .cpp file into this folder.
-After that run the program with the following command:
+## How to run
+Place your cpp file in the main folder, then use the command:
 python3 tester.py *name of your program*.cpp
+
+## Description
+This program works based on differential fuzzing.
+
+## How to make your own tests with this program
+In the workingPrograms folder there needs to be at least one (there can be more) compiled program for which you are decently certain gives the correct solution.
 
 The program will always be made with the latest homework in mind. Check "Side-notes" if you wish to see how to test older homeworks.
 
-### Side-notes
+### Side-notes (How to change which homework)
 
 Everything is hardcoded.
 If you wish to change which HW yo uare currently testing, place the appropriate compiled program from the "otherPrograms" folder into the "workingPrograms" folder, or use your own if yo uso wish.

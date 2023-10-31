@@ -4,6 +4,7 @@ import sys
 import time
 import inputGeneration
 import shutil
+import platform
 
 workingOutputFolderName = "workingOutputs"
 userOutputFolderName = "userOutput"
@@ -14,7 +15,7 @@ allOutputsFolderName = "allOutputs"
 
 timeoutLimit = 2 # in seconds
 
-operatingSystem = os.name
+operatingSystem = platform.system()
 
 slash = "/"
 
@@ -135,17 +136,17 @@ def setup():
         exit(1)
         
     # Check which operating system the user is running
-    if not operatingSystem == "posix" and not operatingSystem == "nt":
+    if not operatingSystem == "Linux" and not operatingSystem == "Windows":
         print("Unsupported operating system. Run this program on linux or windows.\n")
         exit(1)
     
-    if operatingSystem == "nt":
+    if operatingSystem == "Windows":
         slash = "\\"
         
     # Get the correct folder name for the working programs
-    if operatingSystem == "posix":
+    if operatingSystem == "Linux":
         workingProgramsFolderName += slash + "linux"
-    elif operatingSystem == "nt":
+    elif operatingSystem == "Windows":
         workingProgramsFolderName += slash + "windows"
     else:
         print("Unsupported operating system. Run this program on linux or windows.\n")

@@ -98,9 +98,9 @@ def testProgram(userProgramName):
     # Ignore everything past this point, i gave up
     passedOrNotFolderName = slash + "passed" + slash
     if outputsMatch:
-        print(str(outputCounter) + ": " + "[+] Test passed.")
+        print(str(outputCounter) + ": " + "[\033[32m+\033[0m] Test passed.")
     else:
-        print(str(outputCounter) + ": " + "[-] Test failed.")
+        print(str(outputCounter) + ": " + "[\033[31m-\033[0m] Test failed.")
         passedOrNotFolderName = slash + "failed" + slash
     
     os.makedirs(allOutputsFolderName + passedOrNotFolderName+ str(outputCounter) + slash + "working")

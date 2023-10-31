@@ -98,10 +98,13 @@ def testProgram(userProgramName):
     # Ignore everything past this point, i gave up
     passedOrNotFolderName = slash + "passed" + slash
     if outputsMatch:
-        print(str(outputCounter) + ": " + "[\033[32m+\033[0m] Test passed.")
+        print(str(outputCounter) + ": " + "[\033[32m+\033[0m] Test passed.", end="")
     else:
-        print(str(outputCounter) + ": " + "[\033[31m-\033[0m] Test failed.")
+        print(str(outputCounter) + ": " + "[\033[31m-\033[0m] Test failed.", end="")
         passedOrNotFolderName = slash + "failed" + slash
+
+    print(" - Time taken: " + str(t2-t1) + " seconds.")
+
     
     os.makedirs(allOutputsFolderName + passedOrNotFolderName+ str(outputCounter) + slash + "working")
     if not outputsMatch:
@@ -122,7 +125,6 @@ def testProgram(userProgramName):
             textToWrite = originalInputFile.read()
             fileToPrintTo.write(textToWrite)
         
-    print("Time taken: " + str(t2-t1) + " seconds.")
     outputCounter += 1
 
 def setup():

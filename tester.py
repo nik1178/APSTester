@@ -212,11 +212,12 @@ def setup():
     
     workingProgramNames = os.listdir("." + slash + workingProgramsFolderName)
     # Give execute permission to the working programs
-    for currWorkingProgram in workingProgramNames:
-        # In some cases the programs might not have execute permission, so do that first
-        path = "." + slash +workingProgramsFolderName + slash +currWorkingProgram
-        #giveExecutePermission(path)
-    print("Gave all working programs execute permissions")
+    if (operatingSystem == "Linux"):
+        for currWorkingProgram in workingProgramNames:
+            # In some cases the programs might not have execute permission, so do that first
+            path = "." + slash + workingProgramsFolderName + slash + currWorkingProgram
+            giveExecutePermission(path)
+        print("Gave all working programs execute permissions")
         
     
     # Infinite loop for infinite test

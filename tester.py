@@ -138,20 +138,28 @@ def setup():
         exit(1)
         
     # Check which operating system the user is running
-    if not operatingSystem == "Linux" and not operatingSystem == "Windows":
+    """ if not operatingSystem == "Linux" and not operatingSystem == "Windows":
         print("Unsupported operating system. Run this program on linux or windows.\n")
-        exit(1)
+        exit(1) """
     
     if operatingSystem == "Windows":
         slash = "\\"
-        
+    
+    if operatingSystem == "Darwin":
+        print("\033[31mWARNING\033[0m")
+        print("It seems you are using \033[36mMacOS\033[0m. This program is not tested on MacOS. If you encounter any issues please report them.")
+        print("The working programs have been compiled on \033[32mM1\033[0m macs. The program might not work on \033[36mIntel\033[0m macs.")
+        print("\033[31mWARNING END\033[0m\n")
+    
     # Get the correct folder name for the working programs
     if operatingSystem == "Linux":
         workingProgramsFolderName += slash + "linux"
     elif operatingSystem == "Windows":
         workingProgramsFolderName += slash + "windows"
+    elif operatingSystem == "Darwin":
+        workingProgramsFolderName += slash + "macos"
     else:
-        print("Unsupported operating system. Run this program on linux or windows.\n")
+        print("Unsupported operating system. Run this program on linux, windows, or macos.\n")
         exit(1)
     
 

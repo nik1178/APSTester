@@ -60,6 +60,9 @@ def testProgram(userProgramName):
     #### Generate output file by running the working programs with the generated input file
     workingProgramNames = os.listdir("." + slash + workingProgramsFolderName)
     
+    if workingProgramNames == []:
+        print("No working programs found in the workingPrograms folder. Please add some working programs and try again.")
+        exit(1)
     
     # Get outputs of all the working programs
     prevOutput = ""

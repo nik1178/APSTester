@@ -174,7 +174,7 @@ def setup():
     # Get all the currently added assignments
     assignments = os.listdir("." + slash + workingProgramsFolderName)
     if args.listassignments:
-        print ("List of assignments:")
+        print ("List of assignments for your operating system:")
         for assignment in assignments:
             print(assignment)
         exit(0)

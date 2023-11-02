@@ -145,13 +145,9 @@ def setup():
     parser.add_argument("-a", "--assignment", help="The name of the assignment. Choose the name of the assignment you are working on. Default is: %s ." % selected_assignment, type=str)
     
     args = parser.parse_args()
-    """ if args.listassignments:
-        print("List of assignments:")
-        assignments = os.listdir(".")
-        for assignment in assignments:
-            if os.path.isdir(assignment):
-                print(assignment)
-        exit(0) """
+    
+    print("\n\033[34mRemember to use\033[0m \033[32m-h\033[0m \033[34mto see all the capabilities of this program!\033[0m\n")
+    
     if args.timeout:
         timeoutLimit = args.timeout
     

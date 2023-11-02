@@ -174,6 +174,7 @@ def setup():
     
     if args.clear:
         # Clear previous outputs
+        print("Deleting old outputs...")
         if os.path.exists(workingOutputFolderName):
             shutil.rmtree(workingOutputFolderName)
         os.makedirs(workingOutputFolderName)
@@ -234,6 +235,7 @@ def setup():
         print("Compilation successful.") 
     else:
         print("Compilation failed.")
+        print("There might be an error in your code. If you are sure that isn't the case reade further: \n")
         print("This is most likely due to an incorrect version of gcc on your system.")
         print("This program uses c++20, which comes with gcc 11 and above.")
         print("If you are on linux or macos, you might fix the issue by running the following commands in your terminal:")
@@ -245,6 +247,7 @@ def setup():
 
         
     # Clear previous outputs
+    print("Deleting old outputs...")
     if os.path.exists(workingOutputFolderName):
         shutil.rmtree(workingOutputFolderName)
     os.makedirs(workingOutputFolderName)
@@ -256,6 +259,7 @@ def setup():
     os.makedirs(allOutputsFolderName)
     os.makedirs(allOutputsFolderName + slash + "passed")
     os.makedirs(allOutputsFolderName + slash + "failed")
+    print("Cleared all temporary folders and previous outputs.")
     
     workingProgramNames = os.listdir("." + slash + workingProgramsFolderName)
     # Give execute permission to the working programs

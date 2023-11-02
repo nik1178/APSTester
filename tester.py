@@ -5,6 +5,7 @@ import time
 import inputGeneration
 import shutil
 import platform
+import argparse
 
 workingOutputFolderName = "workingOutputs"
 userOutputFolderName = "userOutput"
@@ -16,6 +17,8 @@ allOutputsFolderName = "allOutputs"
 timeoutLimit = 2 # in seconds
 
 operatingSystem = platform.system()
+
+selected_assignment = "4mediane"
 
 slash = "/"
 
@@ -49,14 +52,14 @@ def testProgram(userProgramName):
     global outputCounter
     # Generate input file # Currently hardcoded for DN2
     ############################################################# CHANGE THIS ###################################################################
-    inputGeneration.mediane()
+    inputTxt = ""
+    if selected_assignment == "2Kzlitje":
+        inputTxt = inputGeneration.Kzlitje()
+    elif selected_assignment == "3neboticniki":
+        inputTxt = inputGeneration.neboticniki()
+    elif selected_assignment == "4mediane":
+        inputTxt = inputGeneration.mediane()
 
-
-    # This is dumb but im not fixing it rn. Reads the generated input from the created file
-    inputTxt = "";
-    with open('test.in', 'r') as f:
-        inputTxt = f.read()
-    
     #### Generate output file by running the working programs with the generated input file
     workingProgramNames = os.listdir("." + slash + workingProgramsFolderName)
     
@@ -123,27 +126,34 @@ def testProgram(userProgramName):
         with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + slash + "user" + slash + userProgramName + ".out", 'w') as fileToPrintTo:
             fileToPrintTo.write(userOutput)
         
-    with open('test.in', 'r') as originalInputFile:
-        with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + slash + "test.in", 'w') as fileToPrintTo:
-            textToWrite = originalInputFile.read()
-            fileToPrintTo.write(textToWrite)
+    with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + slash + "test.in", 'w') as fileToPrintTo:
+        fileToPrintTo.write(inputTxt)
         
     outputCounter += 1
 
 def setup():
     global workingProgramsFolderName
     global slash
+    global timeoutLimit
+    global selected_assignment
     
+    # Parameters for the program
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-la", "--listassignments", help="List all the assignments that can be tested.", action="store_true")
+    parser.add_argument("program", help="The name of the program to be tested including .cpp (Example: program.cpp).")
+    parser.add_argument("-t", "--timeout", help="The timeout limit for the program in seconds. Default is %d seconds." % timeoutLimit, type=int)
+    parser.add_argument("-a", "--assignment", help="The name of the assignment. Choose the name of the assignment you are working on. Default is: %s ." % selected_assignment, type=str)
     
-    # Check if the user has provided any parameters
-    if len(sys.argv) <= 1 or len(sys.argv) > 2:
-        print("Incorrect number of paramters. Check README.md for more details.\n")
-        exit(1)
-        
-    # Check which operating system the user is running
-    """ if not operatingSystem == "Linux" and not operatingSystem == "Windows":
-        print("Unsupported operating system. Run this program on linux or windows.\n")
-        exit(1) """
+    args = parser.parse_args()
+    """ if args.listassignments:
+        print("List of assignments:")
+        assignments = os.listdir(".")
+        for assignment in assignments:
+            if os.path.isdir(assignment):
+                print(assignment)
+        exit(0) """
+    if args.timeout:
+        timeoutLimit = args.timeout
     
     if operatingSystem == "Windows":
         slash = "\\"
@@ -165,11 +175,27 @@ def setup():
         print("Unsupported operating system. Run this program on linux, windows, or macos.\n")
         exit(1)
     
+    # Get all the currently added assignments
+    assignments = os.listdir("." + slash + workingProgramsFolderName)
+    if args.listassignments:
+        print ("List of assignments:")
+        for assignment in assignments:
+            print(assignment)
+        exit(0)
+    
+    
+    # Get the correct assignment
+    if args.assignment:
+        if args.assignment in assignments:
+            selected_assignment = args.assignment
+        else:
+            print("Assignment " + args.assignment + " does not exist. Make sure your wrote the name exactly. Use -la to list all the assignments.")
+            exit(1)
+    
+    # Get the correct folder name for the working programs
+    workingProgramsFolderName += slash + selected_assignment
 
-    # Get the name of the program to be tested, aka. the first provided argument
-    firstArg = sys.argv[1]
-
-    program = firstArg 
+    program = args.program
     programName = program.split(".")[0]
     programName+=".userCompiled"
 
@@ -186,27 +212,7 @@ def setup():
         print("Compilation failed.")
         exit(1)
 
-    # Read settings file
-    f = open("settings", "r")
 
-    # Get the name of the folder with the worknig programs
-    line1 = f.readline()
-    line1 = line1.split(" ")
-    workingProgramFolder = line1[-1]
-    if len(workingProgramFolder)<1: # I don't think this actually works
-        print("Incorrect working file specified in settings file.")
-        exit(1)
-
-    # Skip the next two lines
-    f.readline()
-    f.readline()
-
-    # Get the input settings: //  For now everything will be hardcoded
-    """ inputNames = []
-    currLine = f.readline()
-    while currLine != "":
-        currLine = f.readline()
-        splitLine = currLine.split(" ") """
         
     # Clear previous outputs
     if os.path.exists(workingOutputFolderName):

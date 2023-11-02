@@ -1,6 +1,0 @@
-Working program folder (must be all one word): workingPrograms
---------------------------------
-Input:
-M [0-1000000000]
-N [0-100000]
-X Y [0-1000000000](0-N)X<Y

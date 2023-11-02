@@ -16,24 +16,27 @@ def generateRandom(min, max):
 ###### INPUT OPTIONS:
 
 def Kzlitje():
+    inputTxt = ""
     N = generateRandom(1, 100000)
     K = generateRandom(2, 10)
     A = generateRandom(1, 20)
-    with open('test.in', 'w') as f:
-        f.write(str(N) + " " + str(K) + " " + str(A) + "\n")
-        for i in range(N):
-            f.write(str(generateRandom(0, 1000000000)) + "\n")
-            
+    inputTxt += str(N) + " " + str(K) + " " + str(A) + "\n"
+    for _ in range(N):
+        inputTxt += str(generateRandom(0, 1000000000)) + "\n"
+    return inputTxt
+
 def neboticniki():
+    inputTxt = ""
     N = generateRandom(1, 1000000)
-    with open('test.in', 'w') as f:
-        f.write(str(N) + "\n")
-        for i in range(N):
-            f.write(str(generateRandom(0, 1000000000)) + "\n")
+    inputTxt += str(N) + "\n"
+    for _ in range(N):
+        inputTxt += str(generateRandom(0, 1000000000)) + "\n"
+    return inputTxt
 
 def mediane():
+    inputTxt = ""
     N = generateRandom(1, 100000)
-    with open('test.in', 'w') as f:
-        f.write(str(N) + "\n")
-        for i in range(N):
-            f.write(str(generateRandom(0, 1000000000)) + "\n")
+    inputTxt += str(N) + "\n"
+    for _ in range(N):
+        inputTxt += str(generateRandom(0, 1000000000)) + "\n"
+    return inputTxt

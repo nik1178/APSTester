@@ -5,6 +5,9 @@ Place your cpp file in the main folder, then use the command:
 For more options:
 ```python3 tester.py -h```
 
+All the tests and program outputs are stored in:
+```./allOutputs```
+
 ## Description
 This program works based on differential fuzzing.
 

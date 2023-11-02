@@ -107,12 +107,12 @@ def testProgram(userProgramName):
     # Ignore everything past this point, i gave up
     passedOrNotFolderName = slash + "passed" + slash
     if outputsMatch:
-        print(str(outputCounter) + ": " + "[\033[32m+\033[0m] Test passed.", end="")
+        print(str(outputCounter) + ": " + "[\033[32m+\033[0m] Test passed", end="")
     else:
-        print(str(outputCounter) + ": " + "[\033[31m-\033[0m] Test failed.", end="")
+        print(str(outputCounter) + ": " + "[\033[31m-\033[0m] Test failed", end="")
         passedOrNotFolderName = slash + "failed" + slash
 
-    print(" - Time taken: " + str(t2-t1) + " seconds.")
+    print(" - Time taken: %.4f seconds." % (t2-t1))
 
     
     os.makedirs(allOutputsFolderName + passedOrNotFolderName+ str(outputCounter) + slash + "working")
@@ -234,6 +234,12 @@ def setup():
         print("Compilation successful.") 
     else:
         print("Compilation failed.")
+        print("This is most likely due to an incorrect version of gcc on your system.")
+        print("This program uses c++20, which comes with gcc 11 and above.")
+        print("If you are on linux or macos, you might fix the issue by running the following commands in your terminal:")
+        print("sudo apt-get update")
+        print("sudo apt-get upgrade")
+        print("sudo apt install build-essential")
         exit(1)
 
 

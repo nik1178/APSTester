@@ -225,7 +225,7 @@ def setup():
     
     workingProgramNames = os.listdir("." + slash + workingProgramsFolderName)
     # Give execute permission to the working programs
-    if (operatingSystem == "Linux"):
+    if (operatingSystem == "Linux" or operatingSystem == "Darwin"):
         for currWorkingProgram in workingProgramNames:
             # In some cases the programs might not have execute permission, so do that first
             path = "." + slash + workingProgramsFolderName + slash + currWorkingProgram

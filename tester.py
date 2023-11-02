@@ -112,7 +112,7 @@ def testProgram(userProgramName):
         print(str(outputCounter) + ": " + "[\033[31m-\033[0m] Test failed", end="")
         passedOrNotFolderName = slash + "failed" + slash
 
-    print(" - Time taken: %.4f seconds." % (t2-t1))
+    print(" - Time taken: %.3f seconds." % (t2-t1))
 
     
     os.makedirs(allOutputsFolderName + passedOrNotFolderName+ str(outputCounter) + slash + "working")

@@ -3,15 +3,25 @@ import math
 
 
 # Makes the numbers closer towards the extremes, to test edge cases 
-def pushTowardExtremes(num, minValue, maxValue):
+def pushTowardExtremes(num, minValue, maxValue, intensity):
     x = (num-minValue)/(maxValue-minValue) # Get percentage of how far the number is from the min and max
-    intensity = 10 # How much it should be pushed towards the extremes (set close to 0 BUT NOT 0 for linear distribution)
+    """ intensity = intensity  """# How much it should be pushed towards the extremes (set close to 0 BUT NOT 0 for linear distribution)
     offset = ((math.atan(2*intensity*x-intensity)*math.pi)/(math.pi*math.atan(intensity))+1)/2 # Function from image
     newNum = offset*(maxValue-minValue)+minValue # Apply the offset to the number
     return int(newNum)
 
+counter = 0
 def generateRandom(min, max):
-    return pushTowardExtremes(random.randint(min, max), min, max)
+    global counter
+    intensity = 10
+    if counter%3 == 0:
+        intensity=10
+    elif counter%3 == 1:
+        intensity=1000
+    else:
+        intensity=100000
+    counter += 1
+    return pushTowardExtremes(random.randint(min, max), min, max, intensity)
 
 ###### INPUT OPTIONS:
 

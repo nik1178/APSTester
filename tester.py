@@ -44,7 +44,7 @@ def runCPPProgram(programName, inputTxt):
 
 def giveExecutePermission(path):
     # Give execute permission to the program
-    os.system("chmod +x " + path)
+    os.system("chmod -R +x " + path)
     
 
 outputCounter = 0

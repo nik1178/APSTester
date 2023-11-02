@@ -149,8 +149,9 @@ def setup():
     parser.add_argument("-la", "--listassignments", help="List all the assignments that can be tested.", action="store_true")
     parser.add_argument("program", help="The name of the program to be tested including .cpp (Example: program.cpp).")
     parser.add_argument("-t", "--timeout", help="The timeout limit for the program in seconds. Default is %d seconds." % timeoutLimit, type=int)
-    parser.add_argument("-a", "--assignment", help="The name of the assignment. Choose the name of the assignment you are working on. Default is: %s ." % selected_assignment, type=str)
+    parser.add_argument("-a", "--assignment", help="The name of the assignment. Choose the name of the assignment you are working on. Default is: %s" % selected_assignment, type=str)
     parser.add_argument("-lm", "--limit", help="The limit of tests to run. Default is no limit.", type=int)
+    parser.add_argument("-c", "--clear", help="Clear all temporary folders and previous outputs.", action="store_true")
     
     args = parser.parse_args()
     
@@ -170,6 +171,22 @@ def setup():
         print("It seems you are using \033[36mMacOS\033[0m. This program is not tested on MacOS. If you encounter any issues please report them.")
         print("The working programs have been compiled on \033[32mM1\033[0m macs. The program might not work on \033[36mIntel\033[0m macs.")
         print("\033[31mWARNING END\033[0m\n")
+    
+    if args.clear:
+        # Clear previous outputs
+        if os.path.exists(workingOutputFolderName):
+            shutil.rmtree(workingOutputFolderName)
+        os.makedirs(workingOutputFolderName)
+        if os.path.exists(userOutputFolderName):
+            shutil.rmtree(userOutputFolderName)
+        os.makedirs(userOutputFolderName)
+        if os.path.exists(allOutputsFolderName):
+            shutil.rmtree(allOutputsFolderName)
+        os.makedirs(allOutputsFolderName)
+        os.makedirs(allOutputsFolderName + slash + "passed")
+        os.makedirs(allOutputsFolderName + slash + "failed")
+        print("Cleared all temporary folders and previous outputs.")
+        exit(0)
     
     # Get the correct folder name for the working programs
     if operatingSystem == "Linux":

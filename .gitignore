@@ -5,3 +5,4 @@ allOutputs/
 *.cpp
 test.in
 *.userCompiled
+.vscode

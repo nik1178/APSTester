@@ -15,6 +15,7 @@ workingProgramsFolderName = "workingPrograms"
 allOutputsFolderName = "allOutputs"
 
 timeoutLimit = 2 # in seconds
+testLimit = 0 # 0 means no limit
 
 operatingSystem = platform.system()
 
@@ -50,6 +51,8 @@ outputCounter = 0
 
 def testProgram(userProgramName):
     global outputCounter
+    global testLimit
+    
     # Generate input file # Currently hardcoded for DN2
     ############################################################# CHANGE THIS ###################################################################
     inputTxt = ""
@@ -128,14 +131,18 @@ def testProgram(userProgramName):
         
     with open(allOutputsFolderName + passedOrNotFolderName + str(outputCounter) + slash + "test.in", 'w') as fileToPrintTo:
         fileToPrintTo.write(inputTxt)
-        
+    
     outputCounter += 1
+    if testLimit != 0 and outputCounter >= testLimit:
+        print("Test limit reached. Exiting.")
+        exit(0)
 
 def setup():
     global workingProgramsFolderName
     global slash
     global timeoutLimit
     global selected_assignment
+    global testLimit
     
     # Parameters for the program
     parser = argparse.ArgumentParser()
@@ -143,6 +150,7 @@ def setup():
     parser.add_argument("program", help="The name of the program to be tested including .cpp (Example: program.cpp).")
     parser.add_argument("-t", "--timeout", help="The timeout limit for the program in seconds. Default is %d seconds." % timeoutLimit, type=int)
     parser.add_argument("-a", "--assignment", help="The name of the assignment. Choose the name of the assignment you are working on. Default is: %s ." % selected_assignment, type=str)
+    parser.add_argument("-lm", "--limit", help="The limit of tests to run. Default is no limit.", type=int)
     
     args = parser.parse_args()
     
@@ -150,6 +158,9 @@ def setup():
     
     if args.timeout:
         timeoutLimit = args.timeout
+    
+    if args.limit:
+        testLimit = args.limit
     
     if operatingSystem == "Windows":
         slash = "\\"

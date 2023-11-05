@@ -19,7 +19,7 @@ testLimit = 0 # 0 means no limit
 
 operatingSystem = platform.system()
 
-selected_assignment = "4mediane"
+selected_assignment = "5vreca"
 
 slash = "/"
 
@@ -62,6 +62,8 @@ def testProgram(userProgramName):
         inputTxt = inputGeneration.neboticniki()
     elif selected_assignment == "4mediane":
         inputTxt = inputGeneration.mediane()
+    elif selected_assignment == "5vreca":
+        inputTxt = inputGeneration.vreca()
 
     #### Generate output file by running the working programs with the generated input file
     workingProgramNames = os.listdir("." + slash + workingProgramsFolderName)
@@ -71,18 +73,25 @@ def testProgram(userProgramName):
         exit(1)
     
     # Get outputs of all the working programs
+    atleastOneWorkingProgram = False
     prevOutput = ""
     for currWorkingProgram in workingProgramNames:
         path = workingProgramsFolderName + slash + currWorkingProgram
         output = runCPPProgram(path, inputTxt)
         with open(workingOutputFolderName + slash + currWorkingProgram + '.out', 'w') as f:
             f.write(output)
+        
+        # Simplest way to check if everything is working
+        if output == "":
+            print("Working program %s failed to generate output." % currWorkingProgram)
+            continue
+        atleastOneWorkingProgram = True
+        
         if prevOutput != "" and prevOutput != output:
             print("Working programs disagree.")
         prevOutput = output
     
-    # Simplest way to check if everything is working
-    if prevOutput == "":
+    if not atleastOneWorkingProgram:
         print("Working programs failed to generate output. This could be due to an error in the program or due to no working programs for this operating system in the workingPrograms folder.")
         exit(1)
     
@@ -223,6 +232,10 @@ def setup():
     program = args.program
     programName = program.split(".")[0]
     programName+=".userCompiled"
+    
+    if not os.path.exists(program):
+        print("Program " + program + " does not exist. Make sure you wrote the name correctly and that your program is located in the main folder.")
+        exit(1)
 
     # Command to compile the C++ program 
     compileArr = ["g++ -std=c++20 -o", programName, program]

@@ -50,3 +50,12 @@ def mediane():
     for _ in range(N):
         inputTxt += str(generateRandom(0, 1000000000)) + "\n"
     return inputTxt
+
+def vreca():
+    inputTxt = ""
+    N = generateRandom(1, 1000000)
+    inputTxt += str(N) + "\n"
+    for _ in range(N):
+        s = random.randint(-1, 1)
+        inputTxt += str(s) + " " + str(generateRandom(0, 1000000)) + "\n"
+    return inputTxt

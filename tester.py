@@ -30,6 +30,9 @@ def runCPPProgram(programName, inputTxt):
     # Run the C++ program 
     try:
         runProcess = subprocess.run([programName],input=inputTxt, capture_output=True, timeout=timeoutLimit, text=True, shell=True)
+        if "timeout" in runProcess.stdout:
+            print("Program " + programName + " timed out. This happened in a weird place in code so please report this to @GonnaDoStuff.")
+            return "timeout"
         return runProcess.stdout
     # if the program times out catch the exception and just print timeout
     except subprocess.CalledProcessError as e:

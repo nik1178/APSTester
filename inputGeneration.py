@@ -39,6 +39,7 @@ def maxToMin(n, min, max):
 testCounter = 0
 prevRandNum = 0
 def generateRandom(min, max):
+    
     global testCounter
     global prevRandNum
     howManyVariations = 12
@@ -130,64 +131,113 @@ def mediane():
 def vreca():
     global testCounter
     inputTxt = ""
-    N = generateRandom(1, 1000000)
-    inputTxt += str(N) + "\n"
     
     min = 1
     max = 1000000
     if testCounter==0:
+        N = 1
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in minToMax(1, min, max))
     elif testCounter==1:
+        N = 1
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in maxToMin(1, min, max))
     elif testCounter==2:
+        N = 1
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in minimumValues(min, 1))
     elif testCounter==3:
+        N = 1
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in maximumValues(max, 1))
     elif testCounter==4:
+        N = max
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in minToMax(max, min, max))
     elif testCounter==5:
+        N = max
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in maxToMin(max, min, max))
     elif testCounter==6:
+        N = max
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in minimumValues(min, max))
     elif testCounter==7:
+        N = max
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in maximumValues(max, max))
     elif testCounter==8:
+        N = min
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("0  " + str(x) + "\n" for x in minToMax(1, min, max))
     elif testCounter==9:
+        N = min
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in maxToMin(1, min, max))
     elif testCounter==10:
+        N = min
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in minimumValues(min, 1))
     elif testCounter==11:
+        N = min
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in maximumValues(max, 1))
     elif testCounter==12:
+        N = max
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in minToMax(max, min, max))
     elif testCounter==13:
+        N = max
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in maxToMin(max, min, max))
     elif testCounter==14:
+        N = max
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in minimumValues(min, max))
     elif testCounter==15:
+        N = max
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in maximumValues(max, max))
     elif testCounter==16:
+        N = min
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("1  " + str(x) + "\n" for x in minToMax(1, min, max))
     elif testCounter==17:
+        N = min
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in maxToMin(1, min, max))
     elif testCounter==18:
+        N = min
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in minimumValues(min, 1))
     elif testCounter==19:
+        N = min
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in maximumValues(max, 1))
     elif testCounter==20:
+        N = max
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in minToMax(max, min, max))
     elif testCounter==21:
+        N = max
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in maxToMin(max, min, max))
     elif testCounter==22:
+        N = max
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in minimumValues(min, max))
     elif testCounter==23:
+        N = max
+        inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in maximumValues(max, max))
         
     
     else:
         if testCounter==24:
             print("Stress tests over, starting random tests.")
+        
+        N = generateRandom(1, 1000000)
+        inputTxt += str(N) + "\n"
         for _ in range(N):
             s = random.randint(-1, 1)
             inputTxt += str(s) + " " + str(generateRandom(0, 1000000)) + "\n"

@@ -210,6 +210,8 @@ def setup():
             pull = subprocess.run('git pull origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
     # END OF CHECK FOR UPDATE---------------------------------------------
     
+    print("THIS IS VERY IMPORTANT TEXT I SWEAR, DEFINITELY ISNT A PLACEHOLDER AND YOU WERE DEFINITELY SUPPOSED TO SEE IT")
+    
     if args.timeout:
         timeoutLimit = args.timeout
     

@@ -245,7 +245,9 @@ def vreca():
         for _ in range(N):
             s = random.randint(-1, 1)
             if s==1:
-                s = random.randint(1, 1000000)
+                s = random.randint(min, max)
+            elif s==-1:
+                s = random.randint(-max, -min)
             inputTxt += str(s) + " " + str(generateRandom(min, max)) + "\n"
 
 

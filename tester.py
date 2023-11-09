@@ -183,8 +183,8 @@ def setup():
         print(fetch.stdout)
     else:
         if not args.pull:
-            localHash = subprocess.run(['git log -n 1 --pretty=format:"%H" master'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-            originHash = subprocess.run(['git log -n 1 --pretty=format:"%H" origin/master'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            localHash = subprocess.run('git log -n 1 --pretty=format:"%H" master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            originHash = subprocess.run('git log -n 1 --pretty=format:"%H" origin/master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
             if localHash.stdout != originHash.stdout:
                 print('\033[93m' + 'Your repo is not up to date. Please update it using "git pull" or run the script with the -p flag' + '\033[0m')
@@ -202,6 +202,8 @@ def setup():
                         print("Please respond with 'yes' or 'no'")
             else:
                 print('\033[93m' + 'You\'re up to date!' + '\033[0m')
+                print(localHash.stdout)
+                print(originHash.stdout)
         
         if args.pull or pullChoice:
             print('Pulling frome repo...')

@@ -155,14 +155,30 @@ def setup():
     global timeoutLimit
     global selected_assignment
     global testLimit
+    global pullChoice
 
     # Checks if repo is up to date
+    pullChoice = False
     oldStatus = subprocess.run(['git', 'status'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     fetch = subprocess.run(['git', 'fetch', 'origin'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     curStatus = subprocess.run(['git', 'status'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+
     
     if curStatus.stdout != oldStatus.stdout:
         print('\033[93m' + 'Your repo is not up to date. Please update it using "git pull" or run the script with the -p flag' + '\033[93m')
+        pullChoice = input('Would you like to update [y/N]:').lower()
+        # raw_input returns the empty string for "enter"
+        while True:
+            yes = {'yes','y', 'ye'}
+            no = {'no','n', ''}
+            if pullChoice in yes:
+                pullChoice = True
+                break;
+            elif pullChoice in no:
+                pullChoice = False;
+                break;
+            else:
+                print("Please respond with 'yes' or 'no'")
     else:
         print('\033[93m' + 'You\'re up to date!' + '\033[93m')
 
@@ -181,7 +197,7 @@ def setup():
     
     print("\n\033[34mRemember to use\033[0m \033[32m-h\033[0m \033[34mto see all the capabilities of this program!\033[0m\n")
 
-    if args.pull:
+    if args.pull or pullChoice:
         pull = subprocess.run(['git', 'pull'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
     
     if args.timeout:

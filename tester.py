@@ -155,7 +155,17 @@ def setup():
     global timeoutLimit
     global selected_assignment
     global testLimit
+
+    # Checks if repo is up to date
+    oldStatus = subprocess.run(['git', 'status'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    fetch = subprocess.run(['git', 'fetch', 'origin'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    curStatus = subprocess.run(['git', 'status'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     
+    if curStatus.stdout != oldStatus.stdout:
+        print('\033[93m' + 'Your repo is not up to date. Please update it using "git pull" or run the script with the -p flag' + '\033[93m')
+    else:
+        print('\033[93m' + 'You\'re up to date!' + '\033[93m')
+
     # Parameters for the program
     parser = argparse.ArgumentParser()
     parser.add_argument("-la", "--listassignments", help="List all the assignments that can be tested.", action="store_true")
@@ -165,10 +175,14 @@ def setup():
     parser.add_argument("-lm", "--limit", help="The limit of tests to run. Default is no limit.", type=int)
     parser.add_argument("-c", "--clear", help="Clear all temporary folders and previous outputs.", action="store_true")
     parser.add_argument("-stc", "--settestcounter", help="Set the test counter to a specific value. Default is 0. This mostly has no effect. Currently only helps with \"5vreca\".", type=int)
+    parser.add_argument("-p", "--pull", help="Automatically update tester.", action="store_true")
     
     args = parser.parse_args()
     
     print("\n\033[34mRemember to use\033[0m \033[32m-h\033[0m \033[34mto see all the capabilities of this program!\033[0m\n")
+
+    if args.pull:
+        pull = subprocess.run(['git', 'pull'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
     
     if args.timeout:
         timeoutLimit = args.timeout

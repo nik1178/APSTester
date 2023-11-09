@@ -1,5 +1,5 @@
 # How to run
-Place your cpp file in the main folder, then use the command:
+Place your cpp file into the APSTester folder, then use the command:
 ```python3 tester.py *name of your program*.cpp```
 
 For more options:

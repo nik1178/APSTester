@@ -164,6 +164,7 @@ def setup():
     parser.add_argument("-a", "--assignment", help="The name of the assignment. Choose the name of the assignment you are working on. Default is: %s" % selected_assignment, type=str)
     parser.add_argument("-lm", "--limit", help="The limit of tests to run. Default is no limit.", type=int)
     parser.add_argument("-c", "--clear", help="Clear all temporary folders and previous outputs.", action="store_true")
+    parser.add_argument("-stc", "--settestcounter", help="Set the test counter to a specific value. Default is 0. This mostly has no effect. Currently only helps with \"5vreca\".", type=int)
     
     args = parser.parse_args()
     
@@ -177,6 +178,9 @@ def setup():
     
     if operatingSystem == "Windows":
         slash = "\\"
+        
+    if args.settestcounter:
+        inputGeneration.setTestCounter(args.settestcounter)
     
     if operatingSystem == "Darwin":
         print("\033[31mWARNING\033[0m")

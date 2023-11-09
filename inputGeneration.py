@@ -128,6 +128,10 @@ def mediane():
     testCounter+=1
     return inputTxt
 
+def setTestCounter(n):
+    global testCounter
+    testCounter = n;
+
 def vreca():
     global testCounter
     inputTxt = ""
@@ -236,11 +240,13 @@ def vreca():
         if testCounter==24:
             print("Stress tests over, starting random tests.")
         
-        N = generateRandom(1, 1000000)
+        N = generateRandom(min, max)
         inputTxt += str(N) + "\n"
         for _ in range(N):
             s = random.randint(-1, 1)
-            inputTxt += str(s) + " " + str(generateRandom(0, 1000000)) + "\n"
+            if s==1:
+                s = random.randint(1, 1000000)
+            inputTxt += str(s) + " " + str(generateRandom(min, max)) + "\n"
 
 
     testCounter+=1

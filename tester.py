@@ -178,9 +178,6 @@ def setup():
     pullChoice = False
     if fetch.returncode != 0:
         print('\033[93m' + 'Cannot check if repository is up to date' + '\033[0m')
-        print(fetch.stderr)
-        print(fetch.returncode)
-        print(fetch.stdout)
     else:
         if not args.pull:
             localHash = subprocess.run('git log -n 1 --pretty=format:"%H" master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
@@ -208,9 +205,12 @@ def setup():
         if args.pull or pullChoice:
             print('Pulling frome repo...')
             pull = subprocess.run('git pull origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
+            if pull.returncode != 0:
+                print('\033[93m' + 'Cannot pull from repo' + '\033[0m')
+            else:
+                print('\033[93m' + 'Successfully pulled from repo! Please start the program again.' + '\033[0m')
+                exit(0)
     # END OF CHECK FOR UPDATE---------------------------------------------
-    
-    print("THIS IS VERY IMPORTANT TEXT I SWEAR, DEFINITELY ISNT A PLACEHOLDER AND YOU WERE DEFINITELY SUPPOSED TO SEE IT")
     
     if args.timeout:
         timeoutLimit = args.timeout

@@ -159,13 +159,12 @@ def setup():
 
     # Checks if repo is up to date
     pullChoice = False
-    oldStatus = subprocess.run(['git', 'status'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-    fetch = subprocess.run(['git', 'fetch', 'origin'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-    curStatus = subprocess.run(['git', 'status'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    localHash = subprocess.run(['git', 'log', '-n', '1', '--pretty=format:"%H"', 'master'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    originHash = subprocess.run(['git', 'log', '-n', '1', '--pretty=format:"%H"', 'origin/master'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
     
-    if curStatus.stdout != oldStatus.stdout:
-        print('\033[93m' + 'Your repo is not up to date. Please update it using "git pull" or run the script with the -p flag' + '\033[93m')
+    if localHash.stdout != originHash.stdout:
+        print('\033[93m' + 'Your repo is not up to date. Please update it using "git pull" or run the script with the -p flag' + '\033[0m')
         yes = {'yes','y', 'ye'}
         no = {'no','n', ''}
         while True:
@@ -179,7 +178,7 @@ def setup():
             else:
                 print("Please respond with 'yes' or 'no'")
     else:
-        print('\033[93m' + 'You\'re up to date!' + '\033[93m')
+        print('\033[93m' + 'You\'re up to date!' + '\033[0m')
 
     # Parameters for the program
     parser = argparse.ArgumentParser()

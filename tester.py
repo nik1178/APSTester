@@ -199,8 +199,6 @@ def setup():
                         print("Please respond with 'yes' or 'no'")
             else:
                 print('\033[93m' + 'You\'re up to date!' + '\033[0m')
-                print(localHash.stdout)
-                print(originHash.stdout)
         
         if args.pull or pullChoice:
             print('Pulling from repo...')

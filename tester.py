@@ -181,6 +181,8 @@ def setup():
         
     if args.settestcounter:
         inputGeneration.setTestCounter(args.settestcounter)
+        global outputCounter
+        outputCounter = args.settestcounter
     
     if operatingSystem == "Darwin":
         print("\033[31mWARNING\033[0m")

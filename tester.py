@@ -166,11 +166,10 @@ def setup():
     
     if curStatus.stdout != oldStatus.stdout:
         print('\033[93m' + 'Your repo is not up to date. Please update it using "git pull" or run the script with the -p flag' + '\033[93m')
-        pullChoice = input('Would you like to update [y/N]:').lower()
-        # raw_input returns the empty string for "enter"
+        yes = {'yes','y', 'ye'}
+        no = {'no','n', ''}
         while True:
-            yes = {'yes','y', 'ye'}
-            no = {'no','n', ''}
+            pullChoice = input('Would you like to update [y/N]:').lower()
             if pullChoice in yes:
                 pullChoice = True
                 break;
@@ -198,6 +197,7 @@ def setup():
     print("\n\033[34mRemember to use\033[0m \033[32m-h\033[0m \033[34mto see all the capabilities of this program!\033[0m\n")
 
     if args.pull or pullChoice:
+        print('Pulling frome repo...')
         pull = subprocess.run(['git', 'pull'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
     
     if args.timeout:

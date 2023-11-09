@@ -207,7 +207,7 @@ def setup():
         
         if args.pull or pullChoice:
             print('Pulling frome repo...')
-            pull = subprocess.run('git pull', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
+            pull = subprocess.run('git pull origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
     # END OF CHECK FOR UPDATE---------------------------------------------
     
     if args.timeout:

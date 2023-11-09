@@ -184,7 +184,7 @@ def setup():
             originHash = subprocess.run('git log -n 1 --pretty=format:"%H" origin/master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
             if localHash.stdout != originHash.stdout:
-                print('\033[93m' + 'Your repo is not up to date. Please update it using "git pull" or run the script with the -p flag' + '\033[0m')
+                print('\033[93m' + 'Your repo is not up to date. Follow instructions or run the script with the -p flag' + '\033[0m')
                 yes = {'yes','y', 'ye'}
                 no = {'no','n', ''}
                 while True:
@@ -203,7 +203,7 @@ def setup():
                 print(originHash.stdout)
         
         if args.pull or pullChoice:
-            print('Pulling frome repo...')
+            print('Pulling from repo...')
             pull = subprocess.run('git pull origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
             if pull.returncode != 0:
                 print('\033[93m' + 'Cannot pull from repo' + '\033[0m')

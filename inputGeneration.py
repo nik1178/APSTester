@@ -94,12 +94,25 @@ def generateRandom(min, max):
         intensity=100000000000
         return pushTowardMinimum(randNum, min, max, intensity)
 
+maxInputs = 0
+def setMaxInputs(n):
+    global maxInputs
+    maxInputs=n
+
+def setMax(max):
+    global maxInputs
+    if not maxInputs==0:
+        return maxInputs
+    return max
+
 ###### INPUT OPTIONS:
 
 def Kzlitje():
     global testCounter
     inputTxt = ""
-    N = generateRandom(1, 100000)
+    max = 100000
+    max = setMax(max)
+    N = generateRandom(1, max)
     K = generateRandom(2, 10)
     A = generateRandom(1, 20)
     inputTxt += str(N) + " " + str(K) + " " + str(A) + "\n"
@@ -111,7 +124,9 @@ def Kzlitje():
 def neboticniki():
     global testCounter
     inputTxt = ""
-    N = generateRandom(1, 1000000)
+    max = 1000000
+    max = setMax(max)
+    N = generateRandom(1, max)
     inputTxt += str(N) + "\n"
     for _ in range(N):
         inputTxt += str(generateRandom(0, 1000000000)) + "\n"
@@ -121,7 +136,9 @@ def neboticniki():
 def mediane():
     global testCounter
     inputTxt = ""
-    N = generateRandom(1, 100000)
+    max = 100000
+    max = setMax(max)
+    N = generateRandom(1, max)
     inputTxt += str(N) + "\n"
     for _ in range(N):
         inputTxt += str(generateRandom(0, 1000000000)) + "\n"
@@ -240,6 +257,7 @@ def vreca():
         if testCounter==24:
             print("Stress tests over, starting random tests.")
         
+        max = setMax(max)
         N = generateRandom(min, max)
         inputTxt += str(N) + "\n"
         for _ in range(N):

@@ -168,6 +168,7 @@ def setup():
     parser.add_argument("-c", "--clear", help="Clear all temporary folders and previous outputs.", action="store_true")
     parser.add_argument("-stc", "--settestcounter", help="Set the test counter to a specific value. Default is 0. This mostly has no effect. Currently only helps with \"5vreca\".", type=int)
     parser.add_argument("-p", "--pull", help="Automatically update tester.", action="store_true")
+    parser.add_argument("-max", "--max", help="Set the maximum numbers of inputs the program will be able to generate. Use at your own risk.", type=int)
     
     args = parser.parse_args()
     
@@ -219,6 +220,9 @@ def setup():
     
     if operatingSystem == "Windows":
         slash = "\\"
+    
+    if args.max:
+        inputGeneration.setMaxInputs(args.max)
         
     if args.settestcounter:
         inputGeneration.setTestCounter(args.settestcounter)

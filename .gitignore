@@ -8,3 +8,4 @@ test.in
 *.userCompiled
 .vscode
 /*.exe
+/*.out

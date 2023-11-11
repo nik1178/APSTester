@@ -333,14 +333,17 @@ def autocomplete():
     max_word_length_sum = 1000000
     min_word_priority = 1
     max_word_priority = 1000000000
+    N_max = 1000000
+    N_max = setMax(N_max)
     
     # queries
+    Q_max = N_max
     max_query_length_sum = 1000000
     max_random_word_length = 30
     
     # Randomly generate words remembering that their sum cannot be bigger than 10^6
     readSloveneFile()
-    N = generateRandom(1, 1000000)
+    N = generateRandom(1, N_max)
     selected_words = random.sample(allWords, N if N<len(allWords) else len(allWords))
     word_length_sum = sum(len(i) for i in selected_words)
     # print(word_length_sum)
@@ -361,7 +364,7 @@ def autocomplete():
     
     # Generate the queries
     # Some queries will be random chars, while some will be shortened words from selected_words
-    Q = generateRandom(1, 1000000)
+    Q = generateRandom(1, Q_max)
     query_list = []
     query_list_length_sum = 0
     while query_list_length_sum < 1000000 and len(query_list) < Q:
@@ -390,5 +393,3 @@ def autocomplete():
     
     testCounter+=1
     return inputTxt
-
-#temp msg

@@ -290,11 +290,10 @@ def setup():
     
     # Get the correct assignment
     if args.assignment:
-        if args.assignment in assignments:
-            selected_assignment = args.assignment
-        else:
-            print("Assignment " + args.assignment + " does not exist. Make sure your wrote the name exactly. Use -la to list all the assignments.")
-            exit(1)
+        selected_assignment = args.assignment
+    if not selected_assignment in assignments:
+        print("Assignment " + selected_assignment + " does not exist (at least for your operating system). \nMake sure your wrote the name exactly. \nUse -la to list all the assignments for your operating system.")
+        exit(1)
     
     # Get the correct folder name for the working programs
     workingProgramsFolderName += slash + selected_assignment
@@ -308,7 +307,7 @@ def setup():
         exit(1)
 
     # Command to compile the C++ program 
-    compileArr = ["g++ -std=c++20 -o", programName, program]
+    compileArr = ["g++ -std=c++20 -o ", programName, program]
     compileCmd = " ".join(str(x) for x in compileArr)
     # Compile the C++ program 
     compileProcess = subprocess.run(compileCmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)

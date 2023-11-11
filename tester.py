@@ -339,7 +339,7 @@ def setup():
         
     
     # Infinite loop for infinite test
-    print("Starting test program.")
+    print("\nStarting test program. Testing for \033[31m%s\033[0m. Check -h to change this.\n" % selected_assignment)
     while True:
         testProgram(programName);
         

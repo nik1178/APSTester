@@ -43,10 +43,12 @@ empty_rand_detection = "emptyBro"
 prevRandNum = empty_rand_detection
 prevMin = 0
 prevMax = 0
+print_cycle_message = True
 def generateRandom(min, max):
     
     global testCounter
     global prevRandNum, prevMin, prevMax
+    global print_cycle_message
     howManyVariations = 13
     intensity = 10
     
@@ -65,10 +67,13 @@ def generateRandom(min, max):
     elif testCounter==1:
         return max
     elif testCounter%howManyVariations == 0:
-        print("Cycle %d comepleted" % (testCounter//howManyVariations))
+        if print_cycle_message:
+            print("Cycle %d completed" % (testCounter//howManyVariations))
+            print_cycle_message = False
         intensity=10
         return pushTowardExtremes(randNum, min, max, intensity)
     elif testCounter%howManyVariations == 1:
+        print_cycle_message = True
         intensity=1000
         return pushTowardExtremes(randNum, min, max, intensity)
     elif testCounter%howManyVariations == 2:
@@ -383,7 +388,6 @@ def autocomplete():
     for i in range(Q):
         inputTxt += query_list[i] + "\n"
     
-    print (inputTxt)
     testCounter+=1
 
 autocomplete()

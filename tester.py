@@ -20,7 +20,7 @@ testLimit = 0 # 0 means no limit
 
 operatingSystem = platform.system()
 
-selected_assignment = "5vreca"
+selected_assignment = "6autocomplete"
 
 slash = "/"
 
@@ -52,10 +52,13 @@ def giveExecutePermission(path):
     
 
 outputCounter = 0
+first_run = True
 
 def testProgram(userProgramName):
     global outputCounter
     global testLimit
+    global first_run
+    global timeoutLimit
     
     # Generate input file # Currently hardcoded for DN2
     ############################################################# CHANGE THIS ###################################################################
@@ -68,6 +71,11 @@ def testProgram(userProgramName):
         inputTxt = inputGeneration.mediane()
     elif selected_assignment == "5vreca":
         inputTxt = inputGeneration.vreca()
+    elif selected_assignment == "6autocomplete":
+        inputTxt = inputGeneration.autocomplete()
+    else:
+        print("Input generation for selected assignment not found. Please report this to @GonnaDoStuff.")
+        exit(1)
 
     #### Generate output file by running the working programs with the generated input file
     workingProgramNames = os.listdir("." + slash + workingProgramsFolderName)
@@ -75,6 +83,12 @@ def testProgram(userProgramName):
     if workingProgramNames == []:
         print("No working programs found in the workingPrograms folder. Please add some working programs and try again.")
         exit(1)
+    
+    if first_run:
+        for currWorkingProgram in workingProgramNames:
+            if "naive" in currWorkingProgram:
+                print("\n\033[34mNaive program found amongst working programs. \nThis most likely means the working program is temporary. \nThis program works, but it is very slow. \nTimeout automatically removed for this assignment.\033[0m\n")
+                timeoutLimit=7200
     
     # Get outputs of all the working programs
     atleastOneWorkingProgram = False
@@ -149,6 +163,8 @@ def testProgram(userProgramName):
     if testLimit != 0 and outputCounter >= testLimit:
         print("Test limit reached. Exiting.")
         exit(0)
+    
+    first_run = False
 
 def setup():
     global workingProgramsFolderName

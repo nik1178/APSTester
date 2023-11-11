@@ -321,7 +321,6 @@ def vreca():
 def autocomplete():
     #Slovar vsebuje same razlicne besede. Prav tako so pomembnosti besed sama razlicna cela stevila.
     global allWords, testCounter
-    testCounter = 12
     
     inputTxt = ""
     
@@ -331,6 +330,7 @@ def autocomplete():
     max_word_priority = 1000000000
     
     # queries
+    max_query_length_sum = 1000000
     max_random_word_length = 30
     
     # Randomly generate words remembering that their sum cannot be bigger than 10^6
@@ -338,7 +338,7 @@ def autocomplete():
     N = generateRandom(1, 1000000)
     selected_words = random.sample(allWords, N if N<len(allWords) else len(allWords))
     word_length_sum = sum(len(i) for i in selected_words)
-    print(word_length_sum)
+    # print(word_length_sum)
     if word_length_sum > max_word_length_sum:
         while word_length_sum > max_word_length_sum:
             current_word = selected_words[-1]
@@ -347,7 +347,7 @@ def autocomplete():
     N = len(selected_words)
     
     # Randomly generate priorities for the words
-    word_priority_list = random.sample(range(1, 1000000), N)
+    word_priority_list = random.sample(range(min_word_priority, max_word_priority), N)
     
     # Add the words and priorities to the inputTxt
     inputTxt += str(N) + "\n"
@@ -365,15 +365,14 @@ def autocomplete():
         if random_num < 10:
             current_word = generateRandomWord(1, max_random_word_length)
             query_list.append(current_word)
-            query_list_length_sum += len(current_word)
         else:
             current_word = random.choice(selected_words)
             current_word_len = len(current_word)
             current_word = current_word[:random.randint(1, current_word_len)]
             query_list.append(current_word)
-            query_list_length_sum += len(current_word)
+        query_list_length_sum += len(current_word)
     
-    if query_list_length_sum > 1000000:
+    if query_list_length_sum > max_query_length_sum:
         query_list.pop()
     
     if len(query_list) < Q:
@@ -384,7 +383,7 @@ def autocomplete():
     for i in range(Q):
         inputTxt += query_list[i] + "\n"
     
-    # print (inputTxt)
+    print (inputTxt)
     testCounter+=1
 
 autocomplete()

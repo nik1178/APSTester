@@ -7,3 +7,4 @@ allOutputs/
 test.in
 *.userCompiled
 .vscode
+/*.exe

@@ -1,12 +1,14 @@
-import random
+import collections
 import math
+import os
+import random
 
 
 # Makes the numbers closer towards the extremes, to test edge cases 
 def pushTowardExtremes(num, minValue, maxValue, intensity):
     x = (num-minValue)/(maxValue-minValue) # Get percentage of how far the number is from the min and max
     """ intensity = intensity  """# How much it should be pushed towards the extremes (set close to 0 BUT NOT 0 for linear distribution)
-    offset = ((math.atan(2*intensity*x-intensity)*math.pi)/(math.pi*math.atan(intensity))+1)/2 # Function from image
+    offset = ((math.atan(2*intensity*x-intensity))/(math.atan(intensity))+1)/2 # Function from image
     newNum = offset*(maxValue-minValue)+minValue # Apply the offset to the number
     return int(newNum)
 
@@ -37,27 +39,33 @@ def maxToMin(n, min, max):
     return [max - (max-min)*i//n for i in range(n)]
 
 testCounter = 0
-prevRandNum = 0
+empty_rand_detection = "emptyBro"
+prevRandNum = empty_rand_detection
+prevMin = 0
+prevMax = 0
 def generateRandom(min, max):
     
     global testCounter
-    global prevRandNum
-    howManyVariations = 12
+    global prevRandNum, prevMin, prevMax
+    howManyVariations = 13
     intensity = 10
     
     randNum = 0
     
-    if random.randint(0,25) == 0:
+    if random.randint(0,25) == 0 and str(prevRandNum) != empty_rand_detection and prevMin == min and prevMax == max:
         randNum = prevRandNum
     else:
         randNum = random.randint(min, max)
         prevRandNum = randNum
+        prevMin = min
+        prevMax = max
     
     if testCounter==0:
         return min
     elif testCounter==1:
         return max
     elif testCounter%howManyVariations == 0:
+        print("Cycle %d comepleted" % (testCounter//howManyVariations))
         intensity=10
         return pushTowardExtremes(randNum, min, max, intensity)
     elif testCounter%howManyVariations == 1:
@@ -68,6 +76,9 @@ def generateRandom(min, max):
         return pushTowardExtremes(randNum, min, max, intensity)
     elif testCounter%howManyVariations == 9:
         intensity=1000000000
+        return pushTowardExtremes(randNum, min, max, intensity)
+    elif testCounter%howManyVariations == 12:
+        intensity = 1
         return pushTowardExtremes(randNum, min, max, intensity)
     elif testCounter%howManyVariations == 3:
         intensity=0.01
@@ -93,6 +104,16 @@ def generateRandom(min, max):
     elif testCounter%howManyVariations == 11:
         intensity=100000000000
         return pushTowardMinimum(randNum, min, max, intensity)
+    
+def generateRandomWord(min, max):
+    # Generates a random word with a random length between min and max
+    length = generateRandom(min, max)
+    if length > 30:
+        print("YOOOOOOOOOOOOOOOOOOOOOhereherhehrhe " + str(min) + " " + str(max))
+    word = ""
+    for _ in range(length):
+        word += chr(generateRandom(97, 122))
+    return word
 
 maxInputs = 0
 def setMaxInputs(n):
@@ -104,6 +125,31 @@ def setMax(max):
     if not maxInputs==0:
         return maxInputs
     return max
+
+
+
+
+allWords = []
+sloveneWordsFile = os.path.join("supportFiles","allSloveneWords.txt")
+gotSloveneFile = False
+
+def readSloveneFile():
+    global gotSloveneFile
+    global allWords
+    if gotSloveneFile:
+        return
+
+    with open(sloveneWordsFile, 'r') as f:
+        fullFile = f.read()
+        fullFile = fullFile.split("\n")
+        seen = set()
+        allWords = []
+        for x in fullFile:
+            if x not in seen:
+                allWords.append(x)
+                seen.add(x)
+        
+    gotSloveneFile = True
 
 ###### INPUT OPTIONS:
 
@@ -271,3 +317,74 @@ def vreca():
 
     testCounter+=1
     return inputTxt
+
+def autocomplete():
+    #Slovar vsebuje same razlicne besede. Prav tako so pomembnosti besed sama razlicna cela stevila.
+    global allWords, testCounter
+    testCounter = 12
+    
+    inputTxt = ""
+    
+    # words
+    max_word_length_sum = 1000000
+    min_word_priority = 1
+    max_word_priority = 1000000000
+    
+    # queries
+    max_random_word_length = 30
+    
+    # Randomly generate words remembering that their sum cannot be bigger than 10^6
+    readSloveneFile()
+    N = generateRandom(1, 1000000)
+    selected_words = random.sample(allWords, N if N<len(allWords) else len(allWords))
+    word_length_sum = sum(len(i) for i in selected_words)
+    print(word_length_sum)
+    if word_length_sum > max_word_length_sum:
+        while word_length_sum > max_word_length_sum:
+            current_word = selected_words[-1]
+            word_length_sum -= len(current_word)
+            selected_words.pop()
+    N = len(selected_words)
+    
+    # Randomly generate priorities for the words
+    word_priority_list = random.sample(range(1, 1000000), N)
+    
+    # Add the words and priorities to the inputTxt
+    inputTxt += str(N) + "\n"
+    for i in range(N):
+        inputTxt += selected_words[i] + " " + str(word_priority_list[i]) + "\n"
+    
+    # Generate the queries
+    # Some queries will be random chars, while some will be shortened words from selected_words
+    Q = generateRandom(1, 1000000)
+    query_list = []
+    query_list_length_sum = 0
+    while query_list_length_sum < 1000000 and len(query_list) < Q:
+        random_num = random.randint(0, 100)
+        current_word = ""
+        if random_num < 10:
+            current_word = generateRandomWord(1, max_random_word_length)
+            query_list.append(current_word)
+            query_list_length_sum += len(current_word)
+        else:
+            current_word = random.choice(selected_words)
+            current_word_len = len(current_word)
+            current_word = current_word[:random.randint(1, current_word_len)]
+            query_list.append(current_word)
+            query_list_length_sum += len(current_word)
+    
+    if query_list_length_sum > 1000000:
+        query_list.pop()
+    
+    if len(query_list) < Q:
+        Q = len(query_list)
+    
+    # Add the queries to the inputTxt
+    inputTxt += str(Q) + "\n"
+    for i in range(Q):
+        inputTxt += query_list[i] + "\n"
+    
+    # print (inputTxt)
+    testCounter+=1
+
+autocomplete()

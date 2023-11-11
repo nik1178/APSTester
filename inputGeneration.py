@@ -389,5 +389,4 @@ def autocomplete():
         inputTxt += query_list[i] + "\n"
     
     testCounter+=1
-
-autocomplete()
+    return inputTxt

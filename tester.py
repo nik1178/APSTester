@@ -188,6 +188,8 @@ def setup():
     
     args = parser.parse_args()
     
+    print("\033[31mI do NOT guarantee the correctness of the tests.\nI do excessive testing on all programs, so they should be correct, but I do not GUARANTEE it.\033[0m\n")
+    
     print("\n\033[34mRemember to use\033[0m \033[32m-h\033[0m \033[34mto see all the capabilities of this program!\033[0m\n")
 
     # Checks if repo is up to date--------------------------------------

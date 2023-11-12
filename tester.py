@@ -34,6 +34,9 @@ def runCPPProgram(programName, inputTxt):
         if "timeout" in runProcess.stdout:
             print("Program " + programName + " timed out. This happened in a weird place in code so please report this to @GonnaDoStuff.")
             return "timeout"
+        if runProcess.returncode != 0:
+            print("Program " + programName + " exited with code " + str(runProcess.returncode) + ".")
+            return "Crashed"
         return runProcess.stdout
     # if the program times out catch the exception and just print timeout
     except subprocess.CalledProcessError as e:
@@ -301,7 +304,13 @@ def setup():
     workingProgramsFolderName += slash + selected_assignment
 
     program = args.program
-    programName = program.split(".")[0]
+    if not program.endswith(".cpp"):
+        print("Program " + program + " does not end with .cpp. Make sure you wrote the name correctly.\n")
+        exit(1)
+    if program[0] == ".":
+        print("Program " + program + " starts with a dot. Make sure you wrote the name correctly or remove the dot from the name.\n")
+        exit(1)
+    programName = program[:-4]
     programName+=".userCompiled"
     
     if not os.path.exists(program):

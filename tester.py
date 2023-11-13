@@ -79,6 +79,9 @@ def testProgram(userProgramName):
     else:
         print("Input generation for selected assignment not found. Please report this to @GonnaDoStuff.")
         exit(1)
+    
+    """ with open ("test.in", 'w') as f:
+        f.write(inputTxt) """
 
     #### Generate output file by running the working programs with the generated input file
     workingProgramNames = os.listdir("." + slash + workingProgramsFolderName)

@@ -39,6 +39,7 @@ def maxToMin(n, min, max):
     return [max - (max-min)*i//n for i in range(n)]
 
 testCounter = 0
+randomCounter = 0
 empty_rand_detection = "emptyBro"
 prevRandNum = empty_rand_detection
 prevMin = 0
@@ -113,11 +114,9 @@ def generateRandom(min, max):
 def generateRandomWord(min, max):
     # Generates a random word with a random length between min and max
     length = generateRandom(min, max)
-    if length > 30:
-        print("YOOOOOOOOOOOOOOOOOOOOOhereherhehrhe " + str(min) + " " + str(max))
     word = ""
     for _ in range(length):
-        word += chr(generateRandom(97, 122))
+        word += chr(random.randint(97, 122))
     return word
 
 maxInputs = 0
@@ -159,7 +158,7 @@ def readSloveneFile():
 ###### INPUT OPTIONS:
 
 def Kzlitje():
-    global testCounter
+    global testCounter, randomCounter
     inputTxt = ""
     max = 100000
     max = setMax(max)
@@ -170,10 +169,11 @@ def Kzlitje():
     for _ in range(N):
         inputTxt += str(generateRandom(0, 1000000000)) + "\n"
     testCounter+=1
+    randomCounter+=1
     return inputTxt
 
 def neboticniki():
-    global testCounter
+    global testCounter, randomCounter
     inputTxt = ""
     max = 1000000
     max = setMax(max)
@@ -182,10 +182,11 @@ def neboticniki():
     for _ in range(N):
         inputTxt += str(generateRandom(0, 1000000000)) + "\n"
     testCounter+=1
+    randomCounter+=1
     return inputTxt
 
 def mediane():
-    global testCounter
+    global testCounter, randomCounter
     inputTxt = ""
     max = 100000
     max = setMax(max)
@@ -194,6 +195,7 @@ def mediane():
     for _ in range(N):
         inputTxt += str(generateRandom(0, 1000000000)) + "\n"
     testCounter+=1
+    randomCounter+=1
     return inputTxt
 
 def setTestCounter(n):
@@ -201,111 +203,111 @@ def setTestCounter(n):
     testCounter = n;
 
 def vreca():
-    global testCounter
+    global randomCounter, testCounter
     inputTxt = ""
     
     min = 1
     max = 1000000
-    if testCounter==0:
+    if randomCounter==0:
         N = 1
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in minToMax(1, min, max))
-    elif testCounter==1:
+    elif randomCounter==1:
         N = 1
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in maxToMin(1, min, max))
-    elif testCounter==2:
+    elif randomCounter==2:
         N = 1
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in minimumValues(min, 1))
-    elif testCounter==3:
+    elif randomCounter==3:
         N = 1
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in maximumValues(max, 1))
-    elif testCounter==4:
+    elif randomCounter==4:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in minToMax(max, min, max))
-    elif testCounter==5:
+    elif randomCounter==5:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in maxToMin(max, min, max))
-    elif testCounter==6:
+    elif randomCounter==6:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in minimumValues(min, max))
-    elif testCounter==7:
+    elif randomCounter==7:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in maximumValues(max, max))
-    elif testCounter==8:
+    elif randomCounter==8:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0  " + str(x) + "\n" for x in minToMax(1, min, max))
-    elif testCounter==9:
+    elif randomCounter==9:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in maxToMin(1, min, max))
-    elif testCounter==10:
+    elif randomCounter==10:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in minimumValues(min, 1))
-    elif testCounter==11:
+    elif randomCounter==11:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in maximumValues(max, 1))
-    elif testCounter==12:
+    elif randomCounter==12:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in minToMax(max, min, max))
-    elif testCounter==13:
+    elif randomCounter==13:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in maxToMin(max, min, max))
-    elif testCounter==14:
+    elif randomCounter==14:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in minimumValues(min, max))
-    elif testCounter==15:
+    elif randomCounter==15:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in maximumValues(max, max))
-    elif testCounter==16:
+    elif randomCounter==16:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1  " + str(x) + "\n" for x in minToMax(1, min, max))
-    elif testCounter==17:
+    elif randomCounter==17:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in maxToMin(1, min, max))
-    elif testCounter==18:
+    elif randomCounter==18:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in minimumValues(min, 1))
-    elif testCounter==19:
+    elif randomCounter==19:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in maximumValues(max, 1))
-    elif testCounter==20:
+    elif randomCounter==20:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in minToMax(max, min, max))
-    elif testCounter==21:
+    elif randomCounter==21:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in maxToMin(max, min, max))
-    elif testCounter==22:
+    elif randomCounter==22:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in minimumValues(min, max))
-    elif testCounter==23:
+    elif randomCounter==23:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in maximumValues(max, max))
         
     
     else:
-        if testCounter==24:
+        if randomCounter==24:
             print("Stress tests over, starting random tests.")
         
         max = setMax(max)
@@ -318,6 +320,7 @@ def vreca():
             elif s==-1:
                 s = random.randint(-max, -min)
             inputTxt += str(s) + " " + str(generateRandom(min, max)) + "\n"
+        randomCounter+=1
 
 
     testCounter+=1
@@ -325,71 +328,82 @@ def vreca():
 
 def autocomplete():
     #Slovar vsebuje same razlicne besede. Prav tako so pomembnosti besed sama razlicna cela stevila.
-    global allWords, testCounter
-    
+    global allWords, testCounter, randomCounter
+
     inputTxt = ""
     
-    # words
-    max_word_length_sum = 1000000
-    min_word_priority = 1
-    max_word_priority = 1000000000
-    N_max = 1000000
-    N_max = setMax(N_max)
-    
-    # queries
-    Q_max = N_max
-    max_query_length_sum = 1000000
-    max_random_word_length = 30
-    
-    # Randomly generate words remembering that their sum cannot be bigger than 10^6
-    readSloveneFile()
-    N = generateRandom(1, N_max)
-    selected_words = random.sample(allWords, N if N<len(allWords) else len(allWords))
-    word_length_sum = sum(len(i) for i in selected_words)
-    # print(word_length_sum)
-    if word_length_sum > max_word_length_sum:
-        while word_length_sum > max_word_length_sum:
-            current_word = selected_words[-1]
-            word_length_sum -= len(current_word)
-            selected_words.pop()
-    N = len(selected_words)
-    
-    # Randomly generate priorities for the words
-    word_priority_list = random.sample(range(min_word_priority, max_word_priority), N)
-    
-    # Add the words and priorities to the inputTxt
-    inputTxt += str(N) + "\n"
-    for i in range(N):
-        inputTxt += selected_words[i] + " " + str(word_priority_list[i]) + "\n"
-    
-    # Generate the queries
-    # Some queries will be random chars, while some will be shortened words from selected_words
-    Q = generateRandom(1, Q_max)
-    query_list = []
-    query_list_length_sum = 0
-    while query_list_length_sum < 1000000 and len(query_list) < Q:
-        random_num = random.randint(0, 100)
-        current_word = ""
-        if random_num < 10:
-            current_word = generateRandomWord(1, max_random_word_length)
-            query_list.append(current_word)
-        else:
-            current_word = random.choice(selected_words)
-            current_word_len = len(current_word)
-            current_word = current_word[:random.randint(1, current_word_len)]
-            query_list.append(current_word)
-        query_list_length_sum += len(current_word)
-    
-    if query_list_length_sum > max_query_length_sum:
-        query_list.pop()
-    
-    if len(query_list) < Q:
-        Q = len(query_list)
-    
-    # Add the queries to the inputTxt
-    inputTxt += str(Q) + "\n"
-    for i in range(Q):
-        inputTxt += query_list[i] + "\n"
+    if testCounter==0:
+        inputTxt += "1\n"
+        for _ in range(10**6-1):
+            inputTxt += "a"
+        inputTxt += " 1\n"
+        inputTxt += str(10**6) + "\n"
+        for _ in range(10**6+1):
+            inputTxt += "a\n"
+    else:
+        print("Stress tests over, starting random tests.")
+        # words
+        max_word_length_sum = 1000000
+        min_word_priority = 1
+        max_word_priority = 1000000000
+        N_max = 1000000
+        N_max = setMax(N_max)
+        
+        # queries
+        Q_max = N_max
+        max_query_length_sum = 1000000
+        max_random_word_length = 30
+        
+        # Randomly generate words remembering that their sum cannot be bigger than 10^6
+        readSloveneFile()
+        N = generateRandom(1, N_max)
+        selected_words = random.sample(allWords, N if N<len(allWords) else len(allWords))
+        word_length_sum = sum(len(i) for i in selected_words)
+        # print(word_length_sum)
+        if word_length_sum > max_word_length_sum:
+            while word_length_sum > max_word_length_sum:
+                current_word = selected_words[-1]
+                word_length_sum -= len(current_word)
+                selected_words.pop()
+        N = len(selected_words)
+        
+        # Randomly generate priorities for the words
+        word_priority_list = random.sample(range(min_word_priority, max_word_priority), N)
+        
+        # Add the words and priorities to the inputTxt
+        inputTxt += str(N) + "\n"
+        for i in range(N):
+            inputTxt += selected_words[i] + " " + str(word_priority_list[i]) + "\n"
+        
+        # Generate the queries
+        # Some queries will be random chars, while some will be shortened words from selected_words
+        Q = generateRandom(1, Q_max)
+        query_list = []
+        query_list_length_sum = 0
+        while query_list_length_sum < 1000000 and len(query_list) < Q:
+            random_num = random.randint(0, 100)
+            current_word = ""
+            if random_num < 10:
+                current_word = generateRandomWord(1, max_random_word_length)
+                query_list.append(current_word)
+            else:
+                current_word = random.choice(selected_words)
+                current_word_len = len(current_word)
+                current_word = current_word[:random.randint(1, current_word_len)]
+                query_list.append(current_word)
+            query_list_length_sum += len(current_word)
+        
+        if query_list_length_sum > max_query_length_sum:
+            query_list.pop()
+        
+        if len(query_list) < Q:
+            Q = len(query_list)
+        
+        # Add the queries to the inputTxt
+        inputTxt += str(Q) + "\n"
+        for i in range(Q):
+            inputTxt += query_list[i] + "\n"
+        randomCounter+=1
     
     testCounter+=1
     return inputTxt

@@ -47,7 +47,7 @@ prevMax = 0
 print_cycle_message = True
 def generateRandom(min, max):
     
-    global testCounter
+    global testCounter, randomCounter
     global prevRandNum, prevMin, prevMax
     global print_cycle_message
     howManyVariations = 13
@@ -67,47 +67,47 @@ def generateRandom(min, max):
         return min
     elif testCounter==1:
         return max
-    elif testCounter%howManyVariations == 0:
+    elif randomCounter%howManyVariations == 0:
         if print_cycle_message:
-            print("Cycle %d completed" % (testCounter//howManyVariations))
+            print("Cycle %d completed" % (randomCounter//howManyVariations))
             print_cycle_message = False
         intensity=10
         return pushTowardExtremes(randNum, min, max, intensity)
-    elif testCounter%howManyVariations == 1:
+    elif randomCounter%howManyVariations == 1:
         print_cycle_message = True
         intensity=1000
         return pushTowardExtremes(randNum, min, max, intensity)
-    elif testCounter%howManyVariations == 2:
+    elif randomCounter%howManyVariations == 2:
         intensity=100000
         return pushTowardExtremes(randNum, min, max, intensity)
-    elif testCounter%howManyVariations == 9:
+    elif randomCounter%howManyVariations == 9:
         intensity=1000000000
         return pushTowardExtremes(randNum, min, max, intensity)
-    elif testCounter%howManyVariations == 12:
+    elif randomCounter%howManyVariations == 12:
         intensity = 1
         return pushTowardExtremes(randNum, min, max, intensity)
-    elif testCounter%howManyVariations == 3:
+    elif randomCounter%howManyVariations == 3:
         intensity=0.01
         return pushTowardMaximum(randNum, min, max, intensity)
-    elif testCounter%howManyVariations == 4:
+    elif randomCounter%howManyVariations == 4:
         intensity=0.1
         return pushTowardMaximum(randNum, min, max, intensity)
-    elif testCounter%howManyVariations == 5:
+    elif randomCounter%howManyVariations == 5:
         intensity=0.5
         return pushTowardMaximum(randNum, min, max, intensity)
-    elif testCounter%howManyVariations == 10:
+    elif randomCounter%howManyVariations == 10:
         intensity=0.0001
         return pushTowardMaximum(randNum, min, max, intensity)
-    elif testCounter%howManyVariations == 6:
+    elif randomCounter%howManyVariations == 6:
         intensity=100
         return pushTowardMinimum(randNum, min, max, intensity)
-    elif testCounter%howManyVariations == 7:
+    elif randomCounter%howManyVariations == 7:
         intensity=100000
         return pushTowardMinimum(randNum, min, max, intensity)
-    elif testCounter%howManyVariations == 8:
+    elif randomCounter%howManyVariations == 8:
         intensity=100000000
         return pushTowardMinimum(randNum, min, max, intensity)
-    elif testCounter%howManyVariations == 11:
+    elif randomCounter%howManyVariations == 11:
         intensity=100000000000
         return pushTowardMinimum(randNum, min, max, intensity)
     
@@ -208,106 +208,106 @@ def vreca():
     
     min = 1
     max = 1000000
-    if randomCounter==0:
+    if testCounter==0:
         N = 1
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in minToMax(1, min, max))
-    elif randomCounter==1:
+    elif testCounter==1:
         N = 1
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in maxToMin(1, min, max))
-    elif randomCounter==2:
+    elif testCounter==2:
         N = 1
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in minimumValues(min, 1))
-    elif randomCounter==3:
+    elif testCounter==3:
         N = 1
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in maximumValues(max, 1))
-    elif randomCounter==4:
+    elif testCounter==4:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in minToMax(max, min, max))
-    elif randomCounter==5:
+    elif testCounter==5:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in maxToMin(max, min, max))
-    elif randomCounter==6:
+    elif testCounter==6:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in minimumValues(min, max))
-    elif randomCounter==7:
+    elif testCounter==7:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("-1 " + str(x) + "\n" for x in maximumValues(max, max))
-    elif randomCounter==8:
+    elif testCounter==8:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0  " + str(x) + "\n" for x in minToMax(1, min, max))
-    elif randomCounter==9:
+    elif testCounter==9:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in maxToMin(1, min, max))
-    elif randomCounter==10:
+    elif testCounter==10:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in minimumValues(min, 1))
-    elif randomCounter==11:
+    elif testCounter==11:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in maximumValues(max, 1))
-    elif randomCounter==12:
+    elif testCounter==12:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in minToMax(max, min, max))
-    elif randomCounter==13:
+    elif testCounter==13:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in maxToMin(max, min, max))
-    elif randomCounter==14:
+    elif testCounter==14:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in minimumValues(min, max))
-    elif randomCounter==15:
+    elif testCounter==15:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("0 " + str(x) + "\n" for x in maximumValues(max, max))
-    elif randomCounter==16:
+    elif testCounter==16:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1  " + str(x) + "\n" for x in minToMax(1, min, max))
-    elif randomCounter==17:
+    elif testCounter==17:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in maxToMin(1, min, max))
-    elif randomCounter==18:
+    elif testCounter==18:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in minimumValues(min, 1))
-    elif randomCounter==19:
+    elif testCounter==19:
         N = min
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in maximumValues(max, 1))
-    elif randomCounter==20:
+    elif testCounter==20:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in minToMax(max, min, max))
-    elif randomCounter==21:
+    elif testCounter==21:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in maxToMin(max, min, max))
-    elif randomCounter==22:
+    elif testCounter==22:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in minimumValues(min, max))
-    elif randomCounter==23:
+    elif testCounter==23:
         N = max
         inputTxt += str(N) + "\n"
         inputTxt += "".join("1 " + str(x) + "\n" for x in maximumValues(max, max))
         
     
     else:
-        if randomCounter==24:
+        if randomCounter==0:
             print("Stress tests over, starting random tests.")
         
         max = setMax(max)
@@ -341,7 +341,8 @@ def autocomplete():
         for _ in range(10**6+1):
             inputTxt += "a\n"
     else:
-        print("Stress tests over, starting random tests.")
+        if randomCounter==0:
+            print("Stress tests over, starting random tests.")
         # words
         max_word_length_sum = 1000000
         min_word_priority = 1

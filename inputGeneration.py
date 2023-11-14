@@ -340,6 +340,15 @@ def autocomplete():
         inputTxt += str(10**6) + "\n"
         for _ in range(10**6+1):
             inputTxt += "a\n"
+    elif testCounter==1:
+        inputTxt += "1\n"
+        for _ in range(10**6-1):
+            inputTxt += "a"
+        inputTxt += " 1\n"
+        inputTxt += "1\n"
+        for _ in range(10**6-1):
+            inputTxt += "a"
+        inputTxt += "\n"
     else:
         if randomCounter==0:
             print("Stress tests over, starting random tests.")

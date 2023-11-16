@@ -98,6 +98,7 @@ def testProgram(userProgramName):
     
     # Get outputs of all the working programs
     atleastOneWorkingProgram = False
+    workingProgramsDisagree = False
     prevOutput = ""
     for currWorkingProgram in workingProgramNames:
         path = workingProgramsFolderName + slash + currWorkingProgram
@@ -113,6 +114,7 @@ def testProgram(userProgramName):
         
         if prevOutput != "" and prevOutput != output:
             print("Working programs disagree between eachother. Please report this to @GonnaDoStuff and send him the failed tests.")
+            workingProgramsDisagree = True
         prevOutput = output
     
     if not atleastOneWorkingProgram:
@@ -141,6 +143,9 @@ def testProgram(userProgramName):
     passedOrNotFolderName = slash + "passed" + slash
     if outputsMatch:
         print(str(outputCounter) + ": " + "[\033[32m+\033[0m] Test passed", end="")
+    elif workingProgramsDisagree:
+        print(str(outputCounter) + ": " + "[\033[93m-\033[0m] Test failed", end="")
+        passedOrNotFolderName = slash + "failed" + slash
     else:
         print(str(outputCounter) + ": " + "[\033[31m-\033[0m] Test failed", end="")
         passedOrNotFolderName = slash + "failed" + slash

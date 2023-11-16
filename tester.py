@@ -112,7 +112,7 @@ def testProgram(userProgramName):
         atleastOneWorkingProgram = True
         
         if prevOutput != "" and prevOutput != output:
-            print("Working programs disagree.")
+            print("Working programs disagree between eachother. Please report this to @GonnaDoStuff and send him the failed tests.")
         prevOutput = output
     
     if not atleastOneWorkingProgram:

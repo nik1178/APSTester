@@ -144,7 +144,7 @@ def testProgram(userProgramName):
     if outputsMatch:
         print(str(outputCounter) + ": " + "[\033[32m+\033[0m] Test passed", end="")
     elif workingProgramsDisagree:
-        print(str(outputCounter) + ": " + "[\033[93m-\033[0m] Test failed", end="")
+        print(str(outputCounter) + ": " + "[\033[93m-\033[0m] Working programs disagree.", end="")
         passedOrNotFolderName = slash + "failed" + slash
     else:
         print(str(outputCounter) + ": " + "[\033[31m-\033[0m] Test failed", end="")

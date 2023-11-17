@@ -114,7 +114,7 @@ def testProgram(userProgramName):
         atleastOneWorkingProgram = True
         
         if prevOutput != "" and prevOutput != output:
-            print("Working programs disagree between eachother. Please report this to @GonnaDoStuff and send him the failed tests.")
+            print("Working programs disagree between eachother. If they didn't time out, please report this to @GonnaDoStuff and send him the failed tests.")
             workingProgramsDisagree = True
         prevOutput = output
     
@@ -132,6 +132,9 @@ def testProgram(userProgramName):
     # Compare the outputs of the working programs with the output of the program to be tested
     workingOutputs = os.listdir("." + slash + "workingOutputs")
     outputsMatch = True
+    program_timed_out = False
+    if userOutput == "timeout":
+        program_timed_out = True
     for currWorkingOutput in workingOutputs:
         # Compare the outputs
         with open(workingOutputFolderName + slash + currWorkingOutput, 'r') as f:
@@ -142,15 +145,15 @@ def testProgram(userProgramName):
     
     # Ignore everything past this point, i gave up
     passedOrNotFolderName = slash + "passed" + slash
-    if outputsMatch:
+    if outputsMatch and not program_timed_out:
         print(str(outputCounter) + ": " + "[\033[32m+\033[0m] Test passed", end="")
     elif workingProgramsDisagree:
-        print(str(outputCounter) + ": " + "[\033[93m-\033[0m] Working programs disagree.", end="")
+        print(str(outputCounter) + ": " + "[\033[93m-\033[0m] Working programs disagree between eachother.", end="")
         passedOrNotFolderName = slash + "failed" + slash
-        inputGeneration.tests_failed_counter += 1
     else:
         print(str(outputCounter) + ": " + "[\033[31m-\033[0m] Test failed", end="")
         passedOrNotFolderName = slash + "failed" + slash
+        inputGeneration.tests_failed_counter += 1
     print(" - Time taken: %.3f seconds." % (t2-t1))
 
     

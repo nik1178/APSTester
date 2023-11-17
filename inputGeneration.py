@@ -73,7 +73,11 @@ def generateRandom(min, max):
         return max
     elif randomCounter%howManyVariations == 0:
         if print_cycle_message and randomCounter//howManyVariations > 0:
-            print("Cycle %d completed. Tests failed so far: %d" % ((randomCounter//howManyVariations), tests_failed_counter))
+            if (tests_failed_counter == 0):
+                print("Cycle %d completed. Tests failed so far: [\033[32m%d\033[0m]" % ((randomCounter//howManyVariations), tests_failed_counter))
+            else:
+                print("Cycle %d completed. Tests failed so far: [\033[31m%d\033[0m]" % ((randomCounter//howManyVariations), tests_failed_counter))
+
             print_cycle_message = False
         intensity=10
         return pushTowardExtremes(randNum, min, max, intensity)

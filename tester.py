@@ -62,6 +62,7 @@ def testProgram(userProgramName):
     global testLimit
     global first_run
     global timeoutLimit
+    global testsPassedCounter, totalTestCounter
     
     # Generate input file # Currently hardcoded for DN2
     ############################################################# CHANGE THIS ###################################################################
@@ -146,10 +147,10 @@ def testProgram(userProgramName):
     elif workingProgramsDisagree:
         print(str(outputCounter) + ": " + "[\033[93m-\033[0m] Working programs disagree.", end="")
         passedOrNotFolderName = slash + "failed" + slash
+        inputGeneration.tests_failed_counter += 1
     else:
         print(str(outputCounter) + ": " + "[\033[31m-\033[0m] Test failed", end="")
         passedOrNotFolderName = slash + "failed" + slash
-
     print(" - Time taken: %.3f seconds." % (t2-t1))
 
     

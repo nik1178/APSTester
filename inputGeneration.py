@@ -38,6 +38,9 @@ def minToMax(n, min, max):
 def maxToMin(n, min, max):
     return [max - (max-min)*i//n for i in range(n)]
 
+
+tests_failed_counter = 0 # Update from tester.py
+
 testCounter = 0
 randomCounter = 0
 empty_rand_detection = "emptyBro"
@@ -47,6 +50,7 @@ prevMax = 0
 print_cycle_message = True
 def generateRandom(min, max):
     
+    global testsPassedCounter, totalTestsDoneCounter
     global testCounter, randomCounter
     global prevRandNum, prevMin, prevMax
     global print_cycle_message
@@ -68,8 +72,8 @@ def generateRandom(min, max):
     elif testCounter==1:
         return max
     elif randomCounter%howManyVariations == 0:
-        if print_cycle_message:
-            print("Cycle %d completed" % (randomCounter//howManyVariations))
+        if print_cycle_message and randomCounter//howManyVariations > 0:
+            print("Cycle %d completed. Tests failed so far: %d" % ((randomCounter//howManyVariations), tests_failed_counter))
             print_cycle_message = False
         intensity=10
         return pushTowardExtremes(randNum, min, max, intensity)

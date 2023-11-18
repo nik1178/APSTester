@@ -342,18 +342,18 @@ def autocomplete():
     
     if testCounter==0:
         inputTxt += "10\n"
-        for _ in range (10):
+        for i in range (10):
             for _ in range(10**5-1):
-                inputTxt += "a"
+                inputTxt += chr(ord('a')+i)
             inputTxt += " 1\n"
         inputTxt += str(10**6) + "\n"
         for _ in range(10**6+1):
             inputTxt += "a\n"
     elif testCounter==1:
         inputTxt += "10\n"
-        for _ in range (10):
+        for i in range (10):
             for _ in range(10**5-1):
-                inputTxt += "a"
+                inputTxt += chr(ord('a')+i)
             inputTxt += " 1\n"
         inputTxt += "10\n"
         for _ in range(10):

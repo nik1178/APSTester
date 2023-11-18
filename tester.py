@@ -24,6 +24,45 @@ selected_assignment = "6autocomplete"
 
 slash = "/"
 
+def checkUpdate(args):
+    # Checks if repo is up to date--------------------------------------
+    fetch = subprocess.run("git fetch", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
+
+    pullChoice = False
+    if fetch.returncode != 0:
+        print('\033[93m' + 'Cannot check if repository is up to date' + '\033[0m')
+    else:
+        if not args.pull:
+            localHash = subprocess.run('git log -n 1 --pretty=format:"%H" master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            originHash = subprocess.run('git log -n 1 --pretty=format:"%H" origin/master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+
+            if localHash.stdout != originHash.stdout:
+                print('\033[93m' + 'Your repo is not up to date. Follow instructions or run the script with the -p flag' + '\033[0m')
+                yes = {'yes','y', 'ye'}
+                no = {'no','n', ''}
+                while True:
+                    pullChoice = input('Would you like to update [y/N]:').lower()
+                    if pullChoice in yes:
+                        pullChoice = True
+                        break;
+                    elif pullChoice in no:
+                        pullChoice = False;
+                        break;
+                    else:
+                        print("Please respond with 'yes' or 'no'")
+            else:
+                print('\033[93m' + 'You\'re up to date!' + '\033[0m')
+        
+        if args.pull or pullChoice:
+            print('Pulling from repo...')
+            pull = subprocess.run('git pull origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
+            if pull.returncode != 0:
+                print('\033[93m' + 'Cannot pull from repo' + '\033[0m')
+            else:
+                print('\033[93m' + 'Successfully pulled from repo! Please start the program again.' + '\033[0m')
+                exit(0)
+    # END OF CHECK FOR UPDATE---------------------------------------------
+
 def runCPPProgram(programName, inputTxt):
     # Command to run the C++ program and get its output 
     # runArguments = [programName]
@@ -200,6 +239,7 @@ def setup():
     parser.add_argument("-stc", "--settestcounter", help="Set the test counter to a specific value. Default is 0. This mostly has no effect. Currently only helps with \"5vreca\".", type=int)
     parser.add_argument("-p", "--pull", help="Automatically update tester.", action="store_true")
     parser.add_argument("-max", "--max", help="Set the maximum numbers of inputs the program will be able to generate per test (N). Use at your own risk.", type=int)
+    parser.add_argument("-d", "--dev", help="Developer mode. This will skip the update check, as you will not have the same ver. locally as online.", action="store_true")
     
     args = parser.parse_args()
     
@@ -207,43 +247,8 @@ def setup():
     
     print("\n\033[34mRemember to use\033[0m \033[32m-h\033[0m \033[34mto see all the capabilities of this program!\033[0m\n")
 
-    # Checks if repo is up to date--------------------------------------
-    fetch = subprocess.run("git fetch", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
-
-    pullChoice = False
-    if fetch.returncode != 0:
-        print('\033[93m' + 'Cannot check if repository is up to date' + '\033[0m')
-    else:
-        if not args.pull:
-            localHash = subprocess.run('git log -n 1 --pretty=format:"%H" master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-            originHash = subprocess.run('git log -n 1 --pretty=format:"%H" origin/master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-
-            if localHash.stdout != originHash.stdout:
-                print('\033[93m' + 'Your repo is not up to date. Follow instructions or run the script with the -p flag' + '\033[0m')
-                yes = {'yes','y', 'ye'}
-                no = {'no','n', ''}
-                while True:
-                    pullChoice = input('Would you like to update [y/N]:').lower()
-                    if pullChoice in yes:
-                        pullChoice = True
-                        break;
-                    elif pullChoice in no:
-                        pullChoice = False;
-                        break;
-                    else:
-                        print("Please respond with 'yes' or 'no'")
-            else:
-                print('\033[93m' + 'You\'re up to date!' + '\033[0m')
-        
-        if args.pull or pullChoice:
-            print('Pulling from repo...')
-            pull = subprocess.run('git pull origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
-            if pull.returncode != 0:
-                print('\033[93m' + 'Cannot pull from repo' + '\033[0m')
-            else:
-                print('\033[93m' + 'Successfully pulled from repo! Please start the program again.' + '\033[0m')
-                exit(0)
-    # END OF CHECK FOR UPDATE---------------------------------------------
+    if not args.dev:
+        checkUpdate(args)
     
     if args.timeout:
         timeoutLimit = args.timeout

@@ -345,7 +345,7 @@ def autocomplete():
         for i in range (10):
             for _ in range(10**5-1):
                 inputTxt += chr(ord('a')+i)
-            inputTxt += " 1\n"
+            inputTxt += " " + str(i) + "\n"
         inputTxt += str(10**6) + "\n"
         for _ in range(10**6+1):
             inputTxt += "a\n"
@@ -354,7 +354,7 @@ def autocomplete():
         for i in range (10):
             for _ in range(10**5-1):
                 inputTxt += chr(ord('a')+i)
-            inputTxt += " 1\n"
+            inputTxt += " " + str(i) + "\n"
         inputTxt += "10\n"
         for _ in range(10):
             for _ in range(10**5-1):

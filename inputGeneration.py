@@ -327,7 +327,10 @@ def vreca():
                 s = random.randint(min, max)
             elif s==-1:
                 s = random.randint(-max, -min)
-            inputTxt += str(s) + " " + str(generateRandom(min, max)) + "\n"
+            randomNumTempDeleteMe = generateRandom(min, max)
+            if randomNumTempDeleteMe==0:
+                print("oh goddddddddddddddddddddddddddddddddd. REPORT TO GONNADOSTUFF RIGHT NOW 😭😭😭😭😭😭😭😭😭😭😭😭😭😭😭")
+            inputTxt += str(s) + " " + str(randomNumTempDeleteMe) + "\n"
         randomCounter+=1
 
 
@@ -345,7 +348,7 @@ def autocomplete():
         for i in range (10):
             for _ in range(10**5-1):
                 inputTxt += chr(ord('a')+i)
-            inputTxt += " " + str(i) + "\n"
+            inputTxt += " " + str(i+1) + "\n"
         inputTxt += str(10**6) + "\n"
         for _ in range(10**6+1):
             inputTxt += "a\n"
@@ -354,7 +357,7 @@ def autocomplete():
         for i in range (10):
             for _ in range(10**5-1):
                 inputTxt += chr(ord('a')+i)
-            inputTxt += " " + str(i) + "\n"
+            inputTxt += " " + str(i+1) + "\n"
         inputTxt += "10\n"
         for _ in range(10):
             for _ in range(10**5-1):

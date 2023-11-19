@@ -103,8 +103,6 @@ def testProgram(userProgramName):
     global timeoutLimit
     global testsPassedCounter, totalTestCounter
     
-    # Generate input file # Currently hardcoded for DN2
-    ############################################################# CHANGE THIS ###################################################################
     inputTxt = ""
     if selected_assignment == "2Kzlitje":
         inputTxt = inputGeneration.Kzlitje()
@@ -238,7 +236,7 @@ def setup():
     parser.add_argument("-c", "--clear", help="Clear all temporary folders and previous outputs.", action="store_true")
     parser.add_argument("-stc", "--settestcounter", help="Set the test counter to a specific value. Default is 0. This mostly has no effect. Currently only helps with \"5vreca\".", type=int)
     parser.add_argument("-p", "--pull", help="Automatically update tester.", action="store_true")
-    parser.add_argument("-max", "--max", help="Set the maximum numbers of inputs the program will be able to generate per test (N). Use at your own risk.", type=int)
+    parser.add_argument("-max", "--max", help="Set the maximum number of inputs the program will be able to generate per test (N). Use at your own risk.", type=int)
     parser.add_argument("-d", "--dev", help="Developer mode. This will skip the update check, as you will not have the same ver. locally as online.", action="store_true")
     
     args = parser.parse_args()
@@ -348,10 +346,11 @@ def setup():
         print("There might be an error in your code. If you are sure that isn't the case reade further: \n")
         print("This is most likely due to an incorrect version of gcc on your system.")
         print("This program uses c++20, which comes with gcc 11 and above.")
-        print("If you are on linux or macos, you might fix the issue by running the following commands in your terminal:")
+        print("\nIf you are on linux or macos, you might fix the issue by running the following commands in your terminal:")
         print("sudo apt-get update")
         print("sudo apt-get upgrade")
         print("sudo apt install build-essential")
+        print("\nIf that doesn't work, maybe you have an outdated version of linux. Ubuntu 22.04 recommended.")
         exit(1)
 
 

@@ -333,6 +333,12 @@ def setup():
         exit(1)
 
     # Command to compile the C++ program 
+    
+    ## First delete the old compiled program, if it exists
+    if os.path.exists(programName):
+        os.remove(programName)
+    print("Removed old compiled program.")
+    
     compileArr = ["g++ -std=c++20 -o ", programName, program]
     compileCmd = " ".join(str(x) for x in compileArr)
     # Compile the C++ program 
@@ -343,6 +349,8 @@ def setup():
         print("Compilation successful.") 
     else:
         print("Compilation failed.")
+        print("Error message: \n" + compileProcess.stderr.decode("utf-8"))
+        print("Error code: " + str(compileProcess.returncode) + "\n")
         print("There might be an error in your code. If you are sure that isn't the case reade further: \n")
         print("This is most likely due to an incorrect version of gcc on your system.")
         print("This program uses c++20, which comes with gcc 11 and above.")

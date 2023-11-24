@@ -127,6 +127,16 @@ def generateRandomWord(min, max):
         word += chr(random.randint(97, 122))
     return word
 
+def generate_random_word_from_list(min, max, word_list):
+    # Generates a random word with a random length between min and max
+    length = generateRandom(min, max)
+    word = ""
+    
+    for _ in range(length):
+        word += random.choice(word_list)
+    
+    return word
+
 maxInputs = 0
 def setMaxInputs(n):
     global maxInputs
@@ -134,7 +144,7 @@ def setMaxInputs(n):
 
 def setMax(max):
     global maxInputs
-    if not maxInputs==0:
+    if maxInputs!=0:
         return maxInputs
     return max
 
@@ -429,5 +439,63 @@ def autocomplete():
             inputTxt += query_list[i] + "\n"
         randomCounter+=1
     
+    testCounter+=1
+    return inputTxt
+
+def vzorci():
+    global testCounter, randomCounter
+    inputTxt = ""
+    
+    characters = "abcdefghijklmnopqrstuvwxyz___"
+    
+    N = generateRandom(1, 50)
+    maxLen = 1000
+    maxLen = setMax(maxLen)
+    inputTxt += str(N) + "\n"
+    for _ in range(N):
+        rand_sentence = generate_random_word_from_list(1, maxLen, characters)
+        query = ""
+        random_select = random.randint(0, 100)
+        query = rand_sentence
+        query = list(query)
+        if random_select < 25: # Just replace random chars with * or ?
+            how_many = generateRandom(0, len(rand_sentence))
+            for _ in range(how_many):
+                replace_symbol = "?"
+                if random.randint(0, 1) == 0:
+                    replace_symbol = "*"
+                query[random.randint(0, len(query)-1)] = replace_symbol
+        elif random_select < 50: # Just remove and replace random chars with * or ?
+            how_many = generateRandom(0, len(rand_sentence))
+            for _ in range(how_many):
+                replace_symbol = "?"
+                if random.randint(0, 1) == 0:
+                    replace_symbol = "*"
+                if random.randint(0, 2) == 0: # Remove random char
+                    query[random.randint(0, len(query)-1)] = ""
+                else: # Replace random char
+                    query[random.randint(0, len(query)-1)] = replace_symbol
+        elif random_select < 75: # Replace and add random chars with * or ?
+            how_many = generateRandom(0, len(rand_sentence))
+            for _ in range(how_many):
+                replace_symbol = "?"
+                if random.randint(0, 1) == 0:
+                    replace_symbol = "*"
+                if random.randint(0, 2) != 0: # Replace random char
+                    query[random.randint(0, len(query)-1)] = replace_symbol
+                else:
+                    #query = query[:random.randint(0, len(query)-1)] + replace_symbol + query[random.randint(0, len(query)-1):]
+                    query.insert(random.randint(0, len(query)-1), replace_symbol)
+        else: # Generate new query
+            query_characters = characters + "*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
+            query = generate_random_word_from_list(1, maxLen, characters)
+        
+        if len(query) > maxLen:
+            query = query[:maxLen]
+        
+        query = "".join(query)
+        inputTxt += str(query) + " " + rand_sentence + "\n"
+    
+    randomCounter+=1
     testCounter+=1
     return inputTxt

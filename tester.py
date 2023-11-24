@@ -114,6 +114,8 @@ def testProgram(userProgramName):
         inputTxt = inputGeneration.vreca()
     elif selected_assignment == "6autocomplete":
         inputTxt = inputGeneration.autocomplete()
+    elif selected_assignment == "7vzorci":
+        inputTxt = inputGeneration.vzorci()
     else:
         print("Input generation for selected assignment not found. Please report this to @GonnaDoStuff.")
         exit(1)

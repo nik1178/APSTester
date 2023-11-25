@@ -243,6 +243,27 @@ def setup():
     
     args = parser.parse_args()
     
+    print ("""
+.-------.        .-''-.     ____     ______                           
+|  _ _   \     .'_ _   \  .'  __ `. |    _ `''.                       
+| ( ' )  |    / ( ` )   '/   '  \  \| _ | ) _  \                      
+|(_ o _) /   . (_ o _)  ||___|  /  ||( ''_'  ) |                      
+| (_,_).' __ |  (_,_)___|   _.-`   || . (_) `. |                      
+|  |\ \  |  |'  \   .---..'   _    ||(_    ._) '                      
+|  | \ `'   / \  `-'    /|  _( )_  ||  (_.\.' /                       
+|  |  \    /   \       / \ (_ o _) /|       .'                        
+''-'   `'-'     `'-..-'   '.(_,_).' '-----'`                          
+.-------.     .-''-.      ,-----.    .-------.   .---.       .-''-.   
+\  _(`)_ \  .'_ _   \   .'  .-,  '.  \  _(`)_ \  | ,_|     .'_ _   \  
+| (_ o._)| / ( ` )   ' / ,-.|  \ _ \ | (_ o._)|,-./  )    / ( ` )   ' 
+|  (_,_) /. (_ o _)  |;  \  '_ /  | :|  (_,_) /\  '_ '`) . (_ o _)  | 
+|   '-.-' |  (_,_)___||  _`,/ \ _/  ||   '-.-'  > (_)  ) |  (_,_)___| 
+|   |     '  \   .---.: (  '\_/ \   ;|   |     (  .  .-' '  \   .---. 
+|   |      \  `-'    / \ `"/  \  ) / |   |      `-'`-'|___\  `-'    / 
+/   )       \       /   '. \_/``".'  /   )       |        \\       /  
+`---'        `'-..-'      '-----'    `---'       `--------` `'-..-'   
+""")
+    
     print("\033[31mI do NOT guarantee the correctness of the tests.\nI do excessive testing on all programs, so they should be correct, but I do not GUARANTEE it.\n\nTHE LONGER YOU RUN THE PROGRAM, THE HIGHER THE CHANCE YOUR PROGRAM IS WORKING CORRECTLY\n(I recommend at least a few hundred)\n\nI recommend you check with APSTester again closer to the end of the week in case I found a mistake and fixed it after you completed your program.\033[0m\n")
     
     print("\n\033[34mRemember to use\033[0m \033[32m-h\033[0m \033[34mto see all the capabilities of this program!\033[0m\n")

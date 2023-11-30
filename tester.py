@@ -20,7 +20,7 @@ testLimit = 0 # 0 means no limit
 
 operatingSystem = platform.system()
 
-selected_assignment = "6autocomplete"
+selected_assignment = "7vzorci"
 
 slash = "/"
 
@@ -120,8 +120,8 @@ def testProgram(userProgramName):
         print("Input generation for selected assignment not found. Please report this to @GonnaDoStuff.")
         exit(1)
     
-    """ with open ("test.in", 'w') as f:
-        f.write(inputTxt) """
+    with open (os.path.join("supportFiles", "test.in"), 'w') as f:
+        f.write(inputTxt)
 
     #### Generate output file by running the working programs with the generated input file
     workingProgramNames = os.listdir("." + slash + workingProgramsFolderName)
@@ -239,6 +239,7 @@ def setup():
     parser.add_argument("-stc", "--settestcounter", help="Set the test counter to a specific value. Default is 0. This mostly has no effect. Currently only helps with \"5vreca\".", type=int)
     parser.add_argument("-p", "--pull", help="Automatically update tester.", action="store_true")
     parser.add_argument("-max", "--max", help="Set the maximum number of inputs the program will be able to generate per test (N). Use at your own risk.", type=int)
+    parser.add_argument("-maxlen", "--maxlen", help="Set the maximum length for input strings. Use at your own risk. This will only change behaviour for some assignments.", type=int)
     parser.add_argument("-d", "--dev", help="Developer mode. This will skip the update check, as you will not have the same ver. locally as online.", action="store_true")
     
     args = parser.parse_args()
@@ -282,6 +283,8 @@ def setup():
     
     if args.max:
         inputGeneration.setMaxInputs(args.max)
+    if args.maxlen:
+        inputGeneration.setMaxLen(args.maxlen)
         
     if args.settestcounter:
         inputGeneration.setTestCounter(args.settestcounter)

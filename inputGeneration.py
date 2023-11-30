@@ -6,6 +6,8 @@ import random
 
 # Makes the numbers closer towards the extremes, to test edge cases 
 def pushTowardExtremes(num, minValue, maxValue, intensity):
+    if minValue>=maxValue:
+        return maxValue
     x = (num-minValue)/(maxValue-minValue) # Get percentage of how far the number is from the min and max
     """ intensity = intensity  """# How much it should be pushed towards the extremes (set close to 0 BUT NOT 0 for linear distribution)
     offset = ((math.atan(2*intensity*x-intensity))/(math.atan(intensity))+1)/2 # Function from image
@@ -13,12 +15,16 @@ def pushTowardExtremes(num, minValue, maxValue, intensity):
     return int(newNum)
 
 def pushTowardMaximum(num, minValue, maxValue, intensity):
+    if minValue>=maxValue:
+        return maxValue
     x = (num-minValue)/(maxValue-minValue) # Get percentage of how far the number is from the min and max
     offset = math.sqrt(x**intensity) # Function from image // intensity (0,2] // 2 is linear, smaller value more intense
     newNum = offset*(maxValue-minValue)+minValue # Apply the offset to the number
     return int(newNum)
 
 def pushTowardMinimum(num, minValue, maxValue, intensity):
+    if minValue>=maxValue:
+        return maxValue
     x = (num-minValue)/(maxValue-minValue) # Get percentage of how far the number is from the min and max
     offset = intensity**(-x) # Function from image // intensity (1,inf)
     newNum = offset*(maxValue-minValue)+minValue # Apply the offset to the number
@@ -138,14 +144,25 @@ def generate_random_word_from_list(min, max, word_list):
     return word
 
 maxInputs = 0
+maxLength = 0
 def setMaxInputs(n):
     global maxInputs
     maxInputs=n
+
+def setMaxLength(n):
+    global maxLength
+    maxLength=n
 
 def setMax(max):
     global maxInputs
     if maxInputs!=0:
         return maxInputs
+    return max
+
+def setMaxLen(max):
+    global maxLength
+    if maxLength!=0:
+        return maxLength
     return max
 
 
@@ -448,9 +465,11 @@ def vzorci():
     
     characters = "abcdefghijklmnopqrstuvwxyz___"
     
-    N = generateRandom(1, 50)
+    maxN = 50
+    maxN = setMax(maxN)
+    N = generateRandom(1, maxN)
     maxLen = 1000
-    maxLen = setMax(maxLen)
+    maxLen = setMaxLen(maxLen)
     inputTxt += str(N) + "\n"
     for _ in range(N):
         rand_sentence = generate_random_word_from_list(1, maxLen, characters)

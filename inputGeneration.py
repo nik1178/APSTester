@@ -491,7 +491,8 @@ def vzorci():
                 if random.randint(0, 1) == 0:
                     replace_symbol = "*"
                 if random.randint(0, 2) == 0: # Remove random char
-                    query[random.randint(0, len(query)-1)] = ""
+                    if len(query) > 1:
+                        query[random.randint(0, len(query)-1)] = ""
                 else: # Replace random char
                     query[random.randint(0, len(query)-1)] = replace_symbol
         elif random_select < 75: # Replace and add random chars with * or ?

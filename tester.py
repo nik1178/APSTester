@@ -30,7 +30,7 @@ def checkUpdate(args):
 
     pullChoice = False
     if fetch.returncode != 0:
-        print('\033[93m' + 'Cannot check if repository is up to date' + '\033[0m')
+        print('\033[31m' + 'Cannot check if repository is up to date' + '\033[0m')
         while True:
             continueChoice = input('Would you like to continue? (There might be unfixed bugs in the tester) [y/N]:').lower()
             if continueChoice in yes:
@@ -65,7 +65,7 @@ def checkUpdate(args):
             print('Pulling from repo...')
             pull = subprocess.run('git pull origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
             if pull.returncode != 0:
-                print('\033[93m' + 'Cannot pull from repo' + '\033[0m')
+                print('\033[31m' + 'Cannot pull from repo' + '\033[0m')
                 while True:
                     continueChoice = input('Would you like to continue? (There might be unfixed bugs in the tester) [y/N]:').lower()
                     if continueChoice in yes:

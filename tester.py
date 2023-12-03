@@ -31,6 +31,14 @@ def checkUpdate(args):
     pullChoice = False
     if fetch.returncode != 0:
         print('\033[93m' + 'Cannot check if repository is up to date' + '\033[0m')
+        while True:
+            continueChoice = input('Would you like to continue? (There might be unfixed bugs in the tester) [y/N]:').lower()
+            if continueChoice in yes:
+                break;
+            elif continueChoice in no:
+                exit(0)
+            else:
+                print("Please respond with 'yes' or 'no'")
     else:
         if not args.pull:
             localHash = subprocess.run('git log -n 1 --pretty=format:"%H" master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
@@ -58,6 +66,14 @@ def checkUpdate(args):
             pull = subprocess.run('git pull origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
             if pull.returncode != 0:
                 print('\033[93m' + 'Cannot pull from repo' + '\033[0m')
+                while True:
+                    continueChoice = input('Would you like to continue? (There might be unfixed bugs in the tester) [y/N]:').lower()
+                    if continueChoice in yes:
+                        break;
+                    elif continueChoice in no:
+                        exit(0)
+                    else:
+                        print("Please respond with 'yes' or 'no'")
             else:
                 print('\033[93m' + 'Successfully pulled from repo! Please start the program again.' + '\033[0m')
                 exit(0)

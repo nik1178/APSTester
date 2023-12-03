@@ -75,7 +75,7 @@ def runCPPProgram(programName, inputTxt):
             return "timeout"
         if runProcess.returncode != 0:
             print("Program " + programName + " exited with code " + str(runProcess.returncode) + ".")
-            return "Crashed"
+            return "Program " + programName + " exited with code " + str(runProcess.returncode) + "."
         return runProcess.stdout
     # if the program times out catch the exception and just print timeout
     except subprocess.CalledProcessError as e:

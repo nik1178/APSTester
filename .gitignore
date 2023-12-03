@@ -11,3 +11,4 @@ test.in
 .vscode
 /*.exe
 /*.out
+workingPrograms_copy/

@@ -330,6 +330,17 @@ def setup():
         print("Cleared all temporary folders and previous outputs.")
         exit(0)
     
+    print("Deleting old working programs copy...")
+    # If copy of working programs folder exists, delete it
+    if os.path.exists(workingProgramsFolderName + "_copy"):
+        shutil.rmtree(workingProgramsFolderName + "_copy")
+    
+    print("Copying working programs folder...")
+    # Copy the working programs folder
+    shutil.copytree(workingProgramsFolderName, workingProgramsFolderName + "_copy")
+    workingProgramsFolderName += "_copy"
+    print("Copied working programs folder.")
+    
     # Get the correct folder name for the working programs
     if operatingSystem == "Linux":
         workingProgramsFolderName += slash + "linux"
@@ -415,6 +426,7 @@ def setup():
     os.makedirs(userOutputFolderName)
     if os.path.exists(allOutputsFolderName):
         shutil.rmtree(allOutputsFolderName)
+    
     os.makedirs(allOutputsFolderName)
     os.makedirs(allOutputsFolderName + slash + "passed")
     os.makedirs(allOutputsFolderName + slash + "failed")

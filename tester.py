@@ -284,7 +284,7 @@ def setup():
     if args.max:
         inputGeneration.setMaxInputs(args.max)
     if args.maxlen:
-        inputGeneration.setMaxLen(args.maxlen)
+        inputGeneration.setMaxLength(args.maxlen)
         
     if args.settestcounter:
         inputGeneration.setTestCounter(args.settestcounter)

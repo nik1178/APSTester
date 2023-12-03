@@ -513,6 +513,10 @@ def vzorci():
         if len(query) > maxLen:
             query = query[:maxLen]
         
+        if len(query) < 1:
+            print("Something went wrong with this test, but it's hopefully been recovered from.")
+            query = "a"
+        
         query = "".join(query)
         inputTxt += str(query) + " " + rand_sentence + "\n"
     

@@ -20,7 +20,7 @@ testLimit = 0 # 0 means no limit
 
 operatingSystem = platform.system()
 
-selected_assignment = "7vzorci"
+selected_assignment = "8razporeditev"
 
 slash = "/"
 
@@ -132,8 +132,10 @@ def testProgram(userProgramName):
         inputTxt = inputGeneration.autocomplete()
     elif selected_assignment == "7vzorci":
         inputTxt = inputGeneration.vzorci()
+    elif selected_assignment == "8razporeditev":
+        inputTxt = inputGeneration.razporeditev()
     else:
-        print("Input generation for selected assignment not found. Please report this to @GonnaDoStuff.")
+        print("Input generation for selected assignment not found. If it is listed under -la and you still get this error, please report this to @GonnaDoStuff.")
         exit(1)
     
     with open (os.path.join("supportFiles", "test.in"), 'w') as f:
@@ -328,6 +330,10 @@ def setup():
         os.makedirs(allOutputsFolderName + slash + "passed")
         os.makedirs(allOutputsFolderName + slash + "failed")
         print("Cleared all temporary folders and previous outputs.")
+        print("Deleting old working programs copy...")
+        # If copy of working programs folder exists, delete it
+        if os.path.exists(workingProgramsFolderName + "_copy"):
+            shutil.rmtree(workingProgramsFolderName + "_copy")
         exit(0)
     
     print("Deleting old working programs copy...")

@@ -153,13 +153,13 @@ def setMaxLength(n):
     global maxLength
     maxLength=n
 
-def setMax(max):
+def getMax(max):
     global maxInputs
     if maxInputs!=0:
         return maxInputs
     return max
 
-def setMaxLen(max):
+def getMaxLength(max):
     global maxLength
     if maxLength!=0:
         return maxLength
@@ -196,7 +196,7 @@ def Kzlitje():
     global testCounter, randomCounter
     inputTxt = ""
     max = 100000
-    max = setMax(max)
+    max = getMax(max)
     N = generateRandom(1, max)
     K = generateRandom(2, 10)
     A = generateRandom(1, 20)
@@ -211,7 +211,7 @@ def neboticniki():
     global testCounter, randomCounter
     inputTxt = ""
     max = 1000000
-    max = setMax(max)
+    max = getMax(max)
     N = generateRandom(1, max)
     inputTxt += str(N) + "\n"
     for _ in range(N):
@@ -224,7 +224,7 @@ def mediane():
     global testCounter, randomCounter
     inputTxt = ""
     max = 100000
-    max = setMax(max)
+    max = getMax(max)
     N = generateRandom(1, max)
     inputTxt += str(N) + "\n"
     for _ in range(N):
@@ -345,7 +345,7 @@ def vreca():
         if randomCounter==0:
             print("Stress tests over, starting random tests.")
         
-        max = setMax(max)
+        max = getMax(max)
         N = generateRandom(min, max)
         inputTxt += str(N) + "\n"
         for _ in range(N):
@@ -398,7 +398,7 @@ def autocomplete():
         min_word_priority = 1
         max_word_priority = 1000000000
         N_max = 1000000
-        N_max = setMax(N_max)
+        N_max = getMax(N_max)
         
         # queries
         Q_max = N_max
@@ -466,10 +466,10 @@ def vzorci():
     characters = "abcdefghijklmnopqrstuvwxyz___"
     
     maxN = 50
-    maxN = setMax(maxN)
+    maxN = getMax(maxN)
     N = generateRandom(1, maxN)
     maxLen = 1000
-    maxLen = setMaxLen(maxLen)
+    maxLen = getMaxLength(maxLen)
     inputTxt += str(N) + "\n"
     for _ in range(N):
         rand_sentence = generate_random_word_from_list(1, maxLen, characters)
@@ -522,4 +522,68 @@ def vzorci():
     
     randomCounter+=1
     testCounter+=1
+    return inputTxt
+
+def razporeditev():
+    global testCounter, randomCounter
+    inputTxt = ""
+    
+    maxN = 100000
+    maxM = 1000000
+    maxN = getMax(maxN)
+    maxM = getMaxLength(maxM)
+    # randomCounter=13
+    # testCounter = 5
+    N = generateRandom(2, maxN)
+    M = generateRandom(1, maxM)
+    # N = 100000
+    # M = 1000000
+    
+    step = random.randint(1, 2) # Decides if test will be solvable or -1
+    start_pos = random.randint(1, 2) # Start on the first one or the second one
+    
+    
+    pairs = []
+    how_many_selected = 0
+    
+    nums = [i for i in range(start_pos, N+1, step)]
+    random_choice = random.randint(0, 1)
+    if random_choice == 0:
+        random.shuffle(nums)
+        
+    # for which_first in range(start_pos,N+1, step):
+    for which_first in nums:
+        
+        for which_second in range(which_first+1, N+1, step):
+            if random.randint(0,100) < 90:
+                continue
+            current_pair = [which_first, which_second]
+            random.shuffle(current_pair)
+            pairs.append(current_pair)
+            how_many_selected += 1
+            if how_many_selected >= M:
+                break
+        if how_many_selected >= M:
+            break
+    
+    if len(pairs) == 0:
+        pairs.append([1,2])
+    
+    if len(pairs) < M:
+        M = len(pairs)
+    
+    if M == 0:
+        print("Something went wrong with this test.")
+    
+    random.shuffle(pairs)
+    
+    
+    
+    inputTxt += str(N) + " " + str(M) + "\n"
+    for i in range(M):
+        inputTxt += str(pairs[i][0]) + " " + str(pairs[i][1]) + "\n"
+    
+    
+    testCounter+=1
+    randomCounter+=1
     return inputTxt

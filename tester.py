@@ -28,9 +28,11 @@ def checkUpdate(args):
     # Checks if repo is up to date--------------------------------------
     fetch = subprocess.run("git fetch", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
 
+    yes = {'yes','y', 'ye'}
+    no = {'no','n', ''}
     pullChoice = False
     if fetch.returncode != 0:
-        print('\033[31m' + 'Cannot check if repository is up to date' + '\033[0m')
+        print('\033[93m' + 'Cannot check if repository is up to date' + '\033[0m')
         while True:
             continueChoice = input('Would you like to continue? (There might be unfixed bugs in the tester) [y/N]:').lower()
             if continueChoice in yes:
@@ -46,8 +48,6 @@ def checkUpdate(args):
 
             if localHash.stdout != originHash.stdout:
                 print('\033[93m' + 'Your repo is not up to date. Follow instructions or run the script with the -p flag' + '\033[0m')
-                yes = {'yes','y', 'ye'}
-                no = {'no','n', ''}
                 while True:
                     pullChoice = input('Would you like to update [y/N]:').lower()
                     if pullChoice in yes:
@@ -65,7 +65,7 @@ def checkUpdate(args):
             print('Pulling from repo...')
             pull = subprocess.run('git pull origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
             if pull.returncode != 0:
-                print('\033[31m' + 'Cannot pull from repo' + '\033[0m')
+                print('\033[93m' + 'Cannot pull from repo' + '\033[0m')
                 while True:
                     continueChoice = input('Would you like to continue? (There might be unfixed bugs in the tester) [y/N]:').lower()
                     if continueChoice in yes:
@@ -134,6 +134,8 @@ def testProgram(userProgramName):
         inputTxt = inputGeneration.vzorci()
     elif selected_assignment == "8razporeditev":
         inputTxt = inputGeneration.razporeditev()
+    elif selected_assignment == "9druganajkrajsa":
+        inputTxt = inputGeneration.druganajkrajsa()
     else:
         print("Input generation for selected assignment not found. If it is listed under -la and you still get this error, please report this to @GonnaDoStuff.")
         exit(1)

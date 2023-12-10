@@ -56,7 +56,7 @@ def print_congrats():
     """
     print("\033[32m%s\033[0m" % congrats)
     print("Ten cycles completed with zero mistakes! Keep going! 😎")
-    print("You are truly an APSTester! Keep on APSTesting! 😎")
+    print("You truly are an APSTester! Keep on APSTesting! 😎")
 
 tests_failed_counter = 0 # Update from tester.py
 

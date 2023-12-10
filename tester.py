@@ -346,6 +346,7 @@ def setup():
     print("Copying working programs folder...")
     # Copy the working programs folder
     shutil.copytree(workingProgramsFolderName, workingProgramsFolderName + "_copy")
+    
     workingProgramsFolderName += "_copy"
     print("Copied working programs folder.")
     

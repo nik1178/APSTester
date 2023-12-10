@@ -587,3 +587,64 @@ def razporeditev():
     testCounter+=1
     randomCounter+=1
     return inputTxt
+
+def druganajkrajsa():
+    global testCounter, randomCounter
+    inputTxt = ""
+    
+    
+    maxN = 2000
+    maxM = 10000
+    maxK = 10000
+    maxN = getMax(maxN)
+    maxM = getMaxLength(maxM)
+    # randomCounter=13
+    # testCounter = 5
+    N = generateRandom(2, maxN)
+    M = generateRandom(1, maxM)
+    
+    step = random.randint(1, 2) # Decides if test will be solvable or -1
+    
+    trios = []
+    how_many_selected = 0
+    
+    nums = [i for i in range(0, N, step)]
+    random_choice = random.randint(0, 1)
+    if random_choice == 0:
+        random.shuffle(nums)
+        
+    # for which_first in range(start_pos,N+1, step):
+    for which_first in nums:
+        
+        for which_second in range(which_first+1, N, step):
+            if random.randint(0,100) < 90:
+                continue
+            current_pair = [which_first, which_second, generateRandom(1, maxK)]
+            # random.shuffle(current_pair)
+            trios.append(current_pair)
+            how_many_selected += 1
+            if how_many_selected >= M:
+                break
+        if how_many_selected >= M:
+            break
+    
+    # if len(trios) == 0:
+    trios.append([0,N-1,maxK])
+    
+    # if len(trios) < M:
+    M = len(trios)
+    
+    if M == 0:
+        print("Something went wrong with this test.")
+    
+    # random.shuffle(trios)
+    
+    
+    
+    inputTxt += str(N) + " " + str(M) + "\n"
+    for i in range(M):
+        inputTxt += str(trios[i][0]) + " " + str(trios[i][1]) + " " + str(trios[i][2]) + "\n";
+    
+    testCounter+=1
+    randomCounter+=1
+    return inputTxt

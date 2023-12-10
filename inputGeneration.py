@@ -44,6 +44,19 @@ def minToMax(n, min, max):
 def maxToMin(n, min, max):
     return [max - (max-min)*i//n for i in range(n)]
 
+def print_congrats():
+    congrats = """
+   _____ ____  _   _  _____ _____         _______ _____ _         __    
+  / ____/ __ \| \ | |/ ____|  __ \     /\|__   __/ ____| |       / /  _ 
+ | |   | |  | |  \| | |  __| |__) |   /  \  | | | (___ | |      | |  (_)
+ | |   | |  | | . ` | | |_ |  _  /   / /\ \ | |  \___ \| |      | |     
+ | |___| |__| | |\  | |__| | | \ \  / ____ \| |  ____) |_|      | |   _ 
+  \_____\____/|_| \_|\_____|_|  \_\/_/    \_\_| |_____/(_)      | |  (_)
+                                                                 \_\    
+    """
+    print("\033[32m%s\033[0m" % congrats)
+    print("Ten cycles completed with zero mistakes! Keep going! 😎")
+    print("You are truly an APSTester! Keep on APSTesting! 😎")
 
 tests_failed_counter = 0 # Update from tester.py
 
@@ -81,6 +94,8 @@ def generateRandom(min, max):
         if print_cycle_message and randomCounter//howManyVariations > 0:
             if (tests_failed_counter == 0):
                 print("Cycle %d completed. Tests failed so far: [\033[32m%d\033[0m]" % ((randomCounter//howManyVariations), tests_failed_counter))
+                if randomCounter//howManyVariations == 10:
+                    print_congrats();
             else:
                 print("Cycle %d completed. Tests failed so far: [\033[31m%d\033[0m]" % ((randomCounter//howManyVariations), tests_failed_counter))
 

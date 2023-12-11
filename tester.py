@@ -20,7 +20,7 @@ testLimit = 0 # 0 means no limit
 
 operatingSystem = platform.system()
 
-selected_assignment = "8razporeditev"
+selected_assignment = "9druganajkrajsa"
 
 slash = "/"
 

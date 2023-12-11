@@ -716,11 +716,13 @@ def druganajkrajsa():
                 break
         
         # if len(trios) == 0:
-        if random.randint(0, 1) == 0:
+        if random.randint(0, 1) == 0 or len(trios) == 0:
             trios.append([0,N-1,maxK])
         
         # if len(trios) < M:
         M = len(trios)
+        if M == 0:
+            print("Something went wrong with this test.")
         
     if M == 0:
         print("Something went wrong with this test.")

@@ -618,43 +618,114 @@ def druganajkrajsa():
     N = generateRandom(2, maxN)
     M = generateRandom(1, maxM)
     
-    step = random.randint(1, 2) # Decides if test will be solvable or -1
-    
-    trios = []
-    how_many_selected = 0
-    
-    nums = [i for i in range(0, N, step)]
-    random_choice = random.randint(0, 1)
-    if random_choice == 0:
-        random.shuffle(nums)
+    if random.randint(0, 2) == 0:
+        # Generate 10 random numbers leading from 0. Then 10 random leading from the last generated to 10 random
         
-    # for which_first in range(start_pos,N+1, step):
-    for which_first in nums:
+        trios = []
+        how_many_generated = 0
+        last_generated_num = 0
+        while how_many_generated < M-10:
+            current_num = last_generated_num
+
+            for _ in range(10):
+                if how_many_generated >= M:
+                    break
+                current_random_num = generateRandom(0, N-1)
+                current_trio = [current_num, current_random_num]
+                random.shuffle(current_trio)
+                current_trio.append(generateRandom(1, maxK))
+                trios.append(current_trio)
+                how_many_generated += 1
+                last_generated_num = current_random_num
         
-        for which_second in range(which_first+1, N, step):
-            if random.randint(0,100) < 90:
-                continue
-            current_pair = [which_first, which_second, generateRandom(1, maxK)]
-            # random.shuffle(current_pair)
-            trios.append(current_pair)
-            how_many_selected += 1
+        how_many_generated1 = 0
+        how_many_last_nums = 10
+        if how_many_generated < how_many_last_nums:
+            how_many_last_nums = how_many_generated
+        
+        last_nums = []
+        if how_many_last_nums != 0:
+            last_nums = trios[-how_many_last_nums:-1][0]
+        if len(last_nums) == 0:
+            last_nums = trios.append([0,N-1,maxK])
+        else:
+            while how_many_generated + how_many_generated1 < M:
+                current_num = last_nums[1]
+                current_trio = [current_num, N-1]
+                random.shuffle(current_trio)
+                current_trio.append(generateRandom(1, maxK))
+                trios.append(current_trio)
+                how_many_generated1 += 1
+        
+        if len(trios) != M:
+            M=len(trios)
+    elif random.randint(0, 100) == 0:
+        N = 2000
+        trios = []
+        for i in range(1999):
+            trios.append([0, i, 1])
+            trios.append([i, 1999, 1])
+            trios.append([i, i+1, 1])
+            if i<1998:
+                trios.append([i, i+2, 1])
+            trios.append([1, i, 1])
+        
+        M = len(trios)
+    elif random.randint(0, 100) == 0:
+        N = 150
+        trios = []
+        for i in range(N):
+            for j in range(i+1, N):
+                trios.append([i, j, 1])
+        M = len(trios)
+        # print(M)
+    elif random.randint(0, 1) == 0:
+        N = 2000
+        trios = []
+        for i in range(0, 1998, 2):
+            trios.append([i, i+2, 2])
+            trios.append([i, i+1,1])
+            trios.append([i+1, i+2, 1])
+        # trios.append([1998, 1999, 1])
+        M = len(trios)
+    else:
+        step = random.randint(1, 2) # Decides if test will be solvable or -1
+        
+        trios = []
+        how_many_selected = 0
+        
+        nums = [i for i in range(0, N, step)]
+        random_choice = random.randint(0, 1)
+        if random_choice == 0:
+            random.shuffle(nums)
+            
+        # for which_first in range(start_pos,N+1, step):
+        for which_first in nums:
+            
+            for which_second in range(which_first, N, step):
+                if random.randint(0,100) < 90:
+                    continue
+                current_pair = [which_first, which_second]
+                random.shuffle(current_pair)
+                current_pair.append(generateRandom(1, maxK))
+                trios.append(current_pair)
+                how_many_selected += 1
+                if how_many_selected >= M:
+                    break
             if how_many_selected >= M:
                 break
-        if how_many_selected >= M:
-            break
-    
-    # if len(trios) == 0:
-    trios.append([0,N-1,maxK])
-    
-    # if len(trios) < M:
-    M = len(trios)
-    
+        
+        # if len(trios) == 0:
+        if random.randint(0, 1) == 0:
+            trios.append([0,N-1,maxK])
+        
+        # if len(trios) < M:
+        M = len(trios)
+        
     if M == 0:
         print("Something went wrong with this test.")
-    
+        
     # random.shuffle(trios)
-    
-    
     
     inputTxt += str(N) + " " + str(M) + "\n"
     for i in range(M):

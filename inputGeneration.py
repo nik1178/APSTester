@@ -618,68 +618,171 @@ def druganajkrajsa():
     N = generateRandom(2, maxN)
     M = generateRandom(1, maxM)
     
-    if random.randint(0, 2) == 0:
+    if random.randint(0, 3) == 0:
+        # print("first")
         # Generate 10 random numbers leading from 0. Then 10 random leading from the last generated to 10 random
         
+        nums = []
+        N-=1
+        for i in range(N):
+            nums.append(i)
+        
+        # random.shuffle(nums)
+        all_nums = []
+        for i in range(N):
+            all_nums.append(nums.copy())
+        
+
         trios = []
         how_many_generated = 0
         last_generated_num = 0
-        while how_many_generated < M-10:
+        how_many_per_num = 10
+        if N<20:
+            how_many_per_num = N//3
+        while how_many_generated < M//2-10 and how_many_generated < N*(N-2)//2:
             current_num = last_generated_num
-
-            for _ in range(10):
+            
+            # if nums.count(current_num) == 0:
+            #     indeks = random.randint(0, len(nums)-1)
+            #     current_num = nums[indeks]
+            
+            # nums.remove(current_num)
+            
+            for _ in range(how_many_per_num):
                 if how_many_generated >= M:
                     break
-                current_random_num = generateRandom(0, N-1)
+                if len(all_nums[current_num]) < 2:
+                    last_generated_num = random.randint(0, N-1)
+                    break
+                current_random_num = current_num
+                current_random_num_indeks = 0
+                repeat_counter = 0
+                while current_random_num == current_num:
+                    if repeat_counter<10:
+                        current_random_num_indeks = generateRandom(0, len(all_nums[current_num])-1)
+                        current_random_num = all_nums[current_num][current_random_num_indeks]
+                    elif repeat_counter<20:
+                        current_random_num_indeks = random.randint(0, len(all_nums[current_num])-1)
+                        current_random_num = all_nums[current_num][current_random_num_indeks]
+                    # else:
+                        # exit(1)
+                    repeat_counter += 1
+                
+                # print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+                # print(current_num, current_random_num, current_random_num_indeks, all_nums[current_num])
+                # print("-----------------------------------------")
+                # print(all_nums[current_random_num])
+                # print(current_num, current_random_num)
+                # print(all_nums)
+                all_nums[current_num].remove(current_random_num)
+                all_nums[current_random_num].remove(current_num)
                 current_trio = [current_num, current_random_num]
                 random.shuffle(current_trio)
                 current_trio.append(generateRandom(1, maxK))
                 trios.append(current_trio)
                 how_many_generated += 1
                 last_generated_num = current_random_num
-        
+            
         how_many_generated1 = 0
         how_many_last_nums = 10
         if how_many_generated < how_many_last_nums:
             how_many_last_nums = how_many_generated
         
+        # print("CAME")
+        # for i in trios:
+        #     for j in trios:
+        #         if i == j:
+        #             continue
+        #         if i[0] == j[0] and i[1] == j[1] or i[0] == j[1] and i[1] == j[0]:
+        #             print("UPSIE UPSIE UPSIE UPSIE XD IM LOSING SANITY WITH EACH PASSING DAY!!!!!!!!!!!!!!!!!!!!!")
+        
+        N+=1
         last_nums = []
         if how_many_last_nums != 0:
-            last_nums = trios[-how_many_last_nums:-1][0]
+            for i in range(how_many_last_nums):
+                last_nums.append(trios[-i-1][0])
         if len(last_nums) == 0:
-            last_nums = trios.append([0,N-1,maxK])
-        else:
-            while how_many_generated + how_many_generated1 < M:
-                current_num = last_nums[1]
-                current_trio = [current_num, N-1]
-                random.shuffle(current_trio)
-                current_trio.append(generateRandom(1, maxK))
-                trios.append(current_trio)
-                how_many_generated1 += 1
+            trios.append([0,N-1,maxK])
+            last_nums.append(trios[0][1])
         
-        if len(trios) != M:
-            M=len(trios)
-    elif random.randint(0, 100) == 0:
+        prev_nums=[]
+        
+        for current_num in last_nums:
+            if current_num == N-1:
+                continue
+            if current_num in prev_nums:
+                continue
+            prev_nums.append(current_num)
+            current_trio = [current_num, N-1]
+            random.shuffle(current_trio)
+            current_trio.append(generateRandom(1, maxK))
+            trios.append(current_trio)
+            how_many_generated1 += 1
+        
+        # if len(trios) != M:
+        M=len(trios)
+        
+        # for x in trios:
+        #     if x[0] == x[1]:
+        #         print("UPSIE XD THE FIRST THE ORIGINAL<---------------------------------------------------------------------")
+        #         break
+        
+        # for i in trios:
+        #     for j in trios:
+        #         if i == j:
+        #             continue
+        #         if i[0] == j[0] and i[1] == j[1] or i[0] == j[1] and i[1] == j[0]:
+        #             print(i[0], i[1], j[0], j[1])
+        #             print("UPSIE UPSIE UPSIE UPSIE XD IM LOSING SANITY WITH EACH PASSING DAY")
+        #             return "2 1 0 1 1"
+        
+        
+    elif random.randint(0, 80) == 0:
+        # print("second")
+        
         N = 2000
         trios = []
-        for i in range(1999):
-            trios.append([0, i, 1])
+        for i in range(1998):
+            if i > 0:
+                trios.append([0, i, 1])
             trios.append([i, 1999, 1])
-            trios.append([i, i+1, 1])
-            if i<1998:
+            if i>0:
+                trios.append([i, i+1, 1])
+            if i<1996 and i>1:
                 trios.append([i, i+2, 1])
-            trios.append([1, i, 1])
+            if i>4:
+                trios.append([1, i, 1])
         
         M = len(trios)
+        
+        # for x in trios:
+        #     if x[0] == x[1]:
+        #         print("UPSIE XD HOW THE HECK THO")
+        
+        # for i in trios:
+        #     for j in trios:
+        #         if i == j:
+        #             continue
+        #         if i[0] == j[0] and i[1] == j[1] or i[0] == j[1] and i[1] == j[0]:
+        #             print("UPSIE UPSIE UPSIE UPSIE XD IMMA BE QUIET")
+        
     elif random.randint(0, 100) == 0:
+        # print("third")
         N = 150
         trios = []
         for i in range(N):
             for j in range(i+1, N):
                 trios.append([i, j, 1])
         M = len(trios)
+        
+        # for i in trios:
+        #     for j in trios:
+        #         if i == j:
+        #             continue
+        #         if i[0] == j[0] and i[1] == j[1] or i[0] == j[1] and i[1] == j[0]:
+        #             print("UPSIE UPSIE UPSIE UPSIE XD IM THE GOOFFBALLLL")
         # print(M)
-    elif random.randint(0, 1) == 0:
+    elif random.randint(0, 50) == 0:
         N = 2000
         trios = []
         for i in range(0, 1998, 2):
@@ -688,7 +791,15 @@ def druganajkrajsa():
             trios.append([i+1, i+2, 1])
         # trios.append([1998, 1999, 1])
         M = len(trios)
+        
+        # for i in trios:
+        #     for j in trios:
+        #         if i == j:
+        #             continue
+        #         if i[0] == j[0] and i[1] == j[1] or i[0] == j[1] and i[1] == j[0]:
+        #             print("UPSIE UPSIE UPSIE UPSIE XD NO MEEEEE")
     else:
+        # print("fourth")
         step = random.randint(1, 2) # Decides if test will be solvable or -1
         
         trios = []
@@ -698,31 +809,133 @@ def druganajkrajsa():
         random_choice = random.randint(0, 1)
         if random_choice == 0:
             random.shuffle(nums)
+        
+        nums_copy = nums.copy()
+        random.shuffle(nums_copy)
+        
+        trios = []
+        how_many_selected = 0
+        
+        nums = [i for i in range(0, N+1, step)]
+        random_choice = random.randint(0, 1)
+        if random_choice == 0:
+            random.shuffle(nums)
             
         # for which_first in range(start_pos,N+1, step):
         for which_first in nums:
             
-            for which_second in range(which_first, N, step):
+            for which_second in range(which_first+1, N, step):
                 if random.randint(0,100) < 90:
                     continue
-                current_pair = [which_first, which_second]
-                random.shuffle(current_pair)
-                current_pair.append(generateRandom(1, maxK))
-                trios.append(current_pair)
+                current_trio = [which_first, which_second]
+                random.shuffle(current_trio)
+                current_trio.append(generateRandom(1, maxK))
+                trios.append(current_trio)
                 how_many_selected += 1
                 if how_many_selected >= M:
                     break
             if how_many_selected >= M:
                 break
+            
+        # for which_first in range(start_pos,N+1, step):
+        # for which_first in nums:
+            
+        #     nums.remove(which_first)
+        #     for which_second in nums_copy:
+        #         if random.randint(0,100) < 90:
+        #             continue
+        #         current_pair = [which_first, which_second]
+        #         random.shuffle(current_pair)
+        #         current_pair.append(generateRandom(1, maxK))
+        #         trios.append(current_pair)
+        #         how_many_selected += 1
+        #         if how_many_selected >= M:
+        #             break
+        #     if how_many_selected >= M:
+        #         break
+        
+        
+        for x in trios:
+            if x[0] == x[1]:
+                # print("UPSIE XD")
+                trios.remove(x)
         
         # if len(trios) == 0:
         if random.randint(0, 1) == 0 or len(trios) == 0:
             trios.append([0,N-1,maxK])
         
+        
         # if len(trios) < M:
         M = len(trios)
         if M == 0:
-            print("Something went wrong with this test.")
+            print("Something went wrong with this test.<-----------------")
+            
+        # for x in trios:
+        #     if x[0] == x[1]:
+        #         print("UPSIE XD<---------------------------------------------------------------------")
+        
+        # for i in trios:
+        #     for j in trios:
+        #         if i == j:
+        #             continue
+        #         if i[0] == j[0] and i[1] == j[1] or i[0] == j[1] and i[1] == j[0]:
+        #             print("UPSIE UPSIE UPSIE UPSIE XD I DID THISSSSS")
+    
+    # for x in trios:
+    #     if x[0] == x[1]:
+    #         print("UPSIE XD")
+    
+    # for i in trios:
+    #     for j in trios:
+    #         if i == j:
+    #             continue
+    #         if i[0] == j[0] and i[1] == j[1] or i[0] == j[1] and i[1] == j[0]:
+    #             print("UPSIE UPSIE UPSIE UPSIE XD")
+    #             break
+            
+    # for x in trios:
+    #     if x[0] == x[1]:
+    #         print("UPSIE XD")
+        #---------------------------------------------------------------------------
+        
+        # step = random.randint(1, 2) # Decides if test will be solvable or -1
+    
+        # trios = []
+        # how_many_selected = 0
+        
+        # nums = [i for i in range(0, N, step)]
+        # random_choice = random.randint(0, 1)
+        # if random_choice == 0:
+        #     random.shuffle(nums)
+            
+        # # for which_first in range(start_pos,N+1, step):
+        # for which_first in nums:
+            
+        #     for which_second in range(which_first+1, N, step):
+        #         if random.randint(0,100) < 90:
+        #             continue
+        #         current_pair = [which_first, which_second, generateRandom(1, maxK)]
+        #         # random.shuffle(current_pair)
+        #         trios.append(current_pair)
+        #         how_many_selected += 1
+        #         if how_many_selected >= M:
+        #             break
+        #     if how_many_selected >= M:
+        #         break
+        
+        # # if len(trios) == 0:
+        # if random.randint(0, 1) == 0 or len(trios) == 0:
+        #     trios.append([0,N-1,maxK])
+        
+        # # if len(trios) < M:
+        # M = len(trios)
+        
+        # if M == 0:
+        #     print("Something went wrong with this test.")
+            
+        # for x in trios:
+        #     if x[0] == x[1]:
+        #         print("UPSIE XD")
         
     if M == 0:
         print("Something went wrong with this test.")
@@ -730,7 +943,7 @@ def druganajkrajsa():
     # random.shuffle(trios)
     
     inputTxt += str(N) + " " + str(M) + "\n"
-    for i in range(M):
+    for i in range(len(trios)):
         inputTxt += str(trios[i][0]) + " " + str(trios[i][1]) + " " + str(trios[i][2]) + "\n";
     
     testCounter+=1

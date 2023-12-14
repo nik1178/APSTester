@@ -618,6 +618,8 @@ def druganajkrajsa():
     N = generateRandom(2, maxN)
     M = generateRandom(1, maxM)
     
+    trios = []
+    
     if random.randint(0, 3) == 0:
         # print("first")
         # Generate 10 random numbers leading from 0. Then 10 random leading from the last generated to 10 random
@@ -861,7 +863,16 @@ def druganajkrajsa():
                 trios.remove(x)
         
         # if len(trios) == 0:
-        if random.randint(0, 1) == 0 or len(trios) == 0:
+        if random.randint(0, 1) == 0:
+            is_good=True
+            for i in trios:
+                if i[0] == 0 and i[1] == N-1 or i[0] == N-1 and i[1] == 0:
+                    is_good=False
+                    break
+            if is_good:
+                trios.append([0,N-1,maxK])
+        
+        if len(trios) == 0:
             trios.append([0,N-1,maxK])
         
         

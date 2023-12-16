@@ -7,6 +7,7 @@ import inputGeneration
 import shutil
 import platform
 import argparse
+import random
 
 workingOutputFolderName = "workingOutputs"
 userOutputFolderName = "userOutput"
@@ -450,6 +451,13 @@ def setup():
             giveExecutePermission(path)
         print("Gave all working programs execute permissions")
         
+    #Grab random quote
+    with open("supportFiles/superImportantDontTouch", "r") as f:
+        quotes = f.readlines()
+        random_quote_number = random.randint(0, len(quotes)-1)
+        print("\n\n-------------------------------------------------------------")
+        print(quotes[random_quote_number] + "-------------------------------------------------------------")
+    
     
     # Infinite loop for infinite test
     print("\nStarting test program. Testing for \033[31m%s\033[0m. Check -h to change this.\n" % selected_assignment)

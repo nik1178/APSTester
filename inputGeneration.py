@@ -3,6 +3,14 @@ import math
 import os
 import random
 
+def inverted_extremes(num, minValue, maxValue, intensity): # (0,pi/2)
+    if minValue>=maxValue:
+        return maxValue
+    x = (num-minValue)/(maxValue-minValue) # Get percentage of how far the number is from the min and max
+    """ intensity = intensity  """# How much it should be pushed towards the extremes (set close to 0 BUT NOT 0 for linear distribution)
+    offset = ((math.tan(2*intensity*x-intensity))/(math.tan(intensity))+1)/2 # Function from image
+    newNum = offset*(maxValue-minValue)+minValue # Apply the offset to the number
+    return int(newNum)
 
 # Makes the numbers closer towards the extremes, to test edge cases 
 def pushTowardExtremes(num, minValue, maxValue, intensity):
@@ -73,7 +81,7 @@ def generateRandom(min, max):
     global testCounter, randomCounter
     global prevRandNum, prevMin, prevMax
     global print_cycle_message
-    howManyVariations = 13
+    howManyVariations = 14
     intensity = 10
     
     randNum = 0
@@ -139,6 +147,9 @@ def generateRandom(min, max):
     elif randomCounter%howManyVariations == 11:
         intensity=100000000000
         return pushTowardMinimum(randNum, min, max, intensity)
+    elif randomCounter%howManyVariations == 13:
+        intensity=1.5
+        return inverted_extremes(randNum, min, max, intensity)
     
 def generateRandomWord(min, max):
     # Generates a random word with a random length between min and max
@@ -960,3 +971,123 @@ def druganajkrajsa():
     testCounter+=1
     randomCounter+=1
     return inputTxt
+
+def otoki():
+    global testCounter, randomCounter
+    input_txt = ""
+    
+    # 1 <= V,S
+    # V * S <= 10^5
+    # 0 <= H <= 10^5
+    
+    maxN = 10**5 # Height and width limit
+    maxN = getMax(maxN)
+    
+    maxH = 10**5 # Height limit
+    maxH = getMaxLength(maxH)
+    
+    if testCounter == 0:
+        input_txt += "1 100000\n"
+        for i in range(100000):
+            input_txt += str(i) + " "
+        input_txt += "\n"
+    elif testCounter == 1:
+        input_txt += "100000 1\n"
+        for i in range(100000):
+            input_txt += str(i) + "\n"
+    elif testCounter == 2:
+        input_txt += "316 316\n"
+        for i in range(316):
+            for j in range(316):
+                input_txt += str(i+316*j) + " "
+            input_txt += "\n"
+    elif testCounter == 3:
+        input_txt += "316 316\n"
+        for i in range(316):
+            for j in range(316):
+                if i%2==0 or j%2==0:
+                    input_txt += str(0) + " "
+                else:
+                    input_txt += str(i+j+1) + " "
+            input_txt += "\n"
+    
+    else:
+        if randomCounter==0:
+            print("Stress tests over, starting random tests.")
+        V = generateRandom(1, maxN) # height
+        S = generateRandom(1, maxN) # width
+        if (V*S > 10**5):
+            if random.randint(0, 1) == 0:
+                if random.randint(0,5) != 0:
+                    S = int(math.sqrt(S))
+                V = 10**5 // S
+            else:
+                if random.randint(0,5) != 0:
+                    V = int(math.sqrt(V))
+                S = 10**5 // V
+        
+        H = generateRandom(0, maxH)
+        
+        input_txt += str(V) + " " + str(S) + "\n"
+        
+        if random.randint(0, 1) == 0:
+            for _ in range(V):
+                for s in range(S):
+                    random_height = generateRandom(0, H)
+                    if (s>0):
+                        input_txt += " "
+                    input_txt += str(random_height)
+                input_txt += "\n"
+        else:
+            coords = []
+            board = [[-1 for _ in range(S)] for _ in range(V)]
+            how_many_peaks = generateRandom(1, V*S)
+            for _ in range(how_many_peaks):
+                coords.append([generateRandom(0, S-1), generateRandom(0, V-1)])
+                
+            new_coords = []
+            for coord in coords:
+                if board[coord[1]][coord[0]] != -1:
+                    continue
+                height = generateRandom(0, H)
+                board[coord[1]][coord[0]] = height
+                if coord[0]-1 >= 0 and board[coord[1]][coord[0]-1] == -1:
+                    new_coords.append([coord[0]-1, coord[1], height])
+                if coord[0]+1 < S and board[coord[1]][coord[0]+1] == -1:
+                    new_coords.append([coord[0]+1, coord[1], height])
+                if coord[1]-1 >= 0 and board[coord[1]-1][coord[0]] == -1:
+                    new_coords.append([coord[0], coord[1]-1, height])
+                if coord[1]+1 < V and board[coord[1]+1][coord[0]] == -1:
+                    new_coords.append([coord[0], coord[1]+1, height])
+            
+            while len(new_coords) > 0:
+                # if len(new_coords)%1000 == 0:
+                #     print(len(new_coords))
+                coord = new_coords[0]
+                if board[coord[1]][coord[0]] == -1:
+                    height = coord[2]
+                    height = height-pushTowardMinimum(random.randint(0,height), 0, height, 100)
+                    board[coord[1]][coord[0]] = height
+                    
+                    if coord[0]-1 >= 0 and board[coord[1]][coord[0]-1] == -1:
+                        new_coords.append([coord[0]-1, coord[1], height])
+                    if coord[0]+1 < S and board[coord[1]][coord[0]+1] == -1:
+                        new_coords.append([coord[0]+1, coord[1], height])
+                    if coord[1]-1 >= 0 and board[coord[1]-1][coord[0]] == -1:
+                        new_coords.append([coord[0], coord[1]-1, height])
+                    if coord[1]+1 < V and board[coord[1]+1][coord[0]] == -1:
+                        new_coords.append([coord[0], coord[1]+1, height])
+                new_coords.pop(0)
+            
+            for i in range(V):
+                for j in range(S):
+                    if j>0:
+                        input_txt += " "
+                    input_txt += str(board[i][j])
+                input_txt += "\n"
+            
+            
+        randomCounter+=1
+
+    testCounter+=1
+    return input_txt

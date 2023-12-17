@@ -21,7 +21,7 @@ testLimit = 0 # 0 means no limit
 
 operatingSystem = platform.system()
 
-selected_assignment = "9druganajkrajsa"
+selected_assignment = "10otoki"
 
 slash = "/"
 
@@ -137,6 +137,8 @@ def testProgram(userProgramName):
         inputTxt = inputGeneration.razporeditev()
     elif selected_assignment == "9druganajkrajsa":
         inputTxt = inputGeneration.druganajkrajsa()
+    elif selected_assignment == "10otoki":
+        inputTxt = inputGeneration.otoki()
     else:
         print("Input generation for selected assignment not found. If it is listed under -la and you still get this error, please report this to @GonnaDoStuff.")
         exit(1)

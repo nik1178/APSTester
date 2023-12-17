@@ -1,4 +1,4 @@
-Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover.;Mark Twain
+important_text = """Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do. So throw off the bowlines. Sail away from the safe harbor. Catch the trade winds in your sails. Explore. Dream. Discover.;Mark Twain
 I can't understand why people are frightened of new ideas. I'm frightened of the old ones.;John Cage
 The tragedy of life is not so much what men suffer, but rather what they miss.;Thomas Carlyle
 The greatest mistake you can make in life is to be continually fearing you will make one.;Elbert Hubbard
@@ -112,4 +112,4 @@ A man is a success if he gets up in the morning and goes to bed at night and in 
 A superior man is modest in his speech, but exceeds in his actions.;Confucious
 Every person is a new door to a different world.;Six Degrees of Separation
 Anybody can get a house through hard work. But only the smart can get it through gambling.;Bill Gates
-You cannot do a kindness too soon, for you never know how soon it will be too late.;Ralph Waldo Emerson
+You cannot do a kindness too soon, for you never know how soon it will be too late.;Ralph Waldo Emerson"""

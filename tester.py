@@ -8,7 +8,6 @@ import shutil
 import platform
 import argparse
 import random
-import superImportantDontTouch
 
 workingOutputFolderName = "workingOutputs"
 userOutputFolderName = "userOutput"
@@ -463,23 +462,26 @@ def setup():
         print("Gave all working programs execute permissions")
         
     #Grab random quote
+    print("Deleting old copy of super important file...")
+    path_super_important = os.path.join("supportFiles", "superImportantDontTouch")
     
-    quotes = superImportantDontTouch.important_text
-    quotes = quotes.split("\n")
-    random_quote_number = random.randint(0, len(quotes)-2)
-    print("\n" + GREEN)
-    print(os. get_terminal_size().columns * "-")
-    quote = quotes[random_quote_number]
-    quote = quote.split(";")
-    for i in range(len(quote)-1):
-        quote[i] = quote[i].strip()
-        if i != len(quote)-2:
-            print(quote[i] + ";")
-        else:
-            print(quote[i])
-    quote[-1] = quote[-1].strip()
-    print(" - " + quote[-1])
-    print(os. get_terminal_size().columns * "-" + COLOR_END)
+    with open(path_super_important, "rb") as f:
+        quotes = f.readlines()
+        quotes = [x.decode("utf-8") for x in quotes]
+        random_quote_number = random.randint(0, len(quotes)-1)
+        print("\n" + GREEN)
+        print(os. get_terminal_size().columns * "-")
+        quote = quotes[random_quote_number]
+        quote = quote.split(";")
+        for i in range(len(quote)-1):
+            quote[i] = quote[i].strip()
+            if i != len(quote)-2:
+                print(quote[i] + ";")
+            else:
+                print(quote[i])
+        quote[-1] = quote[-1].strip()
+        print(" - " + quote[-1])
+        print(os. get_terminal_size().columns * "-" + COLOR_END)
     
     
     # Infinite loop for infinite test

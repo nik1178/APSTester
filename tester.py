@@ -466,7 +466,7 @@ def setup():
     
     quotes = superImportantDontTouch.important_text
     quotes = quotes.split("\n")
-    random_quote_number = random.randint(0, len(quotes)-1)
+    random_quote_number = random.randint(0, len(quotes)-2)
     print("\n" + GREEN)
     print(os. get_terminal_size().columns * "-")
     quote = quotes[random_quote_number]

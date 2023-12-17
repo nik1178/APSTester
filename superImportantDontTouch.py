@@ -112,4 +112,6 @@ A man is a success if he gets up in the morning and goes to bed at night and in 
 A superior man is modest in his speech, but exceeds in his actions.;Confucious
 Every person is a new door to a different world.;Six Degrees of Separation
 Anybody can get a house through hard work. But only the smart can get it through gambling.;Bill Gates
-You cannot do a kindness too soon, for you never know how soon it will be too late.;Ralph Waldo Emerson"""
+You cannot do a kindness too soon, for you never know how soon it will be too late.;Ralph Waldo Emerson
+git commit -m "I'm a git";Linus Torvalds
+"""

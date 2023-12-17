@@ -462,6 +462,14 @@ def setup():
         print("Gave all working programs execute permissions")
         
     #Grab random quote
+    print("Deleting old copy of super important file...")
+    path_super_important = os.path.join("supportFiles", "superImportantDontTouch.txt")
+    copy_path_super_important = os.path.join("supportFiles", "superImportantDontTouchCopy.txt")
+    if os.path.exists(copy_path_super_important):
+        os.remove(copy_path_super_important)
+    print("Copying super important file...")
+    shutil.copyfile(path_super_important, copy_path_super_important)
+    
     with open("supportFiles/superImportantDontTouch.txt", "r") as f:
         quotes = f.readlines()
         random_quote_number = random.randint(0, len(quotes)-1)

@@ -73,6 +73,8 @@ def checkUpdate(args):
             pull = subprocess.run('git pull origin master', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True);
             if pull.returncode != 0:
                 print('\033[93m' + 'Cannot pull from repo' + '\033[0m')
+                print('\033[93m' + 'Error message: ' + pull.stderr.decode("utf-8") + '\033[0m')
+                print("To easily fix this, run 'git pull origin master' in your terminal, then delete the problem file.")
                 while True:
                     continueChoice = input('Would you like to continue? (There might be unfixed bugs in the tester) [y/N]:').lower()
                     if continueChoice in yes:

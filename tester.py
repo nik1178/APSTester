@@ -462,7 +462,7 @@ def setup():
         print("Gave all working programs execute permissions")
         
     #Grab random quote
-    with open("supportFiles/superImportantDontTouch", "r") as f:
+    with open("supportFiles/superImportantDontTouch.txt", "r") as f:
         quotes = f.readlines()
         random_quote_number = random.randint(0, len(quotes)-1)
         print("\n" + GREEN)

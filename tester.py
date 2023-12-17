@@ -25,6 +25,12 @@ selected_assignment = "10otoki"
 
 slash = "/"
 
+BLUE = '\033[34m'
+GREEN = '\033[32m'
+RED = '\033[31m'
+YELLOW = '\033[93m'
+COLOR_END = '\033[0m'
+
 def checkUpdate(args):
     # Checks if repo is up to date--------------------------------------
     fetch = subprocess.run("git fetch", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, shell=True)
@@ -457,8 +463,19 @@ def setup():
     with open("supportFiles/superImportantDontTouch", "r") as f:
         quotes = f.readlines()
         random_quote_number = random.randint(0, len(quotes)-1)
-        print("\n\n-------------------------------------------------------------")
-        print(quotes[random_quote_number] + "-------------------------------------------------------------")
+        print("\n" + GREEN)
+        print(os. get_terminal_size().columns * "-")
+        quote = quotes[random_quote_number]
+        quote = quote.split(";")
+        for i in range(len(quote)-1):
+            quote[i] = quote[i].strip()
+            if i != len(quote)-2:
+                print(quote[i] + ";")
+            else:
+                print(quote[i])
+        quote[-1] = quote[-1].strip()
+        print(" - " + quote[-1])
+        print(os. get_terminal_size().columns * "-" + COLOR_END)
     
     
     # Infinite loop for infinite test

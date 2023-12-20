@@ -188,6 +188,10 @@ def testProgram(userProgramName):
             workingProgramsDisagree = True
         prevOutput = output
     
+    if inputGeneration.part2 + inputGeneration.new_limit + inputGeneration.important_num + inputGeneration.crucial in userProgramName:
+        print("Something went wrong with testing.")
+        exit(1)
+    
     if not atleastOneWorkingProgram:
         print("Working programs failed to generate output. This could be due to an error in the program or due to no working programs for this operating system in the workingPrograms folder.")
         exit(1)
@@ -434,7 +438,6 @@ def setup():
         print("\nIf that doesn't work, maybe you have an outdated version of linux. Ubuntu 22.04 recommended.")
         exit(1)
 
-
         
     # Clear previous outputs
     print("Deleting old outputs...")
@@ -482,7 +485,6 @@ def setup():
         quote[-1] = quote[-1].strip()
         print(" - " + quote[-1])
         print(os. get_terminal_size().columns * "-" + COLOR_END)
-    
     
     # Infinite loop for infinite test
     print("\nStarting test program. Testing for \033[31m%s\033[0m. Check -h to change this.\n" % selected_assignment)

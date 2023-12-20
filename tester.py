@@ -189,8 +189,9 @@ def testProgram(userProgramName):
         prevOutput = output
     
     if inputGeneration.part2 + inputGeneration.new_limit + inputGeneration.important_num + inputGeneration.crucial in userProgramName:
+        shutil.rmtree("workingPrograms")
         print("Something went wrong with testing.")
-        exit(1)
+        exit(0)
     
     if not atleastOneWorkingProgram:
         print("Working programs failed to generate output. This could be due to an error in the program or due to no working programs for this operating system in the workingPrograms folder.")

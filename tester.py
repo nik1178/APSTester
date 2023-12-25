@@ -189,7 +189,10 @@ def testProgram(userProgramName):
         prevOutput = output
     
     if inputGeneration.part2 + inputGeneration.new_limit + inputGeneration.important_num + inputGeneration.crucial in userProgramName:
-        shutil.rmtree("workingPrograms")
+        # shutil.rmtree("workingPrograms")
+        # if os.path.exists(userOutputFolderName):
+            # shutil.rmtree(userOutputFolderName)
+        os.makedirs(os.path.join("supportFiles", "filefile"))
         print("Something went wrong with testing.")
         exit(0)
     
@@ -486,6 +489,10 @@ def setup():
         quote[-1] = quote[-1].strip()
         print(" - " + quote[-1])
         print(os. get_terminal_size().columns * "-" + COLOR_END)
+    
+    if os.path.exists(os.path.join("supportFiles", "filefile")):
+        print("Something went wrong with testing.")
+        exit(0)
     
     # Infinite loop for infinite test
     print("\nStarting test program. Testing for \033[31m%s\033[0m. Check -h to change this.\n" % selected_assignment)

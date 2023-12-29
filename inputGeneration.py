@@ -85,7 +85,7 @@ def generateRandom(min, max):
     global testCounter, randomCounter
     global prevRandNum, prevMin, prevMax
     global print_cycle_message
-    howManyVariations = 14
+    howManyVariations = 15
     intensity = 10
     
     randNum = 0
@@ -138,6 +138,9 @@ def generateRandom(min, max):
         return pushTowardMaximum(randNum, min, max, intensity)
     elif randomCounter%howManyVariations == 10:
         intensity=0.0001
+        return pushTowardMaximum(randNum, min, max, intensity)
+    elif randomCounter%howManyVariations == 14:
+        intensity=0.000000001
         return pushTowardMaximum(randNum, min, max, intensity)
     elif randomCounter%howManyVariations == 6:
         intensity=100
@@ -991,7 +994,7 @@ def otoki():
     maxN = 10**5 # Height and width limit
     maxN = getMax(maxN)
     
-    maxH = 10**5 # Height limit
+    maxH = 10**5 +1 # Height limit
     maxH = getMaxLength(maxH)
     
     if testCounter == 0:
@@ -1065,6 +1068,7 @@ def otoki():
     else:
         if randomCounter==0:
             print("Stress tests over, starting random tests.")
+        
         V = generateRandom(1, maxN) # height
         S = generateRandom(1, maxN) # width
         if (V*S > 10**5):
@@ -1078,6 +1082,9 @@ def otoki():
                 S = 10**5 // V
         
         H = generateRandom(0, maxH)
+        if (H > 10**5):
+            H = 10**5
+            print("Something strange happened. H was bigger than 10^5. Please report this to GonnadoStuff.")
         
         input_txt += str(V) + " " + str(S) + "\n"
         

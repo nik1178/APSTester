@@ -1018,6 +1018,49 @@ def otoki():
                 else:
                     input_txt += str(i+j+1) + " "
             input_txt += "\n"
+    elif testCounter == 4:
+        input_txt += "316 316\n"
+        height_counter = 100000
+        small_height_counter = 1
+        for i in range(0,316,1):
+            for j in range(0,316,2):
+                if i%2==0:
+                    input_txt += str(height_counter) + " " + str(small_height_counter) + " "
+                else:
+                    input_txt += str(small_height_counter) + " " + str(height_counter) + " "
+                height_counter -= 1
+                small_height_counter += 1
+            input_txt += "\n"
+    elif testCounter == 5:
+        input_txt += "316 316\n"
+        height_counter = 100000
+        small_height_counter = 1
+        for i in range(0,316,1):
+            for j in range(0,316,2):
+                if i%2==0:
+                    input_txt += str(height_counter) + " " + str(small_height_counter) + " "
+                else:
+                    input_txt += str(small_height_counter) + " " + str(height_counter) + " "
+            input_txt += "\n"
+    elif testCounter == 6:
+        input_txt += "316 316\n"
+        height_counter = 100000
+        small_height_counter = 1
+        for i in range(0,316,1):
+            for j in range(0,316,2):
+                input_txt += str(height_counter) + " " + str(small_height_counter) + " "
+            input_txt += "\n"
+    elif testCounter == 7:
+        input_txt += "316 316\n"
+        height_counter = 100000
+        small_height_counter = 0
+        for i in range(0,316,1):
+            for j in range(0,316,2):
+                if i%2==0:
+                    input_txt += str(height_counter) + " " + str(small_height_counter) + " "
+                else:
+                    input_txt += str(small_height_counter) + " " + str(height_counter) + " "
+            input_txt += "\n"
     
     else:
         if randomCounter==0:

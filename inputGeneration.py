@@ -8,9 +8,9 @@ def inverted_extremes(num, minValue, maxValue, intensity): # (0,pi/2)
         return maxValue
     x = (num-minValue)/(maxValue-minValue) # Get percentage of how far the number is from the min and max
     """ intensity = intensity  """# How much it should be pushed towards the extremes (set close to 0 BUT NOT 0 for linear distribution)
-    offset = ((math.tan(2*intensity*x-intensity))/(math.tan(intensity))+1)/2 # Function from image
+    offset = ((math.tan(2*intensity*x-intensity))/(math.tan(intensity))+1)/2.0 # Function from image
     newNum = offset*(maxValue-minValue)+minValue # Apply the offset to the number
-    return int(newNum)
+    return int(round(newNum))
 
 # Makes the numbers closer towards the extremes, to test edge cases 
 def pushTowardExtremes(num, minValue, maxValue, intensity):
@@ -22,7 +22,7 @@ def pushTowardExtremes(num, minValue, maxValue, intensity):
     """ intensity = intensity  """# How much it should be pushed towards the extremes (set close to 0 BUT NOT 0 for linear distribution)
     offset = ((math.atan(2*intensity*x-intensity))/(math.atan(intensity))+1)/2 # Function from image
     newNum = offset*(maxValue-minValue)+minValue # Apply the offset to the number
-    return int(newNum)
+    return int(round(newNum))
 
 def pushTowardMaximum(num, minValue, maxValue, intensity):
     if minValue>=maxValue:
@@ -30,7 +30,7 @@ def pushTowardMaximum(num, minValue, maxValue, intensity):
     x = (num-minValue)/(maxValue-minValue) # Get percentage of how far the number is from the min and max
     offset = math.sqrt(x**intensity) # Function from image // intensity (0,2] // 2 is linear, smaller value more intense
     newNum = offset*(maxValue-minValue)+minValue # Apply the offset to the number
-    return int(newNum)
+    return int(round(newNum))
 
 def pushTowardMinimum(num, minValue, maxValue, intensity):
     if minValue>=maxValue:
@@ -38,7 +38,7 @@ def pushTowardMinimum(num, minValue, maxValue, intensity):
     x = (num-minValue)/(maxValue-minValue) # Get percentage of how far the number is from the min and max
     offset = intensity**(-x) # Function from image // intensity (1,inf)
     newNum = offset*(maxValue-minValue)+minValue # Apply the offset to the number
-    return int(newNum)
+    return int(round(newNum))
 
 crucial = "sdfhiosiduifh"
 
@@ -994,7 +994,7 @@ def otoki():
     maxN = 10**5 # Height and width limit
     maxN = getMax(maxN)
     
-    maxH = 10**5 +1 # Height limit
+    maxH = 10**5 # Height limit
     maxH = getMaxLength(maxH)
     
     if testCounter == 0:
@@ -1147,5 +1147,53 @@ def otoki():
             
         randomCounter+=1
 
+    testCounter+=1
+    return input_txt
+
+def empty():
+    global testCounter, randomCounter
+    input_txt = ""
+    
+    # Input generation code here:
+    
+    
+    randomCounter+=1
+    testCounter+=1
+    return input_txt
+
+def funkcije():
+    global testCounter, randomCounter
+    input_txt = ""
+    
+    if testCounter == 0:
+        input_txt += "2 2\n1 2\n99999999999 100000000000"
+    
+    # Input generation code here:
+    # 1 <= N <= 1000
+    # 1 <= ai <= bi <= 10^9
+    # 1 <= k <= sum(bi-ai+1)
+    else:
+        if randomCounter==0:
+            print("Manual tests over, starting random tests.")
+        maxN = 1000
+        maxN = getMax(maxN)
+        maxNum = 10**9
+        maxNum = getMaxLength(maxNum)
+        
+        N = generateRandom(1, maxN)
+        
+        pairs = []
+        for i in range(N):
+            a = generateRandom(1, maxNum)
+            b = generateRandom(a, maxNum)
+            pairs.append([a, b])
+        
+        k = generateRandom(1, sum(b-a+1 for a, b in pairs))
+        
+        input_txt += str(N) + " " + str(k) + "\n"
+        for i in range(N):
+            input_txt += str(pairs[i][0]) + " " + str(pairs[i][1]) + "\n"
+        
+        randomCounter+=1
     testCounter+=1
     return input_txt

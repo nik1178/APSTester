@@ -1192,33 +1192,41 @@ def pretvorba():
     global testCounter, randomCounter
     input_txt = ""
     
-    # Input generation code here:
-    maxS = 1000
-    maxT = 1000
+    if testCounter == 0:
+        input_txt+="0 1 0\n"
+        input_txt+="T\n"
+        input_txt+="TFPDM"
+    else:
+        if randomCounter==0:
+            print("Manual tests over, starting random tests.")
     
-    maxS = getMax(maxS)
-    maxT = getMax(maxT)
-    
-    Slen = generateRandom(1, maxS)
-    Tlen = generateRandom(1, maxT)
-    
-    S = generateRandomWord(1, Slen)
-    T = generateRandomWord(1, Tlen)
-    
-    S = S.upper()
-    T = T.upper()
-    
-    maxNum = 1000
-    maxNum = getMaxLength(maxNum)
-    x = generateRandom(0, maxNum)
-    y = generateRandom(0, maxNum)
-    z = generateRandom(0, maxNum)
-    
-    input_txt += str(x) + " " + str(y) + " " + str(z) + "\n"
-    input_txt += S + "\n"
-    input_txt += T + "\n"
-    
-    
-    randomCounter+=1
+        # Input generation code here:
+        maxS = 1000
+        maxT = 1000
+        
+        maxS = getMax(maxS)
+        maxT = getMax(maxT)
+        
+        Slen = generateRandom(1, maxS)
+        Tlen = generateRandom(1, maxT)
+        
+        S = generateRandomWord(1, Slen)
+        T = generateRandomWord(1, Tlen)
+        
+        S = S.upper()
+        T = T.upper()
+        
+        maxNum = 1000
+        maxNum = getMaxLength(maxNum)
+        x = generateRandom(0, maxNum)
+        y = generateRandom(0, maxNum)
+        z = generateRandom(0, maxNum)
+        
+        input_txt += str(x) + " " + str(y) + " " + str(z) + "\n"
+        input_txt += S + "\n"
+        input_txt += T + "\n"
+        
+        
+        randomCounter+=1
     testCounter+=1
     return input_txt

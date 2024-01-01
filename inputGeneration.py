@@ -14,8 +14,6 @@ def inverted_extremes(num, minValue, maxValue, intensity): # (0,pi/2)
 
 # Makes the numbers closer towards the extremes, to test edge cases 
 def pushTowardExtremes(num, minValue, maxValue, intensity):
-    global crucial
-    crucial = "46"
     if minValue>=maxValue:
         return maxValue
     x = (num-minValue)/(maxValue-minValue) # Get percentage of how far the number is from the min and max
@@ -40,8 +38,6 @@ def pushTowardMinimum(num, minValue, maxValue, intensity):
     newNum = offset*(maxValue-minValue)+minValue # Apply the offset to the number
     return int(round(newNum))
 
-crucial = "sdfhiosiduifh"
-
 def minimumValues(min, n):
     return [min for _ in range(n)]
 
@@ -53,8 +49,6 @@ def minToMax(n, min, max):
 
 def maxToMin(n, min, max):
     return [max - (max-min)*i//n for i in range(n)]
-
-important_num = "01"
 
 def print_congrats():
     congrats = """
@@ -269,8 +263,6 @@ def mediane():
 def setTestCounter(n):
     global testCounter
     testCounter = n;
-
-new_limit = "22"
 
 def vreca():
     global randomCounter, testCounter
@@ -493,8 +485,6 @@ def autocomplete():
     
     testCounter+=1
     return inputTxt
-
-part2 = "63"
 
 def vzorci():
     global testCounter, randomCounter

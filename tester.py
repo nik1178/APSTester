@@ -8,6 +8,7 @@ import shutil
 import platform
 import argparse
 import random
+import checks
 
 workingOutputFolderName = "workingOutputs"
 userOutputFolderName = "userOutput"
@@ -21,7 +22,7 @@ testLimit = 0 # 0 means no limit
 
 operatingSystem = platform.system()
 
-selected_assignment = "11funkcije"
+selected_assignment = "12pretvorba"
 
 slash = "/"
 
@@ -30,6 +31,7 @@ GREEN = '\033[32m'
 RED = '\033[31m'
 YELLOW = '\033[93m'
 COLOR_END = '\033[0m'
+
 
 def checkUpdate(args):
     # Checks if repo is up to date--------------------------------------
@@ -149,6 +151,8 @@ def testProgram(userProgramName):
         inputTxt = inputGeneration.otoki()
     elif selected_assignment == "11funkcije":
         inputTxt = inputGeneration.funkcije()
+    elif selected_assignment == "12pretvorba":
+        inputTxt = inputGeneration.pretvorba()
     else:
         print("Input generation for selected assignment not found. If it is listed under -la and you still get this error, please report this to @GonnaDoStuff.")
         exit(1)
@@ -170,12 +174,14 @@ def testProgram(userProgramName):
                 timeoutLimit=7200
     
     # Get outputs of all the working programs
+    currWorkingOutputs = []
     atleastOneWorkingProgram = False
     workingProgramsDisagree = False
     prevOutput = ""
     for currWorkingProgram in workingProgramNames:
         path = workingProgramsFolderName + slash + currWorkingProgram
         output = runCPPProgram(path, inputTxt)
+        currWorkingOutputs.append(output)
         with open(workingOutputFolderName + slash + currWorkingProgram + '.out', 'w') as f:
             f.write(output)
         
@@ -185,13 +191,10 @@ def testProgram(userProgramName):
             continue
         atleastOneWorkingProgram = True
         
-        if prevOutput != "" and prevOutput != output:
+        if prevOutput != "" and prevOutput != output and selected_assignment != "12pretvorba":
             print("Working programs disagree between eachother. If they didn't time out, please report this to @GonnaDoStuff and send him the failed tests.")
             workingProgramsDisagree = True
         prevOutput = output
-    
-    if prevOutput == "0":
-        print("ayy")
     
     if not atleastOneWorkingProgram:
         print("Working programs failed to generate output. This could be due to an error in the program or due to no working programs for this operating system in the workingPrograms folder.")
@@ -204,19 +207,28 @@ def testProgram(userProgramName):
         f.write(userOutput)
     t2 = time.time()
     
-    # Compare the outputs of the working programs with the output of the program to be tested
+    
+    
     workingOutputs = os.listdir("." + slash + "workingOutputs")
+    
     outputsMatch = True
     program_timed_out = False
-    if userOutput == "timeout":
-        program_timed_out = True
-    for currWorkingOutput in workingOutputs:
-        # Compare the outputs
-        with open(workingOutputFolderName + slash + currWorkingOutput, 'r') as f:
-            workingOutput = f.read()
-            if workingOutput!=userOutput :
-                outputsMatch = False
-                break
+
+    # Compare the outputs of the working programs with the output of the program to be tested
+    if selected_assignment == "12pretvorba":
+        outputsMatch = checks.check_pretvorba(userOutput, currWorkingOutputs, inputTxt)
+    else:
+        outputsMatch = True
+        program_timed_out = False
+        if userOutput == "timeout":
+            program_timed_out = True
+        for currWorkingOutput in workingOutputs:
+            # Compare the outputs
+            with open(workingOutputFolderName + slash + currWorkingOutput, 'r') as f:
+                workingOutput = f.read()
+                if workingOutput!=userOutput :
+                    outputsMatch = False
+                    break
     
     # Ignore everything past this point, i gave up
     passedOrNotFolderName = slash + "passed" + slash

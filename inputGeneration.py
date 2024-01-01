@@ -1168,7 +1168,7 @@ def funkcije():
         maxN = 1000
         maxN = getMax(maxN)
         maxNum = 10**9
-        maxNum = getMaxLength(maxNum)
+        maxNum = getMax(maxNum)
         
         N = generateRandom(1, maxN)
         
@@ -1185,5 +1185,40 @@ def funkcije():
             input_txt += str(pairs[i][0]) + " " + str(pairs[i][1]) + "\n"
         
         randomCounter+=1
+    testCounter+=1
+    return input_txt
+
+def pretvorba():
+    global testCounter, randomCounter
+    input_txt = ""
+    
+    # Input generation code here:
+    maxS = 1000
+    maxT = 1000
+    
+    maxS = getMax(maxS)
+    maxT = getMax(maxT)
+    
+    Slen = generateRandom(1, maxS)
+    Tlen = generateRandom(1, maxT)
+    
+    S = generateRandomWord(1, Slen)
+    T = generateRandomWord(1, Tlen)
+    
+    S = S.upper()
+    T = T.upper()
+    
+    maxNum = 1000
+    maxNum = getMaxLength(maxNum)
+    x = generateRandom(0, maxNum)
+    y = generateRandom(0, maxNum)
+    z = generateRandom(0, maxNum)
+    
+    input_txt += str(x) + " " + str(y) + " " + str(z) + "\n"
+    input_txt += S + "\n"
+    input_txt += T + "\n"
+    
+    
+    randomCounter+=1
     testCounter+=1
     return input_txt

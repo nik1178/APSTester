@@ -1230,3 +1230,38 @@ def pretvorba():
         randomCounter+=1
     testCounter+=1
     return input_txt
+
+def zemljisce():
+    global testCounter, randomCounter
+    input_txt = ""
+    
+    # Input generation code here:
+    if testCounter == 0:
+        input_txt += "1\n"
+        input_txt += "1 1 1 1 1 2 1 2\n"
+    else:
+        if randomCounter==0:
+            print("Manual tests over, starting random tests.")
+        maxT = 1000
+        maxT = getMax(maxT)
+        T = generateRandom(1, maxT)
+        maxDistance = 100000
+        maxDistance = getMaxLength(maxDistance)
+        
+        input_txt += str(T) + "\n"
+        for i in range(T):
+            x1 = generateRandom(-maxDistance, maxDistance)
+            y1 = generateRandom(-maxDistance, maxDistance)
+            x2 = generateRandom(-maxDistance, maxDistance)
+            y2 = generateRandom(-maxDistance, maxDistance)
+            x3 = generateRandom(-maxDistance, maxDistance)
+            y3 = generateRandom(-maxDistance, maxDistance)
+            x4 = generateRandom(-maxDistance, maxDistance)
+            y4 = generateRandom(-maxDistance, maxDistance)
+            
+            input_txt += str(x1) + " " + str(y1) + " " + str(x2) + " " + str(y2) + " " + str(x3) + " " + str(y3) + " " + str(x4) + " " + str(y4) + "\n"
+        
+        
+        randomCounter+=1
+    testCounter+=1
+    return input_txt

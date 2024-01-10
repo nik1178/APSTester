@@ -1245,7 +1245,7 @@ def zemljisce():
         maxT = 1000
         maxT = getMax(maxT)
         T = generateRandom(1, maxT)
-        maxDistance = 100000
+        maxDistance = 10000
         maxDistance = getMaxLength(maxDistance)
         
         input_txt += str(T) + "\n"

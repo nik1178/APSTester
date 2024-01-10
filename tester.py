@@ -22,7 +22,7 @@ testLimit = 0 # 0 means no limit
 
 operatingSystem = platform.system()
 
-selected_assignment = "12pretvorba"
+selected_assignment = "13zemljisce"
 
 slash = "/"
 
@@ -153,7 +153,7 @@ def testProgram(userProgramName):
         inputTxt = inputGeneration.funkcije()
     elif selected_assignment == "12pretvorba":
         inputTxt = inputGeneration.pretvorba()
-    elif selected_assignment == "nuhuh":
+    elif selected_assignment == "13zemljisce":
         inputTxt = inputGeneration.zemljisce()
     else:
         print("Input generation for selected assignment not found. If it is listed under -la and you still get this error, please report this to @GonnaDoStuff.")
@@ -208,6 +208,15 @@ def testProgram(userProgramName):
     with open(userOutputFolderName+slash + "" + userProgramName + '.out', 'w') as f:
         f.write(userOutput)
     t2 = time.time()
+    
+    # split_output = userOutput.split("\n")
+    # for i in split_output:
+    #     if "." in i:
+    #         print("ohoh","-"*20)
+    #     if "-" in i:
+    #         print("minus","-"*20)
+    #     if "nan" in i:
+    #         print("nan","-"*20)
     
     
     

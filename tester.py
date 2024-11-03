@@ -17,7 +17,7 @@ workingProgramsFolderName = "workingPrograms"
 
 allOutputsFolderName = "allOutputs"
 
-timeoutLimit = 2 # in seconds
+timeoutLimit = 1 # in seconds
 testLimit = 0 # 0 means no limit
 
 operatingSystem = platform.system()

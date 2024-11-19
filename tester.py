@@ -328,7 +328,7 @@ def setup():
     print("\033[31mTHE LONGER YOU RUN THE PROGRAM, THE HIGHER THE CHANCE YOUR PROGRAM IS WORKING CORRECTLY\n(I recommend at least a few hundred)\033[0m\n")
     
     print("\n\033[34mRemember to use\033[0m \033[32m-h\033[0m \033[34mto see all the capabilities of this program!\033[0m\n")
-
+ 
     if not args.dev:
         checkUpdate(args)
     

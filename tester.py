@@ -90,7 +90,7 @@ def checkUpdate(args):
                 exit(0)
     # END OF CHECK FOR UPDATE---------------------------------------------
 
-def runCPPProgram(programName, inputTxt):
+def runCPPProgram(programName, inputTxt, timeoutLimit=timeoutLimit):
     # Command to run the C++ program and get its output 
     # runArguments = [programName]
     # runCommand = "".join(str(x) for x in runArguments)
@@ -182,7 +182,7 @@ def testProgram(userProgramName):
     prevOutput = ""
     for currWorkingProgram in workingProgramNames:
         path = workingProgramsFolderName + slash + currWorkingProgram
-        output = runCPPProgram(path, inputTxt)
+        output = runCPPProgram(path, inputTxt, timeoutLimit=10)
         currWorkingOutputs.append(output)
         with open(workingOutputFolderName + slash + currWorkingProgram + '.out', 'w') as f:
             f.write(output)

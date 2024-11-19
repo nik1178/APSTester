@@ -32,6 +32,8 @@ RED = '\033[31m'
 YELLOW = '\033[93m'
 COLOR_END = '\033[0m'
 
+automatic_yes = False
+
 
 def checkUpdate(args):
     # Checks if repo is up to date--------------------------------------
@@ -43,9 +45,12 @@ def checkUpdate(args):
     if fetch.returncode != 0:
         print('\033[93m' + 'Cannot check if repository is up to date' + '\033[0m')
         while True:
+            if automatic_yes:
+                print('Would you like to continue? (There might be unfixed bugs in the tester) [y/N]:' + 'y')
+                break
             continueChoice = input('Would you like to continue? (There might be unfixed bugs in the tester) [y/N]:').lower()
             if continueChoice in yes:
-                break;
+                break
             elif continueChoice in no:
                 exit(0)
             else:
@@ -58,6 +63,10 @@ def checkUpdate(args):
             if localHash.stdout != originHash.stdout:
                 print('\033[93m' + 'Your repo is not up to date. Follow instructions or run the script with the -p flag' + '\033[0m')
                 while True:
+                    if automatic_yes:
+                        print('Would you like to update? [y/N]:' + 'y')
+                        pullChoice = True
+                        break
                     pullChoice = input('Would you like to update [y/N]:').lower()
                     if pullChoice in yes:
                         pullChoice = True
@@ -78,9 +87,12 @@ def checkUpdate(args):
                 print('\033[93m' + 'Error message: ' + pull.stderr.decode("utf-8") + '\033[0m')
                 print("To easily fix this, run 'git pull origin master' in your terminal, then delete the problem file.")
                 while True:
+                    if automatic_yes:
+                        print('Would you like to continue? (There might be unfixed bugs in the tester) [y/N]:' + 'y')
+                        break
                     continueChoice = input('Would you like to continue? (There might be unfixed bugs in the tester) [y/N]:').lower()
                     if continueChoice in yes:
-                        break;
+                        break
                     elif continueChoice in no:
                         exit(0)
                     else:
@@ -286,6 +298,7 @@ def setup():
     global selected_assignment
     global testLimit
     global pullChoice
+    global automatic_yes
 
     # Parameters for the program
     parser = argparse.ArgumentParser()
@@ -300,6 +313,7 @@ def setup():
     parser.add_argument("-max", "--max", help="Set the maximum number of inputs the program will be able to generate per test (N). Use at your own risk.", type=int)
     parser.add_argument("-maxlen", "--maxlen", help="Set the maximum length for input strings. Use at your own risk. This will only change behaviour for some assignments.", type=int)
     parser.add_argument("-d", "--dev", help="Developer mode. This will skip the update check, as you will not have the same ver. locally as online.", action="store_true")
+    parser.add_argument("-y", "--yes", help="Automatically respond \"yes\" to any question. This might lead to unwanted behaviour.", action="store_true")
     
     args = parser.parse_args()
     
@@ -328,6 +342,9 @@ def setup():
     print("\033[31mTHE LONGER YOU RUN THE PROGRAM, THE HIGHER THE CHANCE YOUR PROGRAM IS WORKING CORRECTLY\n(I recommend at least a few hundred)\033[0m\n")
     
     print("\n\033[34mRemember to use\033[0m \033[32m-h\033[0m \033[34mto see all the capabilities of this program!\033[0m\n")
+ 
+    if args.yes:
+        automatic_yes = True
  
     if not args.dev:
         checkUpdate(args)

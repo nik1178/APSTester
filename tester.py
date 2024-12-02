@@ -102,13 +102,13 @@ def checkUpdate(args):
                 exit(0)
     # END OF CHECK FOR UPDATE---------------------------------------------
 
-def runCPPProgram(programName, inputTxt, timeoutLimit=timeoutLimit):
+def runCPPProgram(programName, inputTxt, timeout_limit=timeoutLimit):
     # Command to run the C++ program and get its output 
     # runArguments = [programName]
     # runCommand = "".join(str(x) for x in runArguments)
     # Run the C++ program 
     try:
-        runProcess = subprocess.run([programName],input=inputTxt, capture_output=True, timeout=timeoutLimit, text=True, shell=True)
+        runProcess = subprocess.run([programName],input=inputTxt, capture_output=True, timeout=timeout_limit, text=True, shell=True)
         if "timeout" in runProcess.stdout:
             print("Program " + programName + " timed out. This happened in a weird place in code so please report this to @GonnaDoStuff.")
             return "timeout"
@@ -194,7 +194,7 @@ def testProgram(userProgramName):
     prevOutput = ""
     for currWorkingProgram in workingProgramNames:
         path = workingProgramsFolderName + slash + currWorkingProgram
-        output = runCPPProgram(path, inputTxt, timeoutLimit=10)
+        output = runCPPProgram(path, inputTxt, timeout_limit=10)
         currWorkingOutputs.append(output)
         with open(workingOutputFolderName + slash + currWorkingProgram + '.out', 'w') as f:
             f.write(output)
@@ -216,7 +216,7 @@ def testProgram(userProgramName):
     
     # Get the output of the program to be tested
     t1 = time.time()
-    userOutput = runCPPProgram("." + slash + userProgramName, inputTxt)
+    userOutput = runCPPProgram("." + slash + userProgramName, inputTxt, timeout_limit=timeoutLimit)
     with open(userOutputFolderName+slash + "" + userProgramName + '.out', 'w') as f:
         f.write(userOutput)
     t2 = time.time()

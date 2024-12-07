@@ -536,16 +536,41 @@ def vzorci():
         else: # Generate new query
             query_characters = characters + "*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?*?"
             query = generate_random_word_from_list(1, maxLen, characters)
-        
+            query = list(query)
+            
+            
         if len(query) > maxLen:
             query = query[:maxLen]
         
-        if len(query) < 1:
-            print("Something went wrong with this test, but it's hopefully been recovered from.")
-            query = "a"
+        if not isinstance(query, list):
+            print("Tests still being weird, contact GonnaDoStuff please.")
         
         query = "".join(query)
+        
+        if len(query) < 1:
+            query = "a"
+        if len(query) > maxLen:
+            print("Query too long in test")
+            exit(1)
+        if len(rand_sentence) > maxLen:
+            print("Rand sentence too long in test")
+            exit(1)
+        
         inputTxt += str(query) + " " + rand_sentence + "\n"
+        
+        split_split = inputTxt.split(" ")
+        if len(split_split[0]) == 0:
+            print(inputTxt)
+            print(query)
+            print("Despite everything, it's still you. And you make TERRIBLE CODE")
+            print("Please contact GonnaDoStuff with the above message")
+            exit(1)
+        if len(split_split[1]) == 0:
+            print(inputTxt)
+            print(rand_sentence)
+            print("Despite everything, it's still you. And you make TERRIBLE CODE part 2")
+            print("Please contact GonnaDoStuff with the above message")
+            exit(1)
     
     randomCounter+=1
     testCounter+=1

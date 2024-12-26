@@ -1181,7 +1181,7 @@ def funkcije():
     input_txt = ""
     
     if testCounter == 0:
-        input_txt += "2 2\n1 2\n99999999999 100000000000"
+        input_txt += "2 2\n1 2\n999999999 1000000000"
     
     # Input generation code here:
     # 1 <= N <= 1000

@@ -998,6 +998,60 @@ def druganajkrajsa():
     randomCounter+=1
     return inputTxt
 
+def premer():
+    global testCounter, randomCounter
+    input_txt = ""
+    
+    minN = 1
+    maxN = 500
+    maxN = getMax(maxN)
+    
+    minK = 1
+    maxK = 100
+    maxK = getMaxLength(maxK)
+    
+    minDist = 0
+    maxDist = 10000
+    
+    if testCounter == 0:
+        input_txt += """4 3
+0 5 6 10
+5 0 3 7
+6 3 0 1
+10 7 1 0
+1 4 4
+2 3 2
+1 4 1"""
+    else:
+        # if randomCounter==0:
+        #     print("Stress tests over, starting random tests.")
+        
+        N = generateRandom(minN, maxN)
+        K = generateRandom(minK, maxK)
+        input_txt += str(N) + " " + str(K) +"\n"
+        
+        matrix = [[0 for _ in range(N)] for _ in range(N)]
+        for i in range(N):
+            for j in range(i+1, N):
+                rand_distance = generateRandom(minDist, maxDist)
+                matrix[i][j] = rand_distance
+                matrix[j][i] = rand_distance
+        
+        for row in matrix:
+            input_txt += " ".join(map(str, row)) + "\n"
+        
+        for _ in range(K):
+            x = generateRandom(0, N-1)
+            y = generateRandom(0, N-1)
+            d = generateRandom(minDist, matrix[x][y])
+            
+            input_txt += str(x+1) + " " + str(y+1) + " " + str(d) + "\n"
+        
+        randomCounter+=1
+    
+    testCounter+=1
+    return input_txt
+
 def otoki():
     global testCounter, randomCounter
     input_txt = ""

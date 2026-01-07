@@ -159,6 +159,8 @@ def testProgram(userProgramName):
         inputTxt = inputGeneration.razporeditev()
     elif selected_assignment == "9druganajkrajsa":
         inputTxt = inputGeneration.druganajkrajsa()
+    elif selected_assignment == "9premer":
+        inputTxt = inputGeneration.premer()
     elif selected_assignment == "10otoki":
         inputTxt = inputGeneration.otoki()
     elif selected_assignment == "11funkcije":
@@ -318,24 +320,12 @@ def setup():
     args = parser.parse_args()
     
     print ("""
-.-------.        .-''-.     ____     ______                           
-|  _ _   \     .'_ _   \  .'  __ `. |    _ `''.                       
-| ( ' )  |    / ( ` )   '/   '  \  \| _ | ) _  \                      
-|(_ o _) /   . (_ o _)  ||___|  /  ||( ''_'  ) |                      
-| (_,_).' __ |  (_,_)___|   _.-`   || . (_) `. |                      
-|  |\ \  |  |'  \   .---..'   _    ||(_    ._) '                      
-|  | \ `'   / \  `-'    /|  _( )_  ||  (_.\.' /                       
-|  |  \    /   \       / \ (_ o _) /|       .'                        
-''-'   `'-'     `'-..-'   '.(_,_).' '-----'`                          
-.-------.     .-''-.      ,-----.    .-------.   .---.       .-''-.   
-\  _(`)_ \  .'_ _   \   .'  .-,  '.  \  _(`)_ \  | ,_|     .'_ _   \  
-| (_ o._)| / ( ` )   ' / ,-.|  \ _ \ | (_ o._)|,-./  )    / ( ` )   ' 
-|  (_,_) /. (_ o _)  |;  \  '_ /  | :|  (_,_) /\  '_ '`) . (_ o _)  | 
-|   '-.-' |  (_,_)___||  _`,/ \ _/  ||   '-.-'  > (_)  ) |  (_,_)___| 
-|   |     '  \   .---.: (  '\_/ \   ;|   |     (  .  .-' '  \   .---. 
-|   |      \  `-'    / \ `"/  \  ) / |   |      `-'`-'|___\  `-'    / 
-/   )       \       /   '. \_/``".'  /   )       |        \\       /  
-`---'        `'-..-'      '-----'    `---'       `--------` `'-..-'   
+  ___               ___      ___________              __                               
+ / _ \\_/\\   ____   / _ \\_/\\  \\__    ___/___   _______/  |_  ___________  ______ ___.__.
+ \\/ \\___/  /    \\  \\/ \\___/    |    |_/ __ \\ /  ___/\\   __\\/ __ \\_  __ \\ \\____ <   |  |
+          |   |  \\             |    |\\  ___/ \\___ \\  |  | \\  ___/|  | \\/ |  |_> >___  |
+          |___|  /             |____| \\___  >____  > |__|  \\___  >__| /\\ |   __// ____|
+               \\/                         \\/     \\/            \\/     \\/ |__|   \\/     
 """)
     
     # print("\033[31mI do NOT guarantee the correctness of the tests.\nI do excessive testing on all programs, so they should be correct, but I do not GUARANTEE it.\n\nTHE LONGER YOU RUN THE PROGRAM, THE HIGHER THE CHANCE YOUR PROGRAM IS WORKING CORRECTLY\n(I recommend at least a few hundred)\n\nI recommend you check with APSTester again closer to the end of the week in case I found a mistake and fixed it after you completed your program.\033[0m\n")
